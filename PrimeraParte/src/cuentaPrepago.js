@@ -1,10 +1,6 @@
 const CuentaPrepago = function(){
     this.saldo = 0;
 
-    this.puedeDebitarUnMontoDe = function(montoACobrar){
-        return (montoACobrar <= this.saldo)
-    }
-
     this.cargarSaldoCon = function(montoACargar){
         this.validarMontoPositivo(montoACargar);
         this.saldo += montoACargar
@@ -12,7 +8,7 @@ const CuentaPrepago = function(){
 
     this.debitarUnMontoDe = function(montoADebitar){
         this.validarMontoPositivo(montoADebitar);
-        if(! this.puedeDebitarUnMontoDe(montoADebitar)){
+        if(montoADebitar > this.saldo){
             throw new Error("La cuenta del cliente no tiene suficiente saldo")
         }
         this.saldo -= montoADebitar
@@ -26,6 +22,10 @@ const CuentaPrepago = function(){
 
     this.pagarUn = function(paqueteAComprar){
         this.debitarUnMontoDe(paqueteAComprar.calcularPrecio())
+    }
+
+    this.calcularSaldo = function(){
+        return this.saldo
     }
 }
 

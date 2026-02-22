@@ -1,32 +1,29 @@
 const CuentaPrepago = require("../src/cuentaPrepago");
+const PaqueteNulo = require("./paqueteNulo");
 
 const Cliente = function(nombreCompleto, numeroDeLinea){
     this.nombreCompleto = nombreCompleto;
     this.numeroDeLinea = numeroDeLinea;
-    this.paqueteActivo = null;
+    this.paqueteActivo = new PaqueteNulo();
     this.cuentaDePago = new CuentaPrepago();
     this.historialDeConsumos = null;
 
     this.tieneUnPaqueteActivo = function(){
-        return false
+        return this.paqueteActivo.estaActivo()
     }
 
-    this.puedePagarUnMontoDe = function(montoAPagar){
-        return (this.cuentaDePago.puedeDebitarUnMontoDe(montoAPagar))
+    this.calcularSaldo = function(){
+        return this.cuentaDePago.calcularSaldo()
     }
 
     this.cargarSaldoCon = function(montoACargar){
         this.cuentaDePago.cargarSaldoCon(montoACargar)
     }
 
-    //OJO REVISAR SI ES NECESARIO, O ES UN POTENCIAL RESTO DE TDD
-    this.pagarUnMontoDe = function(montoAPagar){
-        this.cuentaDePago.debitarUnMontoDe(montoAPagar)
-    }
-
-    this.comprarUn = function(paquete){
-        //FALTA RDN DE NO SOBREESCRIBIR PAQUETE ACTIVO
-        this.cuentaDePago.pagarUn(paqueteAComprar)
+    this.comprarUn = function(paquete, fechaDeLaCompra = new Date()){
+        this.paqueteActivo.validarCompraDe(paquete);
+        this.cuentaDePago.pagarUn(paquete);
+        this.paqueteActivo = paquete.activarAlMomentoDe(fechaDeLaCompra)
     }
 }
 
