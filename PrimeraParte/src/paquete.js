@@ -3,6 +3,13 @@ const Paquete = function(montoGBDatos, montoMinutosLlamadas, diasDeDuracion, cos
     this.montoMinutosLlamadas = montoMinutosLlamadas;
     this.diasDeDuracion = diasDeDuracion;
     this.costoEnPesos = costoEnPesos;
+
+    this.consumo = null;
+
+    this.calcularPrecio = function(){
+        return this.costoEnPesos
+    }
+    
 }
 
 module.exports = Paquete

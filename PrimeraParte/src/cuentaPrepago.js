@@ -23,6 +23,10 @@ const CuentaPrepago = function(){
             throw new Error("El monto de dinero debe ser positivo")
         }
     }
+
+    this.pagarUn = function(paqueteAComprar){
+        this.debitarUnMontoDe(paqueteAComprar.calcularPrecio())
+    }
 }
 
 module.exports = CuentaPrepago
