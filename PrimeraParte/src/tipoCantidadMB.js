@@ -9,7 +9,7 @@ CantidadMB.prototype = Object.create(RecursoDeCuenta.prototype);
 CantidadMB.prototype.constructor = CantidadMB;
 
 CantidadMB.prototype.aGB = function() {
-  return this.monto / 1000;
+  return new CantidadGB(this.monto / 1000);
 };
 
 CantidadMB.prototype.aMB = function() {

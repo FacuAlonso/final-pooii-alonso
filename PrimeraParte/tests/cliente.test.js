@@ -1,11 +1,11 @@
 const Cliente = require("../src/cliente");
 const Consumo = require("../src/consumo");
-const crearPaqueteOfertado = require("./PaqueteFactory");
 const CantidadMB = require("../src/tipoCantidadMB");
 const MinutosLlamadas = require("../src/tipoMinutosLlamadas");
-const crearPaqueteOfertado = require("./PaqueteFactory");
+const crearPaqueteOfertado = require("../tests/PaqueteFactory");
 
 describe("Sistema para la venta de paquetes de una compañía telefónica", ()=>{
+        
         test("Cuando una persona apenas se registra como cliente de la compañía, no tiene un paquete activo", ()=>{
                 const cliente = new Cliente("Juan Perez", "+5491112345678");
                 expect(cliente.tieneUnPaqueteActivo()).toBe(false)
@@ -34,19 +34,19 @@ describe("Sistema para la venta de paquetes de una compañía telefónica", ()=>
         test("Cuando se intenta cargar dinero a la cuenta de un cliente, indicando un monto nulo, entonces falla", ()=>{
                 const cliente = new Cliente("Juan Perez", "+5491112345678");
                 const montoDeLaCarga = 0;
-                expect(() => cliente.cargarSaldoCon(montoDeLaCarga)).toThrow("El monto de dinero debe ser positivo");
+                expect(() => cliente.cargarSaldoCon(montoDeLaCarga)).toThrow("La cantidad de dinero no puede ser negativa");
         });
 
         test("Cuando se intenta cargar dinero a la cuenta de un cliente, indicando un monto negativo, entonces falla", ()=>{
                 const cliente = new Cliente("Juan Perez", "+5491112345678");
                 const montoDeLaCarga = -1000;
-                expect(() => cliente.cargarSaldoCon(montoDeLaCarga)).toThrow("El monto de dinero debe ser positivo");
+                expect(() => cliente.cargarSaldoCon(montoDeLaCarga)).toThrow("La cantidad de dinero no puede ser negativa");
         });
 
         test("Cuando un cliente sin un paquete activo compra uno exitosamente, entonces este nuevo se activa", ()=>{
                 const cliente = new Cliente("Juan Perez", "+5491112345678");
                 const montoDeLaCarga = 10000;
-                const paquete = new crearPaqueteOfertado(10, 1200, 7, 5000)
+                const paquete = crearPaqueteOfertado(10, 1200, 7, 5000);
 
                 cliente.cargarSaldoCon(montoDeLaCarga);
                 cliente.comprarUn(paquete);
@@ -94,8 +94,7 @@ describe("Sistema para la venta de paquetes de una compañía telefónica", ()=>
                 const montoDeLaCarga = 10000;
                 const precioDeUnPaquete = 5000;
                 const paquete = new crearPaqueteOfertado(10, 1200, 7, precioDeUnPaquete)
-                const otroPaquete = new PaqueteOfertado(1, 120, 7, 600);
-                const otropaquete = new crearPaqueteOfertado()
+                const otroPaquete = new crearPaqueteOfertado(1, 120, 7, 600)
 
                 cliente.cargarSaldoCon(montoDeLaCarga);
                 cliente.comprarUn(paquete);
@@ -105,7 +104,7 @@ describe("Sistema para la venta de paquetes de una compañía telefónica", ()=>
         });
 
         test("Cuando un paquete ofertado es comprado por varios clientes entonces es válido", ()=>{
-                const paquete = new crearPaqueteOfertado(10, 1200, 7, 2000)
+                const unPaqueteEnOferta = new crearPaqueteOfertado(10, 1200, 7, 2000)
                 const unCliente = new Cliente("Juan Perez", "+5491112345678");
                 const otroCliente = new Cliente("Pedro Gonzalez", "+5490348123456");
                 const montoACargar = 10000;
@@ -255,7 +254,7 @@ describe("Sistema para la venta de paquetes de una compañía telefónica", ()=>
 
         test("Cuando un cliente con un paquete activo intenta realizar un consumo posterior a la fecha de vencimiento del paquete, entonces falla", ()=>{
                 const cliente = new Cliente("Juan Perez", "+5491112345678");
-                const paquete = new crearPaqueteOfertado(10, 1200, 7, 5000);
+                const paquete = new crearPaqueteOfertado(10, 1200, 1, 5000);
                 const consumo = new Consumo(new MinutosLlamadas(1200), new Date("2026-02-23T10:00:00Z"), new Date("2026-02-24T10:00:00Z"));
                 const otroConsumo = new Consumo(new CantidadMB(10000), new Date("2026-02-23T10:00:00Z"), new Date("2026-02-24T10:00:00Z"));
 

@@ -15,8 +15,8 @@ const PaqueteActivo = function(datosEnGBComprados, minutosLlamadasComprados,
     this.minutosLlamadasComprados = new MinutosLlamadas(minutosLlamadasComprados);
     this.diasDeDuracion = new duracionEnDias(diasDeDuracion);
     this.fechaDeCompra = fechaDeCompra;
-    this.controlDatos = new ControlDatosInternet(this.datosEnGBComprados, this);
-    this.controlMinutos = new ControlMinutosRestantes(this.minutosLlamadasComprados, this);
+    this.controlDatos = new ControlDatosInternet(datosEnGBComprados, this);
+    this.controlMinutos = new ControlMinutosRestantes(minutosLlamadasComprados, this);
     this.precioDeCompra = new DineroPesos(precio)
     
     this.descontarDatos = function(datos){
@@ -64,7 +64,7 @@ const PaqueteActivo = function(datosEnGBComprados, minutosLlamadasComprados,
 
     this.calcularFechaDeVencimiento = function(){
         const fecha = new Date(this.fechaDeCompra);
-        fecha.setDate(fecha.getDate() + this.diasDeDuracion.cantidad());
+        fecha.setDate(fecha.getDate() + this.diasDeDuracion.cantidad().monto);
         return fecha
     }
 
