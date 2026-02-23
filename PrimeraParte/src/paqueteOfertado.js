@@ -1,14 +1,18 @@
 const PaqueteActivo = require("./paqueteActivo");
+const CantidadGB = require("./tipoCantidadGB");
+const DineroPesos = require("./tipoDinero");
+const duracionEnDias = require("./tipoDuracionEnDias");
+const MinutosLlamadas = require("./tipoMinutosLlamadas");
 
 const PaqueteOfertado = function(montoGBDatos, montoMinutosLlamadas, diasDeDuracion, costoEnPesos){
 
-    this.montoGBDatos = montoGBDatos;
-    this.montoMinutosLlamadas = montoMinutosLlamadas;
-    this.diasDeDuracion = diasDeDuracion;
-    this.costoEnPesos = costoEnPesos;
+    this.montoGBDatos = new CantidadGB(montoGBDatos);
+    this.montoMinutosLlamadas = new MinutosLlamadas(montoMinutosLlamadas);
+    this.diasDeDuracion = new duracionEnDias(diasDeDuracion);
+    this.precio = new DineroPesos(costoEnPesos);
 
     this.calcularPrecio = function(){
-        return this.costoEnPesos;
+        return this.precio.cantidad();
     }
 
     this.activarAlMomentoDe = function(fecha){

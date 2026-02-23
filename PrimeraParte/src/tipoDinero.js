@@ -1,13 +1,13 @@
 const RecursoConsumiblePositivo = require("./recursoPositivoPrototipo");
 
-function Dinero(montoDinero) {
+function DineroPesos(montoDinero) {
   RecursoConsumiblePositivo.call(this, montoDinero, "dinero");
 }
-Dinero.prototype = Object.create(RecursoConsumiblePositivo.prototype);
-Dinero.prototype.constructor = Dinero;
+DineroPesos.prototype = Object.create(RecursoConsumiblePositivo.prototype);
+DineroPesos.prototype.constructor = DineroPesos;
 
-Dinero.prototype.mensajeErrorDeSoloPositivo = function(){
+DineroPesos.prototype.mensajeErrorDeSoloPositivo = function(){
   return "El monto de dinero debe ser positivo"
 }; 
 
-module.exports = Dinero
+module.exports = DineroPesos
