@@ -4,8 +4,8 @@ const ControlMinutosRestantes = function(minutos, paqueteControlado){
     this.minutosRestantes = minutos;
     this.paqueteControlado = paqueteControlado;
 
-    this.calcularDatosDisponibles = function(){
-        return this.minutosRestantes
+    this.calcularMinutosRestantes = function(){
+        return this.minutosRestantes.cantidad()
     }
 
     this.descontar = function(minutosADescontar){

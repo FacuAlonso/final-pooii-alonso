@@ -4,8 +4,8 @@ const ControlDatosRestantes = function(datosRestantes, paqueteControlado){
     this.datosRestantes = datosRestantes;
     this.paqueteControlado = paqueteControlado;
 
-    this.calcularDatosDisponibles = function(){
-        return this.datosRestantes
+    this.calcularDatosRestantes = function(){
+        return this.datosRestantes.cantidad()
     }
 
     this.descontar = function(datos){

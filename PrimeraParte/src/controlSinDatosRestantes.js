@@ -4,8 +4,8 @@ const CantidadGB = require("./tipoCantidadGB");
 const ControlSinDatosRestantes = function(paqueteControlado){
     this.paqueteControlado = paqueteControlado;
 
-    this.calcularDatosDisponibles = function(){
-        return new CantidadGB(0)
+    this.calcularDatosRestantes = function(){
+        return (new CantidadGB(0)).cantidad()
     }
 
     this.descontar = function(){

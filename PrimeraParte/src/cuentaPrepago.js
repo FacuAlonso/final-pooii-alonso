@@ -16,6 +16,7 @@ const CuentaPrepago = function(saldoInicial){
     this.calcularSaldo = function(){
         return this.saldo.cantidad()
     }
+
 }
 
 module.exports = CuentaPrepago

@@ -30,6 +30,14 @@ const Cliente = function(nombreCompleto, numeroDeLinea){
         consumo.aplicarEn(this.paqueteActivo)
         //REGISTRAR EL CONSUMO
     }
+
+    this.calcularDatosInternetDisponibles = function(){
+        return this.paqueteActivo.calcularDatosRestantes()
+    }
+
+    this.calcularMinutosLlamadaDisponibles = function(){
+        return this.paqueteActivo.calcularMinutosRestantes()
+    }
 }
 
 module.exports = Cliente

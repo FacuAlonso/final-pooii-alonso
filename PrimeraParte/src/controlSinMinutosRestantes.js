@@ -4,8 +4,8 @@ const MinutosLlamadas = require("./tipoMinutosLlamadas");
 const ControlSinMinutosRestantes = function(paqueteControlado){
     this.paqueteControlado = paqueteControlado;
 
-    this.calcularDatosDisponibles = function(){
-        return new MinutosLlamadas(0)
+    this.calcularMinutosRestantes = function(){
+        return (new MinutosLlamadas(0)).cantidad()
     }
 
     this.descontar = function(){

@@ -1,12 +1,10 @@
-const CantidadMB = require("./tipoCantidadMB");
-
 const Consumo = function(recurso, fechaHoraInicio, fechaHoraFin){
     this.recurso = recurso;
     this.fechaHoraInicio = fechaHoraInicio;
     this.fechaHoraFin = fechaHoraFin;
 
     this.aplicarEn = function(paquete){
-        paquete.descontarDatos(this.recurso, this.fechaHoraInicio, this.fechaHoraFin)
+        this.recurso.aplicarConsumoEn(paquete, this.fechaHoraInicio, this.fechaHoraFin)
     }
 
     this.validarFechasDeConsumo = function(){
