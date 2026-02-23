@@ -15,6 +15,10 @@ describe("Paquetes ofertados por la compañía", ()=>{
                 expect(() => new PaqueteOfertado(10, 6000, -2, 5000)).toThrow("La duración del paquete debe ser de al menos 1 día");
         });
 
+        test("Cuando se intenta crear un paquete con un precio negativo, falla", ()=>{
+                expect(() => new PaqueteOfertado(10, 6000, 1, -5000)).toThrow("La cantidad inicial de dinero no puede ser negativa");
+        });
+
 
 
 })

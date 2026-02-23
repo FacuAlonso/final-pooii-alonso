@@ -19,6 +19,14 @@ describe("Sistema para la venta de paquetes de una compañía telefónica", ()=>
                 expect(cliente.calcularSaldo()).toBe(montoDeLaCarga)
         });
 
+        test("Cuando un cliente realiza dos cargas, entonces su saldo debe acumnularse", ()=>{
+                const cliente = new Cliente("Juan Perez", "+5491112345678");
+                const montoDeLaCarga = 1000;
+                cliente.cargarSaldoCon(montoDeLaCarga);
+                cliente.cargarSaldoCon(montoDeLaCarga);
+                expect(cliente.calcularSaldo()).toBe(montoDeLaCarga*2)
+        });
+
         test("Cuando se intenta cargar dinero a la cuenta de un cliente, indicando un monto nulo, entonces falla", ()=>{
                 const cliente = new Cliente("Juan Perez", "+5491112345678");
                 const montoDeLaCarga = 0;
@@ -52,6 +60,18 @@ describe("Sistema para la venta de paquetes de una compañía telefónica", ()=>
                 cliente.comprarUn(paquete);
 
                 expect(cliente.calcularSaldo()).toBe(montoDeLaCarga - precioDelPaquete)
+        });
+
+        test("Cuando un cliente compra exitosamente un paquete con todo su saldo, entonces este pasa a ser nulo", ()=>{
+                const cliente = new Cliente("Juan Perez", "+5491112345678");
+                const montoDeLaCarga = 10000;
+                const precioDelPaquete = 10000;
+                const paquete = new PaqueteOfertado(50, 600, 30, precioDelPaquete);
+
+                cliente.cargarSaldoCon(montoDeLaCarga);
+                cliente.comprarUn(paquete);
+
+                expect(cliente.calcularSaldo()).toBe(0)
         });
 
         test("Cuando un cliente intenta comprar un paquete de mayor valor que el de su saldo actual, entonces falla y su saldo no disminuye", ()=>{
