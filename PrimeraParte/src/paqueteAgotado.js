@@ -1,9 +1,5 @@
 const PaqueteAgotado = function(datosOriginales, minutosOriginales, diasDeDuracion, precio){
 
-    this.informarEstado = function(){
-        return "Agotado"
-    }
-
     this.descontarDatos = function(){
         throw Error("El paquete actual del cliente se encuentra agotado. No puede consumir datos de Internet")
     }

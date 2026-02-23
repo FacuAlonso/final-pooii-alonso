@@ -6,9 +6,9 @@ const crearPaqueteOfertado = require("../tests/PaqueteFactory");
 
 describe("Sistema para la venta de paquetes de una compañía telefónica", ()=>{
         
-        test("Cuando una persona apenas se registra como cliente de la compañía, no tiene un paquete activo", ()=>{
+        test("Cuando una persona apenas se registra como cliente de la compañía y quiere saber el estado de su paquete sin haber comprado ninguno, entonces falla", ()=>{
                 const cliente = new Cliente("Juan Perez", "+5491112345678");
-                expect(cliente.tieneUnPaqueteActivo()).toBe(false)
+                expect(() => cliente.tieneUnPaqueteActivo()).toThrow("Debe adquirir un paquete disponible");
         });
 
         test("Cuando una persona apenas se registra como cliente de la compañía, tiene un saldo de dinero nulo", ()=>{
@@ -16,14 +16,14 @@ describe("Sistema para la venta de paquetes de una compañía telefónica", ()=>
                 expect(cliente.calcularSaldo()).toBe(0)
         });
 
-        test("Cuando un cliente realiza una carga de dinero exitosa, entonces su saldo debe actualizarse", ()=>{
+        test("Cuando un cliente realiza una carga de dinero exitosa, entonces su saldo debe actualizarse en ese monto", ()=>{
                 const cliente = new Cliente("Juan Perez", "+5491112345678");
                 const montoDeLaCarga = 1000;
                 cliente.cargarSaldoCon(montoDeLaCarga);
                 expect(cliente.calcularSaldo()).toBe(montoDeLaCarga)
         });
 
-        test("Cuando un cliente realiza dos cargas, entonces su saldo debe acumnularse", ()=>{
+        test("Cuando un cliente realiza dos cargas, entonces su saldo se acumnula", ()=>{
                 const cliente = new Cliente("Juan Perez", "+5491112345678");
                 const montoDeLaCarga = 1000;
                 cliente.cargarSaldoCon(montoDeLaCarga);
@@ -145,7 +145,7 @@ describe("Sistema para la venta de paquetes de una compañía telefónica", ()=>
                 const cliente = new Cliente("Juan Perez", "+5491112345678");
                 const cantidadGBPaquete = 10;
                 const cantidadMBConsumidos = 50;
-                const paquete = new crearPaqueteOfertado(10, 1200, 7, 5000)
+                const paquete = crearPaqueteOfertado(10, 1200, 7, 5000)
                 const consumo = new Consumo(new CantidadMB(cantidadMBConsumidos), new Date("2026-02-23T10:00:00Z"), new Date("2026-02-24T10:00:00Z"));
 
                 cliente.cargarSaldoCon(20000);
@@ -237,7 +237,7 @@ describe("Sistema para la venta de paquetes de una compañía telefónica", ()=>
                 expect(() => cliente.realizarUn(consumo)).toThrow("No hay saldo de minutos de llamada suficiente");
         });
 
-        test("Cuando un cliente con un paquete activo consume todos los datos de Internet y todos los minutos de llamada, entonces el paquete se agota", ()=>{
+        test("Cuando un cliente con un paquete activo consume todos los datos de Internet y todos los minutos de llamada, entonces el paquete se agota y falla", ()=>{
                 const cliente = new Cliente("Juan Perez", "+5491112345678");
                 const paquete = new crearPaqueteOfertado(10, 1200, 7, 5000);
                 const consumo = new Consumo(new MinutosLlamadas(1200), new Date("2026-02-23T10:00:00Z"), new Date("2026-02-24T10:00:00Z"));
@@ -263,6 +263,18 @@ describe("Sistema para la venta de paquetes de una compañía telefónica", ()=>
 
                 expect(() => cliente.realizarUn(consumo)).toThrow("El paquete actual del cliente se encuentra vencido. No puede realizar llamadas");
                 expect(() => cliente.realizarUn(otroConsumo)).toThrow("El paquete actual del cliente se encuentra vencido. No puede consumir datos de Internet");
+        });
+
+        test("Cuando un cliente con un paquete vencido lo renueva, entonces puede voler a consumir datos y realizar llamadas, con su saldo actualizado correctamente", ()=>{
+                const cliente = new Cliente("Juan Perez", "+5491112345678");
+                const paquete = new crearPaqueteOfertado(10, 1200, 1, 5000);
+                const consumo = new Consumo(new MinutosLlamadas(1200), new Date("2026-02-23T10:00:00Z"), new Date("2026-02-24T10:00:00Z"));
+                const otroConsumo = new Consumo(new CantidadMB(10000), new Date("2026-02-23T10:00:00Z"), new Date("2026-02-24T10:00:00Z"));
+
+                cliente.cargarSaldoCon(20000);
+                cliente.comprarUn(paquete, new Date("2026-02-10T10:00:00Z"));
+
+           
         });
 
 

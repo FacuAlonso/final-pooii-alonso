@@ -11,28 +11,24 @@ const PaqueteActivo = function(datosEnGBComprados, minutosLlamadasComprados,
     this.minutosLlamadasComprados = minutosLlamadasComprados;
     this.diasDeDuracion = diasDeDuracion;
     this.fechaDeCompra = fechaDeCompra;
-    this.controlDatos = new ControlDatosInternet(datosEnGBComprados, this);
-    this.controlMinutos = new ControlMinutosRestantes(minutosLlamadasComprados, this);
+    this.controlDatosNavegacion = new ControlDatosInternet(datosEnGBComprados, this);
+    this.controlMinutosLlamadas = new ControlMinutosRestantes(minutosLlamadasComprados, this);
     this.precioDeCompra = precio;
-    
+
     this.descontarDatos = function(datos){
-        this.controlDatos = this.controlDatos.descontar(datos);
+        this.controlDatosNavegacion = this.controlDatosNavegacion.descontar(datos);
     }
 
     this.descontarMinutos = function(minutos){
-        this.controlMinutos = this.controlMinutos.descontar(minutos);
+        this.controlMinutosLlamadas = this.controlMinutosLlamadas.descontar(minutos);
     }
 
     this.calcularDatosRestantes = function(){
-        return this.controlDatos.calcularDatosRestantes()
+        return this.controlDatosNavegacion.calcularDatosRestantes()
     }
 
     this.calcularMinutosRestantes = function(){
-        return this.controlMinutos.calcularMinutosRestantes()
-    }
-
-    this.informarEstado = function(){
-        return "Activo"
+        return this.controlMinutosLlamadas.calcularMinutosRestantes()
     }
 
     this.validarCompraDe = function(paquete){
@@ -41,7 +37,7 @@ const PaqueteActivo = function(datosEnGBComprados, minutosLlamadasComprados,
 
     
     this.validarAgotamiento = function(){
-        if(this.controlDatos.estaAgotado() && this.controlMinutos.estaAgotado()){
+        if(this.controlDatosNavegacion.estaAgotado() && this.controlMinutosLlamadas.estaAgotado()){
             return new PaqueteAgotado(datosEnGBComprados, minutosLlamadasComprados, diasDeDuracion, precio)
         }
         return this

@@ -1,9 +1,5 @@
 const PaqueteNulo = function(){
 
-    this.informarEstado = function(){
-        return "Sin paquete"
-    }
-
     this.validarCompraDe = function(paquete){}
 
     this.descontarDatos = function(){

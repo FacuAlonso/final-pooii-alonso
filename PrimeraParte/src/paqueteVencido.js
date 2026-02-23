@@ -1,9 +1,5 @@
 const PaqueteVencido = function(datosOriginales, minutosOriginales, diasDeDuracion){
 
-    this.informarEstado = function(){
-        return "Vencido"
-    }
-
     this.descontarDatos = function(){
         throw Error("El paquete actual del cliente se encuentra vencido. No puede consumir datos de Internet")
     }
