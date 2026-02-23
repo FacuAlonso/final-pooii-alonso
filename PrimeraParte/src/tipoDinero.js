@@ -1,9 +1,9 @@
-const RecursoConsumiblePositivo = require("./recursoPositivoPrototipo");
+const RecursoDeCuenta = require("./recursoDeCuentaPrototipo");
 
 function DineroPesos(montoDinero) {
-  RecursoConsumiblePositivo.call(this, montoDinero, "dinero");
+  RecursoDeCuenta.call(this, montoDinero, "dinero");
 }
-DineroPesos.prototype = Object.create(RecursoConsumiblePositivo.prototype);
+DineroPesos.prototype = Object.create(RecursoDeCuenta.prototype);
 DineroPesos.prototype.constructor = DineroPesos;
 
 DineroPesos.prototype.mensajeErrorDeSoloPositivo = function(){

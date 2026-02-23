@@ -1,9 +1,9 @@
-const RecursoConsumiblePositivo = require("./recursoPositivoPrototipo");
+const RecursoDeCuenta = require("./recursoDeCuentaPrototipo");
 
 function duracionEnDias(numeroDias) {
-  RecursoConsumiblePositivo.call(this, numeroDias, "días");
+  RecursoDeCuenta.call(this, numeroDias, "días");
 }
-duracionEnDias.prototype = Object.create(RecursoConsumiblePositivo.prototype);
+duracionEnDias.prototype = Object.create(RecursoDeCuenta.prototype);
 duracionEnDias.prototype.constructor = duracionEnDias;
 
 duracionEnDias.prototype.mensajeErrorDeSoloPositivo = function(){

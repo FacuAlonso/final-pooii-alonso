@@ -1,11 +1,11 @@
-const RecursoConsumiblePositivo = require("./recursoPositivoPrototipo");
+const RecursoDeCuenta = require("./recursoDeCuentaPrototipo");
 const CantidadMB = require("./tipoCantidadMB");
 
 function CantidadGB(cantidadDatosEnGB) {
-  RecursoConsumiblePositivo.call(this, cantidadDatosEnGB, "datos de Internet");
+  RecursoDeCuenta.call(this, cantidadDatosEnGB, "datos de Internet");
 }
 
-CantidadGB.prototype = Object.create(RecursoConsumiblePositivo.prototype);
+CantidadGB.prototype = Object.create(RecursoDeCuenta.prototype);
 
 CantidadGB.prototype.constructor = CantidadGB;
 

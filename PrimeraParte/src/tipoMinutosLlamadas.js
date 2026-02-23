@@ -1,9 +1,9 @@
-const RecursoConsumiblePositivo = require("./recursoPositivoPrototipo");
+const RecursoDeCuenta = require("./recursoDeCuentaPrototipo");
 
 function MinutosLlamadas(cantidadMinutosDeLlamadas) {
-  RecursoConsumiblePositivo.call(this, cantidadMinutosDeLlamadas, "minutos de llamada");
+  RecursoDeCuenta.call(this, cantidadMinutosDeLlamadas, "minutos de llamada");
 }
-MinutosLlamadas.prototype = Object.create(RecursoConsumiblePositivo.prototype);
+MinutosLlamadas.prototype = Object.create(RecursoDeCuenta.prototype);
 MinutosLlamadas.prototype.constructor = MinutosLlamadas;
 
 module.exports = MinutosLlamadas
