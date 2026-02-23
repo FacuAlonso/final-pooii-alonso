@@ -3,21 +3,17 @@ const ControlMinutosRestantes = require("./controlMinutosRestantes");
 const PaqueteAgotado = require("./paqueteAgotado");
 const PaqueteOfertado = require("./paqueteOfertado");
 const PaqueteVencido = require("./paqueteVencido");
-const CantidadGB = require("./tipoCantidadGB");
-const DineroPesos = require("./tipoDinero");
-const duracionEnDias = require("./tipoDuracionEnDias");
-const MinutosLlamadas = require("./tipoMinutosLlamadas");
 
 const PaqueteActivo = function(datosEnGBComprados, minutosLlamadasComprados, 
     diasDeDuracion, fechaDeCompra = new Date(), precio){
 
-    this.datosEnGBComprados = new CantidadGB(datosEnGBComprados);
-    this.minutosLlamadasComprados = new MinutosLlamadas(minutosLlamadasComprados);
-    this.diasDeDuracion = new duracionEnDias(diasDeDuracion);
+    this.datosEnGBComprados = datosEnGBComprados;
+    this.minutosLlamadasComprados = minutosLlamadasComprados;
+    this.diasDeDuracion = diasDeDuracion;
     this.fechaDeCompra = fechaDeCompra;
     this.controlDatos = new ControlDatosInternet(datosEnGBComprados, this);
     this.controlMinutos = new ControlMinutosRestantes(minutosLlamadasComprados, this);
-    this.precioDeCompra = new DineroPesos(precio)
+    this.precioDeCompra = precio;
     
     this.descontarDatos = function(datos){
         this.controlDatos = this.controlDatos.descontar(datos);
@@ -64,7 +60,7 @@ const PaqueteActivo = function(datosEnGBComprados, minutosLlamadasComprados,
 
     this.calcularFechaDeVencimiento = function(){
         const fecha = new Date(this.fechaDeCompra);
-        fecha.setDate(fecha.getDate() + this.diasDeDuracion.cantidad().monto);
+        fecha.setDate(fecha.getDate() + this.diasDeDuracion.cantidad());
         return fecha
     }
 

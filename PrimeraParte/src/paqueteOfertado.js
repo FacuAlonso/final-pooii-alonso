@@ -1,8 +1,4 @@
 const PaqueteActivo = require("./paqueteActivo");
-const CantidadGB = require("./tipoCantidadGB");
-const DineroPesos = require("./tipoDinero");
-const duracionEnDias = require("./tipoDuracionEnDias");
-const MinutosLlamadas = require("./tipoMinutosLlamadas");
 
 const PaqueteOfertado = function(montoGBDatos, montoMinutosLlamadas, numeroDias, precio){
 
