@@ -5,7 +5,7 @@ const Cliente = function(nombreCompleto, numeroDeLinea){
     this.nombreCompleto = nombreCompleto;
     this.numeroDeLinea = numeroDeLinea;
     this.paqueteActivo = new PaqueteNulo();
-    this.cuentaDePago = new CuentaPrepago();
+    this.cuentaDePago = new CuentaPrepago(0);
     this.historialDeConsumos = null;
 
     this.tieneUnPaqueteActivo = function(){

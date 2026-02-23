@@ -1,5 +1,5 @@
+const { CantidadGB } = require("../src/tipoRecursosConsumibles");
 const Cliente = require("../src/cliente");
-const PaqueteActivo = require("../src/paqueteActivo");
 const PaqueteOfertado = require("../src/paqueteOfertado");
 
 describe("Sistema para la venta de paquetes de una compañía telefónica", ()=>{
@@ -35,7 +35,7 @@ describe("Sistema para la venta de paquetes de una compañía telefónica", ()=>
     test("Cuando un cliente sin un paquete activo compra uno exitosamente, entonces este nuevo se activa", ()=>{
             const cliente = new Cliente("Juan Perez", "+5491112345678");
             const montoDeLaCarga = 10000;
-            const paquete = new PaqueteOfertado(10, 1200, 7, 5000);
+            const paquete = new PaqueteOfertado(new CantidadGB(10), 1200, 7, 5000);
 
             cliente.cargarSaldoCon(montoDeLaCarga);
             cliente.comprarUn(paquete);
@@ -47,7 +47,7 @@ describe("Sistema para la venta de paquetes de una compañía telefónica", ()=>
             const cliente = new Cliente("Juan Perez", "+5491112345678");
             const montoDeLaCarga = 10000;
             const precioDelPaquete = 5000;
-            const paquete = new PaqueteOfertado(10, 1200, 7, precioDelPaquete);
+            const paquete = new PaqueteOfertado(new CantidadGB(10), 1200, 7, precioDelPaquete);
 
             cliente.cargarSaldoCon(montoDeLaCarga);
             cliente.comprarUn(paquete);
@@ -58,7 +58,7 @@ describe("Sistema para la venta de paquetes de una compañía telefónica", ()=>
     test("Cuando un cliente intenta comprar un paquete de mayor valor que el de su saldo actual, entonces falla y su saldo no disminuye", ()=>{
             const cliente = new Cliente("Juan Perez", "+5491112345678");
             const montoDeLaCarga = 10;
-            const paquete = new PaqueteOfertado(10, 1200, 7, 5000);
+            const paquete = new PaqueteOfertado(new CantidadGB(10), 1200, 7, 5000);
 
             cliente.cargarSaldoCon(montoDeLaCarga);
 
@@ -70,7 +70,7 @@ describe("Sistema para la venta de paquetes de una compañía telefónica", ()=>
             const cliente = new Cliente("Juan Perez", "+5491112345678");
             const montoDeLaCarga = 10000;
             const precioDeUnPaquete = 5000;
-            const paquete = new PaqueteOfertado(10, 1200, 7, precioDeUnPaquete);
+            const paquete = new PaqueteOfertado(new CantidadGB(10), 1200, 7, precioDeUnPaquete);
             const otroPaquete = new PaqueteOfertado(1, 120, 7, 600);
 
             cliente.cargarSaldoCon(montoDeLaCarga);
@@ -81,7 +81,7 @@ describe("Sistema para la venta de paquetes de una compañía telefónica", ()=>
     });
 
     test("Cuando un paquete ofertado es comprado por varios clientes entonces es válido", ()=>{
-            const unPaqueteEnOferta = new PaqueteOfertado(10, 1200, 7, 2000);
+            const unPaqueteEnOferta = new PaqueteOfertado(new CantidadGB(10), 1200, 7, 2000);
             const unCliente = new Cliente("Juan Perez", "+5491112345678");
             const otroCliente = new Cliente("Pedro Gonzalez", "+5490348123456");
             const montoACargar = 10000;
@@ -98,7 +98,7 @@ describe("Sistema para la venta de paquetes de una compañía telefónica", ()=>
     test("Cuando un cliente intenta comprar un paquete de mayor valor que el de su saldo actual, entonces falla y su saldo no disminuye", ()=>{
             const cliente = new Cliente("Juan Perez", "+5491112345678");
             const montoDeLaCarga = 10;
-            const paquete = new PaqueteOfertado(10, 1200, 7, 5000);
+            const paquete = new PaqueteOfertado(new CantidadGB(10), 1200, 7, 5000);
 
             cliente.cargarSaldoCon(montoDeLaCarga);
 
@@ -109,7 +109,7 @@ describe("Sistema para la venta de paquetes de una compañía telefónica", ()=>
     test("Cuando un cliente intenta comprar un paquete de mayor valor que el de su saldo actual, entonces falla y su saldo no disminuye", ()=>{
             const cliente = new Cliente("Juan Perez", "+5491112345678");
             const montoDeLaCarga = 10;
-            const paquete = new PaqueteOfertado(10, 1200, 7, 5000);
+            const paquete = new PaqueteOfertado(new CantidadGB(10), 1200, 7, 5000);
 
             cliente.cargarSaldoCon(montoDeLaCarga);
 

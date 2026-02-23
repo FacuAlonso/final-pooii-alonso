@@ -1,5 +1,5 @@
-const CuentaPrepago = function(){
-    this.saldo = 0;
+const CuentaPrepago = function(saldoInicial){
+    this.saldo = saldoInicial;
 
     this.cargarSaldoCon = function(montoACargar){
         this.validarMontoPositivo(montoACargar);

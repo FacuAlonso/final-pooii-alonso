@@ -14,6 +14,14 @@ const PaqueteNulo = function(){
         throw Error("El cliente no tiene un paquete activo para consumir minutos de llamadas")
     }
 
+    this.calcualarDatosRestantes = function(){
+        throw Error("Primero debe adquirir un paquete disponible")
+    }
+
+    this.calcualarMinutosRestantes = function(){
+        throw Error("Primero debe adquirir un paquete disponible")
+    }
+
 }
 
 module.exports = PaqueteNulo

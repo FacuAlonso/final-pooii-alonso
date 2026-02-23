@@ -1,29 +1,30 @@
+const ControlDatosInternet = require("./controlDatosRestantes");
+const ControlMinutosRestantes = require("./controlMinutosRestantes")
+
 const PaqueteActivo = function(datosEnGBComprados, minutosLlamadasComprados, diasDeDuracion, fechaDeCompra){
 
     this.datosEnGBComprados = datosEnGBComprados;
     this.minutosLlamadasComprados = minutosLlamadasComprados;
     this.diasDeDuracion = diasDeDuracion;
     this.fechaDeCompra = fechaDeCompra;
+    this.controlDatos = new ControlDatosInternet(this.datosEnGBComprados, this);
+    this.controlMinutos = new ControlMinutosRestantes(this.minutosLlamadasComprados, this);
     
-    // TDD SINS////////SACAR/////SACAR///////
-    this.datosRestantes = datosEnGBComprados;
-    this.minutosRestantes = minutosLlamadasComprados;
     this.descontarDatos = function(datos){
-        this.datosRestantes -= datos
+        this.controlDatos = this.controlDatos.descontar(datos)
     }
 
     this.descontarMinutos = function(minutos){
-        this.minutosRestantes -= minutos
+        this.controlDatos = this.controlMinutos.descontar(minutos)
     }
 
     this.calcualarDatosRestantes = function(){
-        return this.datosRestantes
+        return this.controlDatos.calcualarDatosRestantes()
     }
 
     this.calcualarMinutosRestantes = function(){
-        return this.minutosRestantes
+        return this.controlMinutos.calcualarMinutosRestantes()
     }
-    /////////////////////////////////////////////
 
     this.estaActivo = function(){
         return true
@@ -32,8 +33,6 @@ const PaqueteActivo = function(datosEnGBComprados, minutosLlamadasComprados, dia
     this.validarCompraDe = function(paquete){
         throw new Error("El cliente ya dispone de un paquete activo")  
     }
-
-    //CONSUMO
 
 
 }
