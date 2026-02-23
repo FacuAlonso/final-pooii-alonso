@@ -1,10 +1,12 @@
 const ControlDatosInternet = require("./controlDatosRestantes");
-const ControlMinutosRestantes = require("./controlMinutosRestantes")
+const ControlMinutosRestantes = require("./controlMinutosRestantes");
+const CantidadGB = require("./tipoCantidadGB");
+const MinutosLlamadas = require("./tipoMinutosLlamadas");
 
 const PaqueteActivo = function(datosEnGBComprados, minutosLlamadasComprados, diasDeDuracion, fechaDeCompra){
 
-    this.datosEnGBComprados = datosEnGBComprados;
-    this.minutosLlamadasComprados = minutosLlamadasComprados;
+    this.datosEnGBComprados = new CantidadGB(datosEnGBComprados);
+    this.minutosLlamadasComprados = new MinutosLlamadas(minutosLlamadasComprados);
     this.diasDeDuracion = diasDeDuracion;
     this.fechaDeCompra = fechaDeCompra;
     this.controlDatos = new ControlDatosInternet(this.datosEnGBComprados, this);

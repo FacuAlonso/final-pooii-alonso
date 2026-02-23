@@ -1,5 +1,7 @@
 const Cliente = require("../src/cliente");
+const Consumo = require("../src/consumo");
 const PaqueteOfertado = require("../src/paqueteOfertado");
+const CantidadGB = require("../src/tipoCantidadGB");
 
 describe("Sistema para la venta de paquetes de una compañía telefónica", ()=>{
         test("Cuando una persona apenas se registra como cliente de la compañía, no tiene un paquete activo", ()=>{
@@ -134,6 +136,20 @@ describe("Sistema para la venta de paquetes de una compañía telefónica", ()=>
 
                 expect(() => cliente.comprarUn(paquete)).toThrow("No hay saldo de dinero suficiente");
                 expect(cliente.calcularSaldo()).toBe(montoDeLaCarga);
+        });
+
+
+        test("Cuando un cliente con un paquete de datos activo consume una cantidad válida, entonces su saldo de datos se reduce sólo en esa cantidad", ()=>{
+                const cliente = new Cliente("Juan Perez", "+5491112345678");
+                const montoDeLaCarga = 20000;
+                const paquete = new PaqueteOfertado(10, 1200, 7, 5000);
+                const consumo = new Consumo(new CantidadGB(2), new Date("2026-02-23T10:00:00Z"), new Date("2026-02-24T10:00:00Z"));
+
+                cliente.cargarSaldoCon(montoDeLaCarga);
+                cliente.comprarUn(paquete);
+                cliente.realizarUn(consumo);
+
+                expect(cliente.calcularSaldo()).toBe(montoDeLaCarga-5000);
         });
 
 

@@ -5,7 +5,7 @@ function RecursoPositivo(monto, nombreAMostrar = "recursos") {
 }
 
 RecursoPositivo.prototype.mensajeErrorDeCeroOPositivo = function(){
-  return "La cantidad inicial de "+ this.nombreAMostrar+ " no puede ser negativa"
+  return "La cantidad de "+ this.nombreAMostrar+ " no puede ser negativa"
 };
 
 RecursoPositivo.prototype.mensajeErrorDeSoloPositivo = function(){

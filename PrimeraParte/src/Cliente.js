@@ -7,7 +7,6 @@ const Cliente = function(nombreCompleto, numeroDeLinea){
     this.numeroDeLinea = numeroDeLinea;
     this.paqueteActivo = new PaqueteNulo();
     this.cuentaDePago = new CuentaPrepago(new Dinero(0));
-    this.historialDeConsumos = null;
 
     this.tieneUnPaqueteActivo = function(){
         return this.paqueteActivo.estaActivo()
@@ -25,6 +24,11 @@ const Cliente = function(nombreCompleto, numeroDeLinea){
         this.paqueteActivo.validarCompraDe(paquete);
         this.cuentaDePago.pagarUn(paquete);
         this.paqueteActivo = paquete.activarAlMomentoDe(fechaDeLaCompra)
+    }
+
+    this.realizarUn = function(consumo, fechaDelConsumo = new Date()){
+        consumo.aplicarEn(this.paqueteActivo)
+        //REGISTRAR EL CONSUMO
     }
 }
 
