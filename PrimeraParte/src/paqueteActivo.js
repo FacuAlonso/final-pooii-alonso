@@ -1,5 +1,6 @@
 const ControlDatosInternet = require("./controlDatosRestantes");
 const ControlMinutosRestantes = require("./controlMinutosRestantes");
+const PaqueteNulo = require("./paqueteNulo");
 const CantidadGB = require("./tipoCantidadGB");
 const MinutosLlamadas = require("./tipoMinutosLlamadas");
 
@@ -35,7 +36,13 @@ const PaqueteActivo = function(datosEnGBComprados, minutosLlamadasComprados, dia
     this.validarCompraDe = function(paquete){
         throw new Error("El cliente ya dispone de un paquete activo")  
     }
-
+    
+    this.validarAgotamiento = function(){
+        if(this.controlDatos.estaAgotado() && this.controlMinutos.estaAgotado()){
+            return new PaqueteNulo()
+        }
+        return this
+    }
 
 }
 

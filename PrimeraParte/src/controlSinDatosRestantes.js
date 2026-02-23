@@ -12,6 +12,8 @@ const ControlSinDatosRestantes = function(paqueteControlado){
         throw new Error("El cliente no tiene datos de Internet disponible en su paquete actual")
     }
 
+    this.estaAgotado = function(){return true}
+
     this.renovarCon = function(datos){
         return new ControlDatosRestantes(datos, paqueteControlado)
     }

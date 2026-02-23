@@ -16,6 +16,8 @@ const ControlMinutosRestantes = function(minutos, paqueteControlado){
         return new ControlMinutosRestantes(this.minutosRestantes.restar(minutosADescontar.cantidad()), paqueteControlado)
     }
 
+    this.estaAgotado = function(){return false}
+
     this.renovarCon = function(){
         throw new Error("El paquete activo del cliente aún tiene minutos de llamada disponibles, por lo que no se puede renovar")
     }
