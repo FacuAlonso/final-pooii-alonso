@@ -152,7 +152,7 @@ describe("Sistema para la venta de paquetes de una compañía telefónica", ()=>
                 cliente.comprarUn(paquete);
                 cliente.realizarUn(consumo);
 
-                expect(cliente.calcularDatosInternetDisponibles()).toBe(cantidadGBPaquete-cantidadGBConsumidos);
+                expect(cliente.calcularDatosInternetDisponibles()).toBe(cantidadGBPaquete-(cantidadMBConsumidos/1000));
         });
 
         test("Cuando un cliente consume todos sus datos, entonces su saldo de datos de Internet es nulo", ()=>{
@@ -166,37 +166,75 @@ describe("Sistema para la venta de paquetes de una compañía telefónica", ()=>
                 cliente.comprarUn(paquete);
                 cliente.realizarUn(consumo);
 
-                expect(cliente.calcularDatosInternetDisponibles()).toBe(cantidadGBPaquete-cantidadGBConsumidos);
+                expect(cliente.calcularDatosInternetDisponibles()).toBe(cantidadGBPaquete-(cantidadMBConsumidos/1000));
         });
 
         test("Cuando un cliente consume una cantidad de datos menor a la adquirida en el paquete, entonces puede seguir haciendo más consumos", ()=>{
                 const cliente = new Cliente("Juan Perez", "+5491112345678");
                 const paquete = new PaqueteOfertado(10, 1200, 7, 5000);
-                const unConsumo = new Consumo(new CantidadMB(50), new Date("2026-02-23T10:00:00Z"), new Date("2026-02-24T10:00:00Z"));
-                const otroConsumo = new Consumo(new CantidadMB(10), new Date("2026-02-24T10:00:00Z"), new Date("2026-02-26T10:00:00Z"));
+                const unConsumo = new Consumo(new CantidadMB(5000), new Date("2026-02-23T10:00:00Z"), new Date("2026-02-24T10:00:00Z"));
+                const otroConsumo = new Consumo(new CantidadMB(1000), new Date("2026-02-24T10:00:00Z"), new Date("2026-02-26T10:00:00Z"));
 
                 cliente.cargarSaldoCon(20000);
                 cliente.comprarUn(paquete);
                 cliente.realizarUn(unConsumo);
                 cliente.realizarUn(otroConsumo);
 
-                expect(cliente.calcularDatosInternetDisponibles()).toBe(3);
+                expect(cliente.calcularDatosInternetDisponibles()).toBe(4);
         });
 
-        test("Cuando un cliente realiza consumos por debajo del límite de su paquete, entonces su paquete sigue activo", ()=>{
+        test("Cuando un cliente realiza consumos de distinto tipo por debajo del límite de su paquete, entonces su paquete sigue activo", ()=>{
                 const cliente = new Cliente("Juan Perez", "+5491112345678");
-                const cantidadGBPaquete = 10;
                 const paquete = new PaqueteOfertado(10, 1200, 7, 5000);
-                const unConsumo = new Consumo(new CantidadGB(2), new Date("2026-02-23T10:00:00Z"), new Date("2026-02-24T10:00:00Z"));
-                const otroConsumo = new Consumo(new MinutosLlamadas(200), new Date("2026-02-24T10:00:00Z"), new Date("2026-02-26T10:00:00Z"));
+                const unConsumo = new Consumo(new CantidadMB(2000), new Date("2026-02-23T10:00:00Z"), new Date("2026-02-24T10:00:00Z"));
+                const otroConsumo = new Consumo(new MinutosLlamadas(1000), new Date("2026-02-24T10:00:00Z"), new Date("2026-02-26T10:00:00Z"));
 
                 cliente.cargarSaldoCon(20000);
                 cliente.comprarUn(paquete);
                 cliente.realizarUn(unConsumo);
                 cliente.realizarUn(otroConsumo);
 
-                expect(cliente.calcularDatosInternetDisponibles()).toBe(3);
+                expect(cliente.calcularDatosInternetDisponibles()).toBe(8);
+                expect(cliente.calcularMinutosLlamadaDisponibles()).toBe(200);
                 expect(cliente.tieneUnPaqueteActivo()).toBe(true);
+        });
+
+        test("Cuando un cliente agota uno de los tipos consumo, igualmente puede consumir del otro tipo y el paquete continúa activo", ()=>{
+                const cliente = new Cliente("Juan Perez", "+5491112345678");
+                const paquete = new PaqueteOfertado(10, 1200, 7, 5000);
+                const unConsumo = new Consumo(new CantidadMB(2000), new Date("2026-02-23T10:00:00Z"), new Date("2026-02-24T10:00:00Z"));
+                const otroConsumo = new Consumo(new MinutosLlamadas(1200), new Date("2026-02-24T10:00:00Z"), new Date("2026-02-26T10:00:00Z"));
+
+                cliente.cargarSaldoCon(20000);
+                cliente.comprarUn(paquete);
+                cliente.realizarUn(unConsumo);
+                cliente.realizarUn(otroConsumo);
+
+                expect(cliente.calcularMinutosLlamadaDisponibles()).toBe(0);
+                expect(cliente.calcularDatosInternetDisponibles()).toBe(8);
+                expect(cliente.tieneUnPaqueteActivo()).toBe(true);
+        });
+
+        test("Cuando un cliente con un paquete activo intenta realizar un consumo de Internet por encima de lo disponible, entonces falla", ()=>{
+                const cliente = new Cliente("Juan Perez", "+5491112345678");
+                const paquete = new PaqueteOfertado(10, 1200, 7, 5000);
+                const consumo = new Consumo(new CantidadMB(12000), new Date("2026-02-23T10:00:00Z"), new Date("2026-02-24T10:00:00Z"));
+
+                cliente.cargarSaldoCon(20000);
+                cliente.comprarUn(paquete);
+
+                expect(() => cliente.realizarUn(consumo)).toThrow("No hay saldo de datos de Internet suficiente");
+        });
+
+        test("Cuando un cliente con un paquete activo intenta realizar un consumo de minutos de llamada por encima de lo disponible, entonces falla", ()=>{
+                const cliente = new Cliente("Juan Perez", "+5491112345678");
+                const paquete = new PaqueteOfertado(10, 1200, 7, 5000);
+                const consumo = new Consumo(new MinutosLlamadas(12000), new Date("2026-02-23T10:00:00Z"), new Date("2026-02-24T10:00:00Z"));
+
+                cliente.cargarSaldoCon(20000);
+                cliente.comprarUn(paquete);
+
+                expect(() => cliente.realizarUn(consumo)).toThrow("No hay saldo de minutos de llamada suficiente");
         });
 
 

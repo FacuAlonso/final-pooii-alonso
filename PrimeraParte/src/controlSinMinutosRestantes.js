@@ -15,6 +15,8 @@ const ControlSinMinutosRestantes = function(paqueteControlado){
     this.renovarCon = function(minutos){
         return new ControlMinutosRestantes(minutos, paqueteControlado)
     }
+
+
 }
 
 module.exports = ControlSinMinutosRestantes

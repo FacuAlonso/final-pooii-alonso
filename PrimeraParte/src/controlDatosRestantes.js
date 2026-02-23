@@ -1,4 +1,5 @@
 const ControlSinDatosRestantes = require("./ControlSinDatosRestantes");
+const CantidadGB = require("./tipoCantidadGB");
 
 const ControlDatosRestantes = function(datosRestantes, paqueteControlado){
     this.datosRestantes = datosRestantes;
@@ -9,7 +10,7 @@ const ControlDatosRestantes = function(datosRestantes, paqueteControlado){
     }
 
     this.descontar = function(datos){
-        const datosADescontar = datos.aGB()
+        let datosADescontar = new CantidadGB(datos.aGB())
 
         if(this.datosRestantes.esIgualEnValorA(datosADescontar)){
             return new ControlSinDatosRestantes()

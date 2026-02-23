@@ -6,4 +6,8 @@ function MinutosLlamadas(cantidadMinutosDeLlamadas) {
 MinutosLlamadas.prototype = Object.create(RecursoDeCuenta.prototype);
 MinutosLlamadas.prototype.constructor = MinutosLlamadas;
 
+MinutosLlamadas.prototype.aplicarConsumoEn = function(paquete, fechaHoraInicio, fechaHoraFin){
+  paquete.descontarMinutos(this, fechaHoraInicio, fechaHoraFin)
+}
+
 module.exports = MinutosLlamadas

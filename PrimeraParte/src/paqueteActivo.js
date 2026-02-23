@@ -17,7 +17,7 @@ const PaqueteActivo = function(datosEnGBComprados, minutosLlamadasComprados, dia
     }
 
     this.descontarMinutos = function(minutos){
-        this.controlDatos = this.controlMinutos.descontar(minutos)
+        this.controlMinutos = this.controlMinutos.descontar(minutos)
     }
 
     this.calcularDatosRestantes = function(){
@@ -25,7 +25,7 @@ const PaqueteActivo = function(datosEnGBComprados, minutosLlamadasComprados, dia
     }
 
     this.calcularMinutosRestantes = function(){
-        return this.controlMinutos.calcualarMinutosRestantes()
+        return this.controlMinutos.calcularMinutosRestantes()
     }
 
     this.estaActivo = function(){

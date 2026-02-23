@@ -45,5 +45,12 @@ RecursoDeCuenta.prototype.esIgualEnValorA = function(otroRecurso){
   return this.monto === otroRecurso.cantidad()
 };
 
+RecursoDeCuenta.prototype.aplicarConsumoEn = function(paquete, fechaHoraInicio, fechaHoraFin){
+  throw new Error("Este recurso no es consumible");
+};
 
-module.exports = RecursoDeCuenta
+RecursoDeCuenta.prototype.esNulo = function(){
+  return this.monto === 0;
+};
+
+module.exports = RecursoDeCuenta;

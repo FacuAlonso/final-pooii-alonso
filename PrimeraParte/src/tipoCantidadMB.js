@@ -9,7 +9,7 @@ CantidadMB.prototype = Object.create(RecursoDeCuenta.prototype);
 CantidadMB.prototype.constructor = CantidadMB;
 
 CantidadMB.prototype.aGB = function() {
-  return new CantidadGB(this.monto / 1000);
+  return this.monto / 1000;
 };
 
 CantidadMB.prototype.aMB = function() {
@@ -18,6 +18,6 @@ CantidadMB.prototype.aMB = function() {
 
 CantidadMB.prototype.aplicarConsumoEn = function(paquete, fechaHoraInicio, fechaHoraFin){
   paquete.descontarDatos(this, fechaHoraInicio, fechaHoraFin)
-}
+};
 
-module.exports= CantidadMB
+module.exports = CantidadMB;
