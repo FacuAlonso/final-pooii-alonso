@@ -5,7 +5,6 @@ const ConsumoDeInternet = function(cantidadDatos, fechaHoraInicio, fechaHoraFin)
 
     this.aplicarEn = function(paquete){
         this.validarFechasDeConsumo();
-        this.validarCantidadDeMB();
         paquete.descontarDatos(this.cantidadDatos, this.fechaHoraInicio, this.fechaHoraFin)
     }
 
@@ -15,11 +14,6 @@ const ConsumoDeInternet = function(cantidadDatos, fechaHoraInicio, fechaHoraFin)
         }
     }
 
-    this.validarCantidadDeMB = function(){
-        if(this.cantidadDatos.aMB() <= 0){
-            throw Error("El tráfico de datos a consumir debe ser positivo")
-        }
-    }
 }
 
 module.exports = ConsumoDeInternet

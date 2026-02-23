@@ -2,22 +2,11 @@ const CuentaPrepago = function(saldoInicial){
     this.saldo = saldoInicial;
 
     this.cargarSaldoCon = function(montoACargar){
-        this.validarMontoPositivo(montoACargar);
-        this.saldo += montoACargar
+        this.saldo = this.saldo.sumar(montoACargar)
     }
 
     this.debitarUnMontoDe = function(montoADebitar){
-        this.validarMontoPositivo(montoADebitar);
-        if(montoADebitar > this.saldo){
-            throw new Error("La cuenta del cliente no tiene suficiente saldo")
-        }
-        this.saldo -= montoADebitar
-    }
-
-    this.validarMontoPositivo = function(monto){
-        if(monto <= 0){
-            throw new Error("El monto de dinero debe ser positivo")
-        }
+        this.saldo = this.saldo.restar(montoADebitar)
     }
 
     this.pagarUn = function(paqueteAComprar){
@@ -25,7 +14,7 @@ const CuentaPrepago = function(saldoInicial){
     }
 
     this.calcularSaldo = function(){
-        return this.saldo
+        return this.saldo.cantidad()
     }
 }
 

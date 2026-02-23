@@ -1,7 +1,7 @@
 const ControlSinDatosRestantes = require("./ControlSinDatosRestantes");
 
 const ControlDatosRestantes = function(datosRestantes, paqueteControlado){
-    this.datosRestantes = datosRestantes.aGB();
+    this.datosRestantes = datosRestantes;
     this.paqueteControlado = paqueteControlado;
 
     this.calcularDatosDisponibles = function(){
@@ -11,23 +11,15 @@ const ControlDatosRestantes = function(datosRestantes, paqueteControlado){
     this.descontar = function(datos){
         const datosADescontar = datos.aGB()
 
-        this.validarDatosInsuficientes(datosADescontar)
-
-        if(this.datosRestantes === datosADescontar){
+        if(this.datosRestantes.esIgualEnValorA(datosADescontar)){
             return new ControlSinDatosRestantes()
         }
 
-        return new ControlDatosRestantes(this.datosRestantes - datosADescontar, paqueteControlado)
+        return new ControlDatosRestantes(this.datosRestantes.restar(datosADescontar.cantidad()), paqueteControlado)
     }
 
     this.renovarCon = function(){
         throw new Error("El paquete activo del cliente aún tiene datos disponibles, por lo que no se puede renovar")
-    }
-
-    this.validarDatosInsuficientes = function(datosADescontar){
-        if(this.datosRestantes < datosADescontar){
-            throw new Error("El paquete activo del cliente no tiene datos restantes para cubrir tal consumo")
-        }
     }
 }
 

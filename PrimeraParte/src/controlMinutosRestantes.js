@@ -10,22 +10,17 @@ const ControlMinutosRestantes = function(minutos, paqueteControlado){
 
     this.descontar = function(minutosADescontar){
 
-        if(this.minutosRestantes === minutosADescontar){
+        if(this.minutosRestantes.esIgualEnValorA(minutosADescontar)){
             return new ControlSinMinutosRestantes() 
         }
 
-        return new ControlMinutosRestantes(this.minutosRestantes-minutosADescontar, paqueteControlado)
+        return new ControlMinutosRestantes(this.minutosRestantes.restar(minutosADescontar.cantidad()), paqueteControlado)
     }
 
     this.renovarCon = function(){
         throw new Error("El paquete activo del cliente aún tiene minutos de llamada disponibles, por lo que no se puede renovar")
     }
 
-    this.validarMinutosInsuficientes = function(minutosADescontar){
-        if(this.minutosRestantes < minutosADescontar){
-            throw new Error("El paquete activo del cliente no tiene minutos restantes para cubrir tal consumo")
-        }
-    }
 }
 
 module.exports = ControlMinutosRestantes

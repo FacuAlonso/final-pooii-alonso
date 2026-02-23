@@ -24,4 +24,4 @@ const PaqueteOfertado = function(montoGBDatos, montoMinutosLlamadas, diasDeDurac
     }
 }
 
-module.exports = PaqueteOfertado;
+module.exports = PaqueteOfertado

@@ -1,6 +1,7 @@
-const { CantidadGB } = require("../src/tipoRecursosConsumibles");
 const Cliente = require("../src/cliente");
 const PaqueteOfertado = require("../src/paqueteOfertado");
+const CantidadGB = require("../src/tipoCantidadGB");
+const MinutosLlamadas = require("../src/tipoMinutosLlamadas");
 
 describe("Sistema para la venta de paquetes de una compañía telefónica", ()=>{
     test("Cuando una persona apenas se registra como cliente de la compañía, no tiene un paquete activo", ()=>{
@@ -35,7 +36,7 @@ describe("Sistema para la venta de paquetes de una compañía telefónica", ()=>
     test("Cuando un cliente sin un paquete activo compra uno exitosamente, entonces este nuevo se activa", ()=>{
             const cliente = new Cliente("Juan Perez", "+5491112345678");
             const montoDeLaCarga = 10000;
-            const paquete = new PaqueteOfertado(new CantidadGB(10), 1200, 7, 5000);
+            const paquete = new PaqueteOfertado(new CantidadGB(10), MinutosLlamadas(1200), 7, 5000);
 
             cliente.cargarSaldoCon(montoDeLaCarga);
             cliente.comprarUn(paquete);
@@ -47,7 +48,7 @@ describe("Sistema para la venta de paquetes de una compañía telefónica", ()=>
             const cliente = new Cliente("Juan Perez", "+5491112345678");
             const montoDeLaCarga = 10000;
             const precioDelPaquete = 5000;
-            const paquete = new PaqueteOfertado(new CantidadGB(10), 1200, 7, precioDelPaquete);
+            const paquete = new PaqueteOfertado(new CantidadGB(10), new MinutosLlamadas(120), 7, precioDelPaquete);
 
             cliente.cargarSaldoCon(montoDeLaCarga);
             cliente.comprarUn(paquete);
@@ -62,7 +63,7 @@ describe("Sistema para la venta de paquetes de una compañía telefónica", ()=>
 
             cliente.cargarSaldoCon(montoDeLaCarga);
 
-            expect(() => cliente.comprarUn(paquete)).toThrow("La cuenta del cliente no tiene suficiente saldo");
+            expect(() => cliente.comprarUn(paquete)).toThrow("No hay saldo de dinero suficiente");
             expect(cliente.calcularSaldo()).toBe(montoDeLaCarga);
     });
 
@@ -102,7 +103,7 @@ describe("Sistema para la venta de paquetes de una compañía telefónica", ()=>
 
             cliente.cargarSaldoCon(montoDeLaCarga);
 
-            expect(() => cliente.comprarUn(paquete)).toThrow("La cuenta del cliente no tiene suficiente saldo");
+            expect(() => cliente.comprarUn(paquete)).toThrow("No hay saldo de dinero suficiente");
             expect(cliente.calcularSaldo()).toBe(montoDeLaCarga);
     });
 
@@ -113,7 +114,7 @@ describe("Sistema para la venta de paquetes de una compañía telefónica", ()=>
 
             cliente.cargarSaldoCon(montoDeLaCarga);
 
-            expect(() => cliente.comprarUn(paquete)).toThrow("La cuenta del cliente no tiene suficiente saldo");
+            expect(() => cliente.comprarUn(paquete)).toThrow("No hay saldo de dinero suficiente");
             expect(cliente.calcularSaldo()).toBe(montoDeLaCarga);
     });
 

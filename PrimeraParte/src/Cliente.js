@@ -1,11 +1,12 @@
-const CuentaPrepago = require("../src/cuentaPrepago");
+const CuentaPrepago = require("./cuentaPrepago");
 const PaqueteNulo = require("./paqueteNulo");
+const Dinero = require("./tipoDinero")
 
 const Cliente = function(nombreCompleto, numeroDeLinea){
     this.nombreCompleto = nombreCompleto;
     this.numeroDeLinea = numeroDeLinea;
     this.paqueteActivo = new PaqueteNulo();
-    this.cuentaDePago = new CuentaPrepago(0);
+    this.cuentaDePago = new CuentaPrepago(new Dinero(0));
     this.historialDeConsumos = null;
 
     this.tieneUnPaqueteActivo = function(){
