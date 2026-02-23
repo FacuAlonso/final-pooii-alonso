@@ -3,7 +3,7 @@ const PaqueteActivo = require("../src/paqueteActivo");
 const CantidadGB = require("../src/tipoCantidadGB");
 const CantidadMB = require("../src/tipoCantidadMB");
 
-describe("Consumos informados por una fuente externa a través de la interfaz diseñada", ()=>{
+describe("Consumos informados por una fuente externa", ()=>{
 
         test("Cuando se intenta crear un consumo con fechas de inicio y fin iguales, falla", ()=>{
                 const unaFecha = Date("2026-02-23T10:00:00Z");

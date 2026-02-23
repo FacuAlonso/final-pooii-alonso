@@ -1,4 +1,4 @@
-const RecursoDeCuenta = require("./recursoDeCuentaPrototipo");
+const RecursoDeCuenta = require("./recursoPrototipo");
 const CantidadMB = require("./tipoCantidadMB");
 
 function CantidadGB(cantidadDatosEnGB) {

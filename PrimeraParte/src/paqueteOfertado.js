@@ -4,19 +4,19 @@ const DineroPesos = require("./tipoDinero");
 const duracionEnDias = require("./tipoDuracionEnDias");
 const MinutosLlamadas = require("./tipoMinutosLlamadas");
 
-const PaqueteOfertado = function(montoGBDatos, montoMinutosLlamadas, diasDeDuracion, costoEnPesos){
+const PaqueteOfertado = function(montoGBDatos, montoMinutosLlamadas, numeroDias, precio){
 
-    this.montoGBDatos = new CantidadGB(montoGBDatos);
-    this.montoMinutosLlamadas = new MinutosLlamadas(montoMinutosLlamadas);
-    this.diasDeDuracion = new duracionEnDias(diasDeDuracion);
-    this.precio = new DineroPesos(costoEnPesos);
+    this.montoGBDatos = montoGBDatos;
+    this.montoMinutosLlamadas = montoMinutosLlamadas;
+    this.diasDeDuracion = numeroDias;
+    this.precio = precio;
 
     this.calcularPrecio = function(){
         return this.precio.cantidad();
     }
 
-    this.activarAlMomentoDe = function(fecha){
-        return new PaqueteActivo(montoGBDatos, montoMinutosLlamadas, diasDeDuracion, fecha);
+    this.activarAlMomentoDe = function(fechaActivacion = new Date()){
+        return new PaqueteActivo(montoGBDatos, montoMinutosLlamadas, numeroDias, fechaActivacion);
     }
 
     this.descontarDatos = function(){
@@ -25,6 +25,10 @@ const PaqueteOfertado = function(montoGBDatos, montoMinutosLlamadas, diasDeDurac
 
     this.descontarMinutos = function(){
         throw Error("El paquete ofertado primero debe ser adquirido para su activación y consumo de minutos de llamada")
+    }
+
+    this.validarVencimiento = function(){
+        return this
     }
 }
 

@@ -1,7 +1,7 @@
 const PaqueteNulo = function(){
 
-    this.estaActivo = function(){
-        return false
+    this.informarEstado = function(){
+        return "Sin paquete"
     }
 
     this.validarCompraDe = function(paquete){}
@@ -15,11 +15,19 @@ const PaqueteNulo = function(){
     }
 
     this.calcularDatosRestantes = function(){
-        throw Error("Primero debe adquirir un paquete disponible")
+        throw Error("Debe adquirir un paquete disponible")
     }
 
     this.calcularMinutosRestantes = function(){
-        throw Error("Primero debe adquirir un paquete disponible")
+        throw Error("Debe adquirir un paquete disponible")
+    }
+
+    this.renovarCon = function(){
+        throw Error("Debe adquirir un paquete disponible")
+    }
+
+    this.validarVencimiento = function(){
+        return this
     }
 
 }

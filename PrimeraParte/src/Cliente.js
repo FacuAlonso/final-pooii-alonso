@@ -1,5 +1,7 @@
 const CuentaPrepago = require("./cuentaPrepago");
 const PaqueteNulo = require("./paqueteNulo");
+const RenovacionAutomaticaOff = require("./renovacionAutomaticaOff");
+const RenovacionAutomaticaOn = require("./renovacionAutomaticaOn");
 const Dinero = require("./tipoDinero")
 
 const Cliente = function(nombreCompleto, numeroDeLinea){
@@ -7,9 +9,10 @@ const Cliente = function(nombreCompleto, numeroDeLinea){
     this.numeroDeLinea = numeroDeLinea;
     this.paqueteActivo = new PaqueteNulo();
     this.cuentaDePago = new CuentaPrepago(new Dinero(0));
+    this.renovacionAutomatica = new RenovacionAutomaticaOff();
 
     this.tieneUnPaqueteActivo = function(){
-        return this.paqueteActivo.estaActivo()
+        return this.paqueteActivo.informarEstado() === "Activo"
     }
 
     this.calcularSaldo = function(){
@@ -27,7 +30,9 @@ const Cliente = function(nombreCompleto, numeroDeLinea){
     }
 
     this.realizarUn = function(consumo, fechaDelConsumo = new Date()){
-        consumo.aplicarEn(this.paqueteActivo)
+        this.paqueteActivo = this.paqueteActivo.validarVencimiento(fechaDelConsumo);
+        consumo.aplicarEn(this.paqueteActivo);
+        this.paqueteActivo = this.paqueteActivo.validarAgotamiento()
         //REGISTRAR EL CONSUMO
     }
 
@@ -37,6 +42,18 @@ const Cliente = function(nombreCompleto, numeroDeLinea){
 
     this.calcularMinutosLlamadaDisponibles = function(){
         return this.paqueteActivo.calcularMinutosRestantes()
+    }
+
+    this.recordarUltimoPaqueteComprado = function(){
+        return this.paqueteActivo.comoPaqueteOfertado()
+    }
+
+    this.activarRenovacionAutomatica = function(){
+        this.renovacionAutomatica = new RenovacionAutomaticaOn()
+    }
+
+    this.desactivarRenovacionAutomatica = function(){
+        this.renovacionAutomatica = new RenovacionAutomaticaOff()
     }
 }
 

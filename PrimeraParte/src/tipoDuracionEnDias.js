@@ -1,17 +1,17 @@
-const RecursoDeCuenta = require("./recursoDeCuentaPrototipo");
+const RecursoDeCuenta = require("./recursoPrototipo");
 
-function duracionEnDias(numeroDias) {
+function DuracionEnDias(numeroDias) {
   RecursoDeCuenta.call(this, numeroDias, "días");
 }
-duracionEnDias.prototype = Object.create(RecursoDeCuenta.prototype);
-duracionEnDias.prototype.constructor = duracionEnDias;
+DuracionEnDias.prototype = Object.create(RecursoDeCuenta.prototype);
+DuracionEnDias.prototype.constructor = DuracionEnDias;
 
-duracionEnDias.prototype.mensajeErrorDeSoloPositivo = function(){
+DuracionEnDias.prototype.mensajeErrorDeSoloPositivo = function(){
   return "La duración del paquete debe ser de al menos 1 día"
 };
 
-duracionEnDias.prototype.mensajeErrorDeCeroOPositivo = function(){
+DuracionEnDias.prototype.mensajeErrorDeCeroOPositivo = function(){
   return "La duración del paquete debe ser de al menos 1 día"
 }; 
 
-module.exports = duracionEnDias
+module.exports = DuracionEnDias

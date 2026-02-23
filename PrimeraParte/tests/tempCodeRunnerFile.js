@@ -1,1 +1,0 @@
-paqueteMb.aGB()
