@@ -46,7 +46,7 @@ RecursoDeCuenta.prototype.esIgualEnValorA = function(otroRecurso){
 };
 
 RecursoDeCuenta.prototype.aplicarConsumoEn = function(paquete, fechaHoraInicio, fechaHoraFin){
-  throw new Error("Este recurso no es consumible");
+  throw new Error("Este recurso no es soportado por el sistema como tipo de consumo");
 };
 
 RecursoDeCuenta.prototype.esNulo = function(){
