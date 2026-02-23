@@ -15,7 +15,7 @@ const CuentaPrepago = function(){
     }
 
     this.validarMontoPositivo = function(monto){
-        if(!(monto > 0)){
+        if(monto <= 0){
             throw new Error("El monto de dinero debe ser positivo")
         }
     }

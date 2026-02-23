@@ -12,7 +12,15 @@ const PaqueteOfertado = function(montoGBDatos, montoMinutosLlamadas, diasDeDurac
     }
 
     this.activarAlMomentoDe = function(fecha){
-        return new PaqueteActivo(this, fecha);
+        return new PaqueteActivo(montoGBDatos, montoMinutosLlamadas, diasDeDuracion, fecha);
+    }
+
+    this.descontarDatos = function(){
+        throw Error("El paquete ofertado primero debe ser adquirido para su activación y consumo de datos de Internet")
+    }
+
+    this.descontarMinutos = function(){
+        throw Error("El paquete ofertado primero debe ser adquirido para su activación y consumo de minutos de llamada")
     }
 }
 
