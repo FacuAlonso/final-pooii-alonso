@@ -36,7 +36,7 @@ describe("Sistema para la venta de paquetes de una compañía telefónica", ()=>
             const cliente = new Cliente("Juan Perez", "+5491112345678");
             const montoDeLaCarga = 10000;
             const paquete = new PaqueteOfertado(10, 1200, 7, 5000);
-            
+
             cliente.cargarSaldoCon(montoDeLaCarga);
             cliente.comprarUn(paquete);
 
@@ -93,6 +93,28 @@ describe("Sistema para la venta de paquetes de una compañía telefónica", ()=>
 
             expect(unCliente.tieneUnPaqueteActivo()).toBe(true);
             expect(otroCliente.tieneUnPaqueteActivo()).toBe(true);
+    });
+
+    test("Cuando un cliente intenta comprar un paquete de mayor valor que el de su saldo actual, entonces falla y su saldo no disminuye", ()=>{
+            const cliente = new Cliente("Juan Perez", "+5491112345678");
+            const montoDeLaCarga = 10;
+            const paquete = new PaqueteOfertado(10, 1200, 7, 5000);
+
+            cliente.cargarSaldoCon(montoDeLaCarga);
+
+            expect(() => cliente.comprarUn(paquete)).toThrow("La cuenta del cliente no tiene suficiente saldo");
+            expect(cliente.calcularSaldo()).toBe(montoDeLaCarga);
+    });
+
+    test("Cuando un cliente intenta comprar un paquete de mayor valor que el de su saldo actual, entonces falla y su saldo no disminuye", ()=>{
+            const cliente = new Cliente("Juan Perez", "+5491112345678");
+            const montoDeLaCarga = 10;
+            const paquete = new PaqueteOfertado(10, 1200, 7, 5000);
+
+            cliente.cargarSaldoCon(montoDeLaCarga);
+
+            expect(() => cliente.comprarUn(paquete)).toThrow("La cuenta del cliente no tiene suficiente saldo");
+            expect(cliente.calcularSaldo()).toBe(montoDeLaCarga);
     });
 
     

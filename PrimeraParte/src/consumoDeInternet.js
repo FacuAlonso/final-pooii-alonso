@@ -3,7 +3,7 @@ const ConsumoDeInternet = function(cantidadDeMB, fechaHoraInicio, fechaHoraFin){
     this.fechaHoraInicio = fechaHoraInicio;
     this.fechaHoraFin = fechaHoraFin;
 
-    this.descontarDe = function(paquete){
+    this.aplicarEn = function(paquete){
         this.validarFechasDeConsumo();
         this.validarCantidadDeMB();
         paquete.descontarDatos(this.cantidadDeMB, this.fechaHoraInicio, this.fechaHoraFin)

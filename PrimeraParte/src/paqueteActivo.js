@@ -33,6 +33,8 @@ const PaqueteActivo = function(datosEnGBComprados, minutosLlamadasComprados, dia
         throw new Error("El cliente ya dispone de un paquete activo")  
     }
 
+    //CONSUMO
+
 
 }
 

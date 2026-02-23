@@ -3,7 +3,7 @@ const ConsumoDeMinutos = function(cantidadDeMinutos, fechaHoraInicio, fechaHoraF
     this.fechaHoraInicio = fechaHoraInicio;
     this.fechaHoraFin = fechaHoraFin;
 
-    this.descontarDe = function(paquete){
+    this.aplicarEn = function(paquete){
         this.validarFechasDeConsumo();
         this.validarCantidadDeConsumo();
         paquete.descontarMinutos(this.cantidadDeMinutos, this.fechaHoraInicio, this.fechaHoraFin)
