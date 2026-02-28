@@ -1,10 +1,11 @@
-const RecursoDeCuenta = require("./recursoPrototipo");
+const Recurso = require("./recursoPrototipo");
 const CantidadMB = require("./tipoCantidadMB");
 
 function CantidadGB(cantidadDatosEnGB) {
-  RecursoDeCuenta.call(this, cantidadDatosEnGB, "datos de Internet");
+  Recurso.call(this, cantidadDatosEnGB, "datos de Internet");
+  this.validarCeroOPositivo(cantidadDatosEnGB);
 }
-CantidadGB.prototype = Object.create(RecursoDeCuenta.prototype);
+CantidadGB.prototype = Object.create(Recurso.prototype);
 
 CantidadGB.prototype.constructor = CantidadGB;
 

@@ -1,13 +1,12 @@
-const RecursoDeCuenta = require("./recursoPrototipo");
+const Recurso = require("./recursoPrototipo");
 
 function DineroPesos(montoDinero) {
-  RecursoDeCuenta.call(this, montoDinero, "dinero");
+  Recurso.call(this, montoDinero, "dinero");
+  this.validarCeroOPositivo(montoDinero)
 }
-DineroPesos.prototype = Object.create(RecursoDeCuenta.prototype);
-DineroPesos.prototype.constructor = DineroPesos;
 
-DineroPesos.prototype.mensajeErrorDeSoloPositivo = function(){
-  return "La cantidad de dinero no puede ser negativa"
-}; 
+DineroPesos.prototype = Object.create(Recurso.prototype);
+
+DineroPesos.prototype.constructor = DineroPesos;
 
 module.exports = DineroPesos

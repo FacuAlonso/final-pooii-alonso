@@ -8,7 +8,7 @@ const Consumo = function(recurso, fechaHoraInicio, fechaHoraFin){
     }
 
     this.validarFechasDeConsumo = function(){
-        if(this.fechaHoraInicio >= this.fechaHoraFin){
+        if (this.fechaHoraInicio >= this.fechaHoraFin){
             throw Error("La fecha de finalización de consumo debe ser posterior a la del comienzo")
         }
     }

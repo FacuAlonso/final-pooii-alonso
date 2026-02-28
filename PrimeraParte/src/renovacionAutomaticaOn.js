@@ -1,9 +1,9 @@
 const RenovacionAutomaticaOn = function(){
-    this.aplicarSobreUnCon = function(cliente, paqueteActivo){
+    this.aplicarSobreUnCon = function(cliente, paqueteActual){
         try {
             cliente.comprarUn(cliente.recordarUltimoPaqueteComprado())
         } catch (error) {
-            return paqueteActivo
+            return paqueteActual
         }
         
     };

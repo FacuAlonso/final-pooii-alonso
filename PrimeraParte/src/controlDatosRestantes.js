@@ -12,7 +12,7 @@ const ControlDatosRestantes = function(datosRestantes, paqueteControlado){
     this.descontar = function(datos){
         let datosADescontar = new CantidadGB(datos.aGB().cantidad())
 
-        if(this.datosRestantes.esIgualEnValorA(datosADescontar)){
+        if (this.datosRestantes.esIgualEnValorA(datosADescontar)){
             return new ControlSinDatosRestantes()
         }
 

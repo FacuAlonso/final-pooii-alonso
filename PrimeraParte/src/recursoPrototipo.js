@@ -1,6 +1,5 @@
 function Recurso(monto, nombreAMostrar = "recursos") {
   this.nombreAMostrar = nombreAMostrar;
-  this.validarCeroOPositivo(monto);
   this.monto = monto;
 }
 
@@ -9,7 +8,7 @@ Recurso.prototype.mensajeErrorDeCeroOPositivo = function(){
 };
 
 Recurso.prototype.mensajeErrorDeSoloPositivo = function(){
-  return "La cantidad a operar de "+ this.nombreAMostrar + " debe ser positiva"
+  return "La cantidad de "+ this.nombreAMostrar + " debe ser positiva"
 };
 
 Recurso.prototype.validarCeroOPositivo = function(monto) {

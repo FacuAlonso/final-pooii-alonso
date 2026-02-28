@@ -31,13 +31,13 @@ const PaqueteActivo = function(datosEnGBComprados, minutosLlamadasComprados,
         return this.controlMinutosLlamadas.calcularMinutosRestantes()
     }
 
-    this.validarCompraDe = function(paquete){
+    this.validarCompraDe = function(){
         throw new Error("El cliente ya dispone de un paquete activo")  
     }
 
     
     this.validarAgotamiento = function(){
-        if(this.controlDatosNavegacion.estaAgotado() && this.controlMinutosLlamadas.estaAgotado()){
+        if (this.controlDatosNavegacion.estaAgotado() && this.controlMinutosLlamadas.estaAgotado()){
             return new PaqueteAgotado(datosEnGBComprados, minutosLlamadasComprados, diasDeDuracion, precio)
         }
         return this
@@ -50,7 +50,7 @@ const PaqueteActivo = function(datosEnGBComprados, minutosLlamadasComprados,
         return this
     }
 
-    this.renovarCon = function(otroPaquete){
+    this.renovarCon = function(){
         throw new Error("El cliente ya dispone de un paquete activo") 
     }
 

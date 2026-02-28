@@ -10,7 +10,7 @@ const ControlMinutosRestantes = function(minutos, paqueteControlado){
     }
 
     this.descontar = function(minutosADescontar){
-        if(this.minutosRestantes.esIgualEnValorA(minutosADescontar)){
+        if (this.minutosRestantes.esIgualEnValorA(minutosADescontar)){
             return new ControlSinMinutosRestantes() 
         }
         return new ControlMinutosRestantes(this.minutosRestantes.restar(minutosADescontar.cantidad()), paqueteControlado)
