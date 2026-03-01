@@ -64,6 +64,13 @@ const PaqueteActivo = function(datosEnGBComprados, minutosLlamadasComprados,
         return new PaqueteOfertado(this.datosEnGBComprados, this.minutosLlamadasComprados, this.diasDeDuracion, this.precioDeCompra)
     }
 
+    this.renovarse = function(fecha){
+        let paquete = this;
+        paquete = paquete.validarAgotamiento();
+        paquete = paquete.validarVencimiento(fecha);
+        return paquete.validarRenovacion()
+    }
+
 }
 
 module.exports = PaqueteActivo

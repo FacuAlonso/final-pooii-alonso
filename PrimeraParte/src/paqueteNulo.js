@@ -22,6 +22,10 @@ const PaqueteNulo = function(){
         throw Error("Debe adquirir un paquete disponible")
     }
 
+    this.renovarse = function(){
+        return this.validarRenovacion()
+    }
+
     this.validarVencimiento = function(){
         return this
     }

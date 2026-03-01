@@ -65,8 +65,7 @@ const Cliente = function(nombreCompleto, numeroDeLinea){
     }
 
     this.renovarPaqueteAlMomentoDe = function(fechaDeRenovacion){
-        this.paqueteActivo = this.paqueteActivo.validarVencimiento(fechaDeRenovacion);
-        this.paqueteActivo = this.paqueteActivo.validarAgotamiento()
+        this.paqueteActivo = this.paqueteActivo.renovarse(fechaDeRenovacion);
         this.comprarUn(this.recordarUltimoPaqueteComprado())
     }
 }

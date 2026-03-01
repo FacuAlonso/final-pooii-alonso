@@ -40,6 +40,14 @@ const PaqueteVencido = function(datosOriginales, minutosOriginales, diasDeDuraci
     this.comoPaqueteOfertado = function(){
         return new PaqueteOfertado(datosOriginales, minutosOriginales, diasDeDuracion, precio)
     }
+
+    this.validarRenovacion = function(){
+        return this
+    }
+
+    this.renovarse = function(){
+        return this.validarRenovacion()
+    }
 }
 
 module.exports = PaqueteVencido
