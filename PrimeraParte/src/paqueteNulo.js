@@ -18,7 +18,7 @@ const PaqueteNulo = function(){
         throw Error("Debe adquirir un paquete disponible")
     }
 
-    this.renovarCon = function(){
+    this.validarRenovacion = function(){
         throw Error("Debe adquirir un paquete disponible")
     }
 

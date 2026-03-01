@@ -38,9 +38,9 @@ const Cliente = function(nombreCompleto, numeroDeLinea){
     }
 
     this.realizarUn = function(consumo, fechaDelConsumo = new Date()){
-        this.paqueteActivo = this.paqueteActivo.validarVencimiento(fechaDelConsumo);
+        this.paqueteActivo = this.paqueteActivo.validarVencimiento(fechaDelConsumo, this.renovacionAutomatica);
         consumo.aplicarEn(this.paqueteActivo);
-        this.paqueteActivo = this.paqueteActivo.validarAgotamiento()
+        this.paqueteActivo = this.paqueteActivo.validarAgotamiento(this.renovacionAutomatica)
         //REGISTRAR EL CONSUMO
     }
 

@@ -50,7 +50,7 @@ const PaqueteActivo = function(datosEnGBComprados, minutosLlamadasComprados,
         return this
     }
 
-    this.renovarCon = function(){
+    this.validarRenovacion = function(){
         throw new Error("El cliente ya dispone de un paquete activo") 
     }
 
