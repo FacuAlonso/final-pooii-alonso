@@ -23,6 +23,7 @@ const PaqueteAgotado = function(datosOriginales, minutosOriginales, diasDeDuraci
     }
 
     this.activarAlMomentoDe = function(fecha = new Date()){
+        const PaqueteActivo = require("../src/paqueteActivo");
         return new PaqueteActivo(datosOriginales, minutosOriginales, diasDeDuracion, fecha, precio);
     }
 
@@ -30,7 +31,14 @@ const PaqueteAgotado = function(datosOriginales, minutosOriginales, diasDeDuraci
         return this
     }
 
+    this.validarAgotamiento = function(){
+        return this
+    }
 
+    this.comoPaqueteOfertado = function(){
+        const PaqueteOfertado = require("./paqueteOfertado");
+        return new PaqueteOfertado(datosOriginales, minutosOriginales, diasDeDuracion, precio)
+    }
 
 }
 

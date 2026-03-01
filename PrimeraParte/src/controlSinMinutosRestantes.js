@@ -1,8 +1,7 @@
 const ControlMinutosRestantes = require("./controlMinutosRestantes");
 const MinutosLlamadas = require("./tipoMinutosLlamadas");
 
-const ControlSinMinutosRestantes = function(paqueteControlado){
-    this.paqueteControlado = paqueteControlado;
+const ControlSinMinutosRestantes = function(){
 
     this.calcularMinutosRestantes = function(){
         return (new MinutosLlamadas(0)).cantidad()
@@ -15,7 +14,7 @@ const ControlSinMinutosRestantes = function(paqueteControlado){
     this.estaAgotado = function(){return true}
 
     this.renovarCon = function(minutos){
-        return new ControlMinutosRestantes(minutos, paqueteControlado)
+        return new ControlMinutosRestantes(minutos)
     }
 
 

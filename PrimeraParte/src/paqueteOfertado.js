@@ -1,18 +1,12 @@
-const PaqueteActivo = require("./paqueteActivo");
-
 const PaqueteOfertado = function(montoGBDatos, montoMinutosLlamadas, numeroDias, precio){
 
-    this.montoGBDatos = montoGBDatos;
-    this.montoMinutosLlamadas = montoMinutosLlamadas;
-    this.diasDeDuracion = numeroDias;
-    this.precio = precio;
-
     this.calcularPrecio = function(){
-        return this.precio.cantidad();
+        return precio.cantidad();
     }
 
     this.activarAlMomentoDe = function(fechaActivacion = new Date()){
-        return new PaqueteActivo(montoGBDatos, montoMinutosLlamadas, numeroDias, fechaActivacion);
+        const PaqueteActivo = require("./paqueteActivo");
+        return new PaqueteActivo(montoGBDatos, montoMinutosLlamadas, numeroDias, fechaActivacion, precio);
     }
 
     this.descontarDatos = function(){
@@ -24,6 +18,10 @@ const PaqueteOfertado = function(montoGBDatos, montoMinutosLlamadas, numeroDias,
     }
 
     this.validarVencimiento = function(){
+        return this
+    }
+
+    this.comoPaqueteOfertado = function(){
         return this
     }
 }

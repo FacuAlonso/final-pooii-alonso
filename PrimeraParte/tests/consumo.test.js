@@ -23,7 +23,7 @@ describe("Consumos informados por una fuente externa", ()=>{
         test("Cuando se intenta impactar un consumo no soportado por el sistema en un paquete, falla", ()=>{
                 const unaFecha = Date("2026-02-23T10:00:00Z");
                 const unPaquete = PaqueteActivo(10, 100, 12, new Date());
-                expect(() => (new Consumo(new CantidadGB(1), unaFecha, unaFecha+10)).aplicarEn(unPaquete)).toThrow("Este recurso no es soportado por el sistema como tipo de consumo");
+                expect(() => (new Consumo(new CantidadGB(1), unaFecha, unaFecha+10)).aplicarEn(unPaquete)).toThrow("El sistema no reconoce este recurso");
 
         });
 

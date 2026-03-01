@@ -1,8 +1,7 @@
 const ControlDatosRestantes = require("./controlDatosRestantes");
 const CantidadGB = require("./tipoCantidadGB");
 
-const ControlSinDatosRestantes = function(paqueteControlado){
-    this.paqueteControlado = paqueteControlado;
+const ControlSinDatosRestantes = function(){
 
     this.calcularDatosRestantes = function(){
         return (new CantidadGB(0)).cantidad()
@@ -15,7 +14,7 @@ const ControlSinDatosRestantes = function(paqueteControlado){
     this.estaAgotado = function(){return true}
 
     this.renovarCon = function(datos){
-        return new ControlDatosRestantes(datos, paqueteControlado)
+        return new ControlDatosRestantes(datos)
     }
 
 }

@@ -1,9 +1,8 @@
 const ControlSinDatosRestantes = require("./ControlSinDatosRestantes");
 const CantidadGB = require("./tipoCantidadGB");
 
-const ControlDatosRestantes = function(datosRestantes, paqueteControlado){
+const ControlDatosRestantes = function(datosRestantes){
     this.datosRestantes = datosRestantes;
-    this.paqueteControlado = paqueteControlado;
 
     this.calcularDatosRestantes = function(){
         return this.datosRestantes.cantidad()
@@ -16,10 +15,12 @@ const ControlDatosRestantes = function(datosRestantes, paqueteControlado){
             return new ControlSinDatosRestantes()
         }
 
-        return new ControlDatosRestantes(this.datosRestantes.restar(datosADescontar.cantidad()), paqueteControlado)
+        return new ControlDatosRestantes(this.datosRestantes.restar(datosADescontar.cantidad()))
     }
 
-    this.estaAgotado = function(){return false}
+    this.estaAgotado = function(){
+        return this.datosRestantes.esNulo()
+    }
 
     this.renovarCon = function(){
         throw new Error("El paquete activo del cliente aún tiene datos disponibles, por lo que no se puede renovar")

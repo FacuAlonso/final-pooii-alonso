@@ -268,12 +268,39 @@ describe("Sistema para la venta de paquetes de una compañía telefónica", ()=>
         test("Cuando un cliente con un paquete vencido lo renueva, entonces puede voler a consumir datos y realizar llamadas, con su saldo actualizado correctamente", ()=>{
                 const cliente = new Cliente("Juan Perez", "+5491112345678");
                 const paquete = crearPaqueteOfertado(10, 1200, 1, 5000);
-                const consumo = new Consumo(new MinutosLlamadas(1200), new Date("2026-02-23T10:00:00Z"), new Date("2026-02-24T10:00:00Z"));
-                const otroConsumo = new Consumo(new CantidadMB(10000), new Date("2026-02-23T10:00:00Z"), new Date("2026-02-24T10:00:00Z"));
+                const fechaDeCompra = new Date("2026-02-10T10:00:00Z");
+                const fechaDeRenovacion = new Date("2026-02-12T10:00:00Z");
+                const consumo = new Consumo(new MinutosLlamadas(200), new Date("2026-02-12T11:00:00Z"), new Date("2026-02-12T12:00:00Z"));
+                const otroConsumo = new Consumo(new CantidadMB(5000), new Date("2026-02-12T13:00:00Z"), new Date("2026-02-24T14:00:00Z"));
 
                 cliente.cargarSaldoCon(20000);
-                cliente.comprarUn(paquete, new Date("2026-02-10T10:00:00Z"));
+                cliente.comprarUn(paquete, fechaDeCompra);
+                cliente.renovarPaqueteAlMomentoDe(fechaDeRenovacion);
+                cliente.realizarUn(consumo);
+                cliente.realizarUn(otroConsumo);
 
+                expect(cliente.calcularDatosInternetDisponibles()).toBe(5);
+                expect(cliente.calcularMinutosLlamadaDisponibles()).toBe(1000);
+                expect(cliente.tieneUnPaqueteActivo()).toBe(true);
+           
+        });
+
+        test("Cuando un cliente con un paquete agotado lo renueva, entonces puede voler a consumir datos y realizar llamadas, con su saldo actualizado correctamente", ()=>{
+                const cliente = new Cliente("Juan Perez", "+5491112345678");
+                const paquete = crearPaqueteOfertado(10, 0, 7, 5000);
+                const fechaDeCompra = new Date("2026-02-10T10:00:00Z");
+                const fechaDeRenovacion = new Date("2026-02-12T10:00:00Z");
+                const consumo = new Consumo(new CantidadMB(10000), new Date("2026-02-12T11:00:00Z"), new Date("2026-02-12T12:00:00Z"));
+                const otroConsumo = new Consumo(new CantidadMB(5000), new Date("2026-02-12T13:00:00Z"), new Date("2026-02-24T14:00:00Z"));
+
+                cliente.cargarSaldoCon(20000);
+                cliente.comprarUn(paquete, fechaDeCompra);
+                cliente.realizarUn(consumo, new Date("2026-02-12T11:00:00Z"));
+                cliente.renovarPaqueteAlMomentoDe(fechaDeRenovacion);
+                cliente.realizarUn(otroConsumo);
+
+                expect(cliente.calcularDatosInternetDisponibles()).toBe(5);
+                expect(cliente.tieneUnPaqueteActivo()).toBe(true);
            
         });
 

@@ -1,4 +1,6 @@
-const PaqueteVencido = function(datosOriginales, minutosOriginales, diasDeDuracion){
+const PaqueteOfertado = require("./paqueteOfertado")
+
+const PaqueteVencido = function(datosOriginales, minutosOriginales, diasDeDuracion, precio){
 
     this.descontarDatos = function(){
         throw Error("El paquete actual del cliente se encuentra vencido. No puede consumir datos de Internet")
@@ -23,11 +25,20 @@ const PaqueteVencido = function(datosOriginales, minutosOriginales, diasDeDuraci
     }
 
     this.activarAlMomentoDe = function(fecha = new Date()){
-        return new PaqueteActivo(datosOriginales, minutosOriginales, diasDeDuracion, fecha);
+        const PaqueteActivo = require("./paqueteActivo");
+        return new PaqueteActivo(datosOriginales, minutosOriginales, diasDeDuracion, fecha, precio);
     }
 
     this.validarVencimiento = function(){
         return this
+    }
+
+    this.validarAgotamiento = function(){
+        return this
+    }
+
+    this.comoPaqueteOfertado = function(){
+        return new PaqueteOfertado(datosOriginales, minutosOriginales, diasDeDuracion, precio)
     }
 }
 

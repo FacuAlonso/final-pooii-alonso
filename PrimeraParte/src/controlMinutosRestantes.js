@@ -1,9 +1,9 @@
 const ControlSinMinutosRestantes = require("./controlSinMinutosRestantes");
 
 
-const ControlMinutosRestantes = function(minutos, paqueteControlado){
+const ControlMinutosRestantes = function(minutos){
+    
     this.minutosRestantes = minutos;
-    this.paqueteControlado = paqueteControlado;
 
     this.calcularMinutosRestantes = function(){
         return this.minutosRestantes.cantidad()
@@ -13,10 +13,12 @@ const ControlMinutosRestantes = function(minutos, paqueteControlado){
         if (this.minutosRestantes.esIgualEnValorA(minutosADescontar)){
             return new ControlSinMinutosRestantes() 
         }
-        return new ControlMinutosRestantes(this.minutosRestantes.restar(minutosADescontar.cantidad()), paqueteControlado)
+        return new ControlMinutosRestantes(this.minutosRestantes.restar(minutosADescontar.cantidad()))
     }
 
-    this.estaAgotado = function(){return false}
+    this.estaAgotado = function(){
+        return this.minutosRestantes.esNulo()
+    }
 
     this.renovarCon = function(){
         throw new Error("El paquete activo del cliente aún tiene minutos de llamada disponibles, por lo que no se puede renovar")

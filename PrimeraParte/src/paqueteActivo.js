@@ -11,8 +11,8 @@ const PaqueteActivo = function(datosEnGBComprados, minutosLlamadasComprados,
     this.minutosLlamadasComprados = minutosLlamadasComprados;
     this.diasDeDuracion = diasDeDuracion;
     this.fechaDeCompra = fechaDeCompra;
-    this.controlDatosNavegacion = new ControlDatosInternet(datosEnGBComprados, this);
-    this.controlMinutosLlamadas = new ControlMinutosRestantes(minutosLlamadasComprados, this);
+    this.controlDatosNavegacion = new ControlDatosInternet(datosEnGBComprados);
+    this.controlMinutosLlamadas = new ControlMinutosRestantes(minutosLlamadasComprados);
     this.precioDeCompra = precio;
 
     this.descontarDatos = function(datos){
@@ -61,7 +61,7 @@ const PaqueteActivo = function(datosEnGBComprados, minutosLlamadasComprados,
     }
 
     this.comoPaqueteOfertado = function(){
-        return new PaqueteOfertado(this.datosEnGBComprados, this.minutosLlamadasComprados, this.diasDeDuracion, this.precio)
+        return new PaqueteOfertado(this.datosEnGBComprados, this.minutosLlamadasComprados, this.diasDeDuracion, this.precioDeCompra)
     }
 
 }
