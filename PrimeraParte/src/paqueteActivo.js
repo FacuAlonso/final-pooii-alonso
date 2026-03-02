@@ -50,10 +50,6 @@ const PaqueteActivo = function(datosEnGBComprados, minutosLlamadasComprados,
         return this
     }
 
-    this.validarRenovacion = function(){
-        throw new Error("El cliente ya dispone de un paquete activo") 
-    }
-
     this.calcularFechaDeVencimiento = function(){
         const fecha = new Date(this.fechaDeCompra);
         fecha.setDate(fecha.getDate() + this.diasDeDuracion.cantidad());
@@ -69,6 +65,10 @@ const PaqueteActivo = function(datosEnGBComprados, minutosLlamadasComprados,
         paquete = paquete.validarAgotamiento();
         paquete = paquete.validarVencimiento(fecha);
         return paquete.validarRenovacion()
+    }
+
+    this.validarRenovacion = function(){
+        throw new Error("El cliente ya dispone de un paquete activo") 
     }
 
 }
