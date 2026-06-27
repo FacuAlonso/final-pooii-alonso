@@ -34,7 +34,6 @@ const PaqueteActivo = function(datosEnGBComprados, minutosLlamadasComprados,
     this.validarCompraDe = function(){
         throw new Error("El cliente ya dispone de un paquete activo")  
     }
-
     
     this.validarAgotamiento = function(){
         if (this.controlDatosNavegacion.estaAgotado() && this.controlMinutosLlamadas.estaAgotado()){

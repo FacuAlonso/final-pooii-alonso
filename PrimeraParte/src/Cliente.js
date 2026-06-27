@@ -12,15 +12,9 @@ const Cliente = function(nombreCompleto, numeroDeLinea){
     this.renovacionAutomatica = new RenovacionAutomaticaOff();
 
     this.tieneUnPaqueteActivo = function(){
-        return (this.tieneDatosRestantes() || this.tieneMinutosRestantes())
-    }
-
-    this.tieneDatosRestantes = function(){
-        return (this.paqueteActivo.calcularDatosRestantes() > 0 )
-    }
-
-    this.tieneMinutosRestantes = function(){
-        return (this.paqueteActivo.calcularMinutosRestantes() > 0 )
+        const tieneDatosRestantes = this.paqueteActivo.calcularDatosRestantes() > 0;
+        const tieneMinutosRestantes = this.paqueteActivo.calcularMinutosRestantes() > 0;
+        return (tieneDatosRestantes || tieneMinutosRestantes)
     }
 
     this.calcularSaldo = function(){

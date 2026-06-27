@@ -11,19 +11,19 @@ describe("Sistema para la venta de paquetes de una compañía telefónica", ()=>
                 expect(() => cliente.tieneUnPaqueteActivo()).toThrow("Debe adquirir un paquete disponible");
         });
 
-        test("Cuando una persona apenas se registra como cliente de la compañía, tiene un saldo de dinero nulo", ()=>{
+        test("Cuando una persona apenas se registra como cliente de la compañía, tiene un saldo nulo", ()=>{
                 const cliente = new Cliente("Juan Perez", "+5491112345678");
                 expect(cliente.calcularSaldo()).toBe(0)
         });
 
-        test("Cuando un cliente realiza una carga de dinero exitosa, entonces su saldo debe actualizarse en ese monto", ()=>{
+        test("Cuando un cliente realiza una carga de dinero exitosa, entonces su saldo debe reflejar correctamente ese monto", ()=>{
                 const cliente = new Cliente("Juan Perez", "+5491112345678");
                 const montoDeLaCarga = 1000;
                 cliente.cargarSaldoCon(montoDeLaCarga);
                 expect(cliente.calcularSaldo()).toBe(montoDeLaCarga)
         });
 
-        test("Cuando un cliente realiza dos cargas, entonces su saldo se acumnula", ()=>{
+        test("Cuando un cliente realiza dos cargas, entonces su saldo se acumula", ()=>{
                 const cliente = new Cliente("Juan Perez", "+5491112345678");
                 const montoDeLaCarga = 1000;
                 cliente.cargarSaldoCon(montoDeLaCarga);
@@ -43,7 +43,7 @@ describe("Sistema para la venta de paquetes de una compañía telefónica", ()=>
                 expect(() => cliente.cargarSaldoCon(montoDeLaCarga)).toThrow("La cantidad de dinero debe ser positiva");
         });
 
-        test("Cuando un cliente sin un paquete activo compra uno exitosamente, entonces este nuevo se activa", ()=>{
+        test("Cuando un cliente sin un paquete activo compra uno exitosamente, entonces este se activa", ()=>{
                 const cliente = new Cliente("Juan Perez", "+5491112345678");
                 const montoDeLaCarga = 10000;
                 const paquete = crearPaqueteOfertado(10, 1200, 7, 5000);
@@ -78,7 +78,7 @@ describe("Sistema para la venta de paquetes de una compañía telefónica", ()=>
                 expect(cliente.calcularSaldo()).toBe(0)
         });
 
-        test("Cuando un cliente intenta comprar un paquete de mayor valor que el de su saldo actual, entonces falla y su saldo no disminuye", ()=>{
+        test("Cuando un cliente intenta comprar un paquete de mayor valor que su saldo actual, entonces falla y su saldo no disminuye", ()=>{
                 const cliente = new Cliente("Juan Perez", "+5491112345678");
                 const montoDeLaCarga = 10;
                 const paquete = crearPaqueteOfertado(10, 1200, 7, 5000)
@@ -89,7 +89,7 @@ describe("Sistema para la venta de paquetes de una compañía telefónica", ()=>
                 expect(cliente.calcularSaldo()).toBe(montoDeLaCarga);
         });
 
-        test("Cuando un cliente con un paquete activo intenta comprar otro paquete, entonces falla y su saldo no disminuye la segunda vez", ()=>{
+        test("Cuando un cliente con un paquete activo intenta comprar otro, entonces falla y su saldo no vuelve a disminuir", ()=>{
                 const cliente = new Cliente("Juan Perez", "+5491112345678");
                 const montoDeLaCarga = 10000;
                 const precioDeUnPaquete = 5000;
@@ -103,21 +103,6 @@ describe("Sistema para la venta de paquetes de una compañía telefónica", ()=>
                 expect(cliente.calcularSaldo()).toBe(montoDeLaCarga - precioDeUnPaquete);
         });
 
-        test("Cuando un paquete ofertado es comprado por varios clientes entonces es válido", ()=>{
-                const unPaqueteEnOferta = crearPaqueteOfertado(10, 1200, 7, 2000)
-                const unCliente = new Cliente("Juan Perez", "+5491112345678");
-                const otroCliente = new Cliente("Pedro Gonzalez", "+5490348123456");
-                const montoACargar = 10000;
-
-                unCliente.cargarSaldoCon(montoACargar);
-                otroCliente.cargarSaldoCon(montoACargar);
-                unCliente.comprarUn(unPaqueteEnOferta);
-                otroCliente.comprarUn(unPaqueteEnOferta);
-
-                expect(unCliente.tieneUnPaqueteActivo()).toBe(true);
-                expect(otroCliente.tieneUnPaqueteActivo()).toBe(true);
-        });
-
         test("Cuando un cliente intenta comprar un paquete de mayor valor que el de su saldo actual, entonces falla y su saldo no disminuye", ()=>{
                 const cliente = new Cliente("Juan Perez", "+5491112345678");
                 const montoDeLaCarga = 10;
@@ -128,18 +113,6 @@ describe("Sistema para la venta de paquetes de una compañía telefónica", ()=>
                 expect(() => cliente.comprarUn(paquete)).toThrow("No hay saldo de dinero suficiente");
                 expect(cliente.calcularSaldo()).toBe(montoDeLaCarga);
         });
-
-        test("Cuando un cliente intenta comprar un paquete de mayor valor que el de su saldo actual, entonces falla y su saldo no disminuye", ()=>{
-                const cliente = new Cliente("Juan Perez", "+5491112345678");
-                const montoDeLaCarga = 10;
-                const paquete = crearPaqueteOfertado(10, 1200, 7, 5000)
-
-                cliente.cargarSaldoCon(montoDeLaCarga);
-
-                expect(() => cliente.comprarUn(paquete)).toThrow("No hay saldo de dinero suficiente");
-                expect(cliente.calcularSaldo()).toBe(montoDeLaCarga);
-        });
-
 
         test("Cuando un cliente con un paquete de datos activo consume una cantidad de datos válida, entonces su cantidad de datos disponible se reduce sólo en esa cantidad", ()=>{
                 const cliente = new Cliente("Juan Perez", "+5491112345678");

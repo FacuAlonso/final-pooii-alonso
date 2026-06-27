@@ -1,4 +1,4 @@
-const Recurso = require("./recursoPrototipo");
+const Recurso = require("./tipoRecursoPrototipo");
 
 function DineroPesos(montoDinero) {
   Recurso.call(this, montoDinero, "dinero");

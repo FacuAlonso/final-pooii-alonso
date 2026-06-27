@@ -1,4 +1,4 @@
-const Recurso = require("./recursoPrototipo");
+const Recurso = require("./tipoRecursoPrototipo");
 
 function MinutosLlamadas(cantidadMinutosDeLlamadas) {
   Recurso.call(this, cantidadMinutosDeLlamadas, "minutos de llamada");

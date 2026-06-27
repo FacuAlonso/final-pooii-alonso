@@ -1,12 +1,12 @@
-const PaqueteOfertado = function(montoGBDatos, montoMinutosLlamadas, numeroDias, precio){
+const PaqueteOfertado = function(montoGBDatos, montoMinutosLlamadas, numeroDias, montoPrecio){
 
     this.calcularPrecio = function(){
-        return precio.cantidad();
+        return montoPrecio.cantidad();
     }
 
     this.activarAlMomentoDe = function(fechaActivacion = new Date()){
         const PaqueteActivo = require("./paqueteActivo");
-        return new PaqueteActivo(montoGBDatos, montoMinutosLlamadas, numeroDias, fechaActivacion, precio);
+        return new PaqueteActivo(montoGBDatos, montoMinutosLlamadas, numeroDias, fechaActivacion, montoPrecio);
     }
 
     this.descontarDatos = function(){

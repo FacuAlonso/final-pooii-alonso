@@ -1,6 +1,5 @@
 const ControlSinMinutosRestantes = require("./controlSinMinutosRestantes");
 
-
 const ControlMinutosRestantes = function(minutos){
     
     this.minutosRestantes = minutos;

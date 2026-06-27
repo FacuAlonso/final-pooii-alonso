@@ -19,7 +19,7 @@ const PaqueteAgotado = function(datosOriginales, minutosOriginales, diasDeDuraci
     this.validarCompraDe = function(paquete){}
 
     this.calcularPrecio = function(){
-        return this.precio.cantidad();
+        return precio.cantidad();
     }
 
     this.activarAlMomentoDe = function(fecha = new Date()){

@@ -1,4 +1,4 @@
-const Recurso = require("./recursoPrototipo");
+const Recurso = require("./tipoRecursoPrototipo");
 
 function DuracionEnDias(numeroDias) {
   Recurso.call(this, numeroDias, "días");
