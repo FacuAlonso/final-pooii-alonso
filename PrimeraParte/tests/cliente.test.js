@@ -248,7 +248,7 @@ describe("Sistema para la venta de paquetes de una compañía telefónica", ()=>
 
                 cliente.cargarSaldoCon(20000);
                 cliente.comprarUn(paquete, fechaDeCompra);
-                cliente.renovarPaqueteAlMomentoDe(fechaDeRenovacion);
+                cliente.renovarPaquete(fechaDeRenovacion);
                 cliente.realizarUn(consumo);
                 cliente.realizarUn(otroConsumo);
 
@@ -268,8 +268,8 @@ describe("Sistema para la venta de paquetes de una compañía telefónica", ()=>
 
                 cliente.cargarSaldoCon(20000);
                 cliente.comprarUn(paquete, fechaDeCompra);
-                cliente.realizarUn(consumo, new Date("2026-02-12T11:00:00Z"));
-                cliente.renovarPaqueteAlMomentoDe(fechaDeRenovacion);
+                cliente.realizarUn(consumo);
+                cliente.renovarPaquete(fechaDeRenovacion);
                 cliente.realizarUn(otroConsumo);
 
                 expect(cliente.calcularDatosInternetDisponibles()).toBe(5);

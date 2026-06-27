@@ -3,6 +3,10 @@ const Consumo = function(recurso, fechaHoraInicio, fechaHoraFin){
     this.fechaHoraInicio = fechaHoraInicio;
     this.fechaHoraFin = fechaHoraFin;
 
+    this.calcularInicio = function(){
+        return this.fechaHoraInicio
+    }
+
     this.aplicarEn = function(paquete){
         this.recurso.aplicarConsumoEn(paquete, this.fechaHoraInicio, this.fechaHoraFin)
     }

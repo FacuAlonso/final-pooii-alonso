@@ -31,7 +31,8 @@ const Cliente = function(nombreCompleto, numeroDeLinea){
         this.paqueteActivo = paquete.activarAlMomentoDe(fechaDeLaCompra)
     }
 
-    this.realizarUn = function(consumo, fechaDelConsumo = new Date()){
+    this.realizarUn = function(consumo){
+        const fechaDelConsumo = consumo.calcularInicio()
         this.paqueteActivo = this.paqueteActivo.validarVencimiento(fechaDelConsumo, this.renovacionAutomatica);
         consumo.aplicarEn(this.paqueteActivo);
         this.paqueteActivo = this.paqueteActivo.validarAgotamiento(this.renovacionAutomatica)
@@ -58,9 +59,9 @@ const Cliente = function(nombreCompleto, numeroDeLinea){
         this.renovacionAutomatica = new RenovacionAutomaticaOff()
     }
 
-    this.renovarPaqueteAlMomentoDe = function(fechaDeRenovacion){
+    this.renovarPaquete = function(fechaDeRenovacion = new Date()){
         this.paqueteActivo = this.paqueteActivo.renovarse(fechaDeRenovacion);
-        this.comprarUn(this.recordarUltimoPaqueteComprado())
+        this.comprarUn(this.recordarUltimoPaqueteComprado(), fechaDeRenovacion)
     }
 }
 
