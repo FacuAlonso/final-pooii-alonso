@@ -22,10 +22,6 @@ const ControlDatosRestantes = function(datosRestantes){
         return this.datosRestantes.esNulo()
     }
 
-    this.renovarCon = function(){
-        throw new Error("El paquete activo del cliente aún tiene datos disponibles, por lo que no se puede renovar")
-    }
-
 }
 
 module.exports = ControlDatosRestantes

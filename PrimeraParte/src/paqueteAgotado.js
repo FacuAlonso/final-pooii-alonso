@@ -27,7 +27,7 @@ const PaqueteAgotado = function(datosOriginales, minutosOriginales, diasDeDuraci
     }
 
     this.activarAlMomentoDe = function(fecha = new Date()){
-        const PaqueteActivo = require("../src/paqueteActivo");
+        const PaqueteActivo = require("./src/paqueteActivo");
         return new PaqueteActivo(datosOriginales, minutosOriginales, diasDeDuracion, fecha, precio);
     }
 

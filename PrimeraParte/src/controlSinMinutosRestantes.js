@@ -13,11 +13,6 @@ const ControlSinMinutosRestantes = function(){
 
     this.estaAgotado = function(){return true}
 
-    this.renovarCon = function(minutos){
-        return new ControlMinutosRestantes(minutos)
-    }
-
-
 }
 
 module.exports = ControlSinMinutosRestantes

@@ -13,10 +13,6 @@ const ControlSinDatosRestantes = function(){
 
     this.estaAgotado = function(){return true}
 
-    this.renovarCon = function(datos){
-        return new ControlDatosRestantes(datos)
-    }
-
 }
 
 module.exports = ControlSinDatosRestantes
