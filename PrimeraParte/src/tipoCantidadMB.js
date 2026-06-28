@@ -5,6 +5,7 @@ function CantidadMB(cantidadDatosEnMB) {
   Recurso.call(this, cantidadDatosEnMB, "datos de Internet");
   this.validarCeroOPositivo(cantidadDatosEnMB);
 }
+
 CantidadMB.prototype = Object.create(Recurso.prototype);
 
 CantidadMB.prototype.constructor = CantidadMB;

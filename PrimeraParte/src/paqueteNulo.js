@@ -1,6 +1,8 @@
 const PaqueteNulo = function(){
 
-    this.validarCompraDe = function(paquete){return this}
+    this.validarCompraDe = function(paquete){
+        return this
+    }
 
     this.descontarDatos = function(){
         throw Error("El cliente no tiene un paquete activo para consumir datos de Internet")

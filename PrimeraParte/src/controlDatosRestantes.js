@@ -2,24 +2,24 @@ const ControlSinDatosRestantes = require("./controlSinDatosRestantes");
 const CantidadGB = require("./tipoCantidadGB");
 
 const ControlDatosRestantes = function(datosRestantes){
-    this.datosRestantes = datosRestantes;
+    const datosRestantesDelPaquete = datosRestantes;
 
     this.calcularDatosRestantes = function(){
-        return this.datosRestantes.cantidad()
+        return datosRestantesDelPaquete.cantidad()
     }
 
     this.descontar = function(datos){
         let datosADescontar = new CantidadGB(datos.aGB().cantidad())
 
-        if (this.datosRestantes.esIgualEnValorA(datosADescontar)){
+        if (datosRestantesDelPaquete.esIgualEnValorA(datosADescontar)){
             return new ControlSinDatosRestantes()
         }
 
-        return new ControlDatosRestantes(this.datosRestantes.restar(datosADescontar.cantidad()))
+        return new ControlDatosRestantes(datosRestantesDelPaquete.restar(datosADescontar.cantidad()))
     }
 
     this.estaAgotado = function(){
-        return this.datosRestantes.esNulo()
+        return datosRestantesDelPaquete.esNulo()
     }
 
 }

@@ -1,23 +1,23 @@
 const Consumo = function(recurso, fechaHoraInicio, fechaHoraFin){
-    this.recurso = recurso;
-    this.fechaHoraInicio = fechaHoraInicio;
-    this.fechaHoraFin = fechaHoraFin;
+    const recursoConsumido = recurso;
+    const inicioDelConsumo = fechaHoraInicio;
+    const finDelConsumo = fechaHoraFin;
 
     this.calcularInicio = function(){
-        return this.fechaHoraInicio
+        return inicioDelConsumo
     }
 
     this.aplicarEn = function(paquete){
-        this.recurso.aplicarConsumoEn(paquete, this.fechaHoraInicio, this.fechaHoraFin)
+        recursoConsumido.aplicarConsumoEn(paquete, inicioDelConsumo, finDelConsumo)
     }
 
-    this.validarFechasDeConsumo = function(){
-        if (this.fechaHoraInicio >= this.fechaHoraFin){
+    const validarFechasDeConsumo = function(){
+        if (inicioDelConsumo >= finDelConsumo){
             throw Error("La fecha de finalización de consumo debe ser posterior a la del comienzo")
         }
     }
 
-    this.validarFechasDeConsumo();
+    validarFechasDeConsumo();
 
 }
 

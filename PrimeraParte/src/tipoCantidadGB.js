@@ -5,6 +5,7 @@ function CantidadGB(cantidadDatosEnGB) {
   Recurso.call(this, cantidadDatosEnGB, "datos de Internet");
   this.validarCeroOPositivo(cantidadDatosEnGB);
 }
+
 CantidadGB.prototype = Object.create(Recurso.prototype);
 
 CantidadGB.prototype.constructor = CantidadGB;
