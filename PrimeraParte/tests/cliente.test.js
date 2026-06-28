@@ -2,7 +2,14 @@ const Cliente = require("../src/cliente");
 const Consumo = require("../src/consumo");
 const CantidadMB = require("../src/tipoCantidadMB");
 const MinutosLlamadas = require("../src/tipoMinutosLlamadas");
-const crearPaqueteOfertado = require("../tests/PaqueteFactory");
+const { 
+        paqueteDe10GBUnaSemana,
+        paqueteDe10GBUnaSemanaSinMinutos,
+        paqueteDe10GBUnDia,
+        paqueteDe10GBUnDiaSinMinutos,
+        paqueteDe50GBUnMes,
+        paqueteDe1GBUnaSemana,
+} = require("./paqueteFactory");
 
 describe("Sistema para la venta de paquetes de una compañía telefónica", ()=>{
         
@@ -11,7 +18,7 @@ describe("Sistema para la venta de paquetes de una compañía telefónica", ()=>
                 expect(cliente.tieneUnPaqueteActivo()).toBe(false);
         });
 
-        test("Cuando una persona apenas se registra como cliente de la compañía, tiene un saldo nulo", ()=>{
+        test("Cuando una persona apenas se registra como cliente de la compañía, entonces tiene un saldo nulo", ()=>{
                 const cliente = new Cliente("Juan Perez", "+5491112345678");
                 expect(cliente.calcularSaldo()).toBe(0)
         });
@@ -46,7 +53,7 @@ describe("Sistema para la venta de paquetes de una compañía telefónica", ()=>
         test("Cuando un cliente sin un paquete activo compra uno exitosamente, entonces este se activa", ()=>{
                 const cliente = new Cliente("Juan Perez", "+5491112345678");
                 const montoDeLaCarga = 10000;
-                const paquete = crearPaqueteOfertado(10, 1200, 7, 5000);
+                const paquete = paqueteDe10GBUnaSemana();
 
                 cliente.cargarSaldoCon(montoDeLaCarga);
                 cliente.comprarUn(paquete);
@@ -58,7 +65,7 @@ describe("Sistema para la venta de paquetes de una compañía telefónica", ()=>
                 const cliente = new Cliente("Juan Perez", "+5491112345678");
                 const montoDeLaCarga = 10000;
                 const precioDelPaquete = 5000;
-                const paquete = crearPaqueteOfertado(10, 120, 7, precioDelPaquete)
+                const paquete = paqueteDe10GBUnaSemana(precioDelPaquete)
 
                 cliente.cargarSaldoCon(montoDeLaCarga);
                 cliente.comprarUn(paquete);
@@ -70,7 +77,7 @@ describe("Sistema para la venta de paquetes de una compañía telefónica", ()=>
                 const cliente = new Cliente("Juan Perez", "+5491112345678");
                 const montoDeLaCarga = 10000;
                 const precioDelPaquete = 10000;
-                const paquete = crearPaqueteOfertado(50, 600, 30, precioDelPaquete)
+                const paquete = paqueteDe50GBUnMes(precioDelPaquete)
 
                 cliente.cargarSaldoCon(montoDeLaCarga);
                 cliente.comprarUn(paquete);
@@ -81,7 +88,7 @@ describe("Sistema para la venta de paquetes de una compañía telefónica", ()=>
         test("Cuando un cliente intenta comprar un paquete de mayor valor que su saldo actual, entonces falla y su saldo no disminuye", ()=>{
                 const cliente = new Cliente("Juan Perez", "+5491112345678");
                 const montoDeLaCarga = 10;
-                const paquete = crearPaqueteOfertado(10, 1200, 7, 5000)
+                const paquete = paqueteDe10GBUnaSemana()
 
                 cliente.cargarSaldoCon(montoDeLaCarga);
 
@@ -93,8 +100,8 @@ describe("Sistema para la venta de paquetes de una compañía telefónica", ()=>
                 const cliente = new Cliente("Juan Perez", "+5491112345678");
                 const montoDeLaCarga = 10000;
                 const precioDeUnPaquete = 5000;
-                const paquete = crearPaqueteOfertado(10, 1200, 7, precioDeUnPaquete)
-                const otroPaquete = crearPaqueteOfertado(1, 120, 7, 600)
+                const paquete = paqueteDe10GBUnaSemana(precioDeUnPaquete)
+                const otroPaquete = paqueteDe1GBUnaSemana()
 
                 cliente.cargarSaldoCon(montoDeLaCarga);
                 cliente.comprarUn(paquete);
@@ -106,7 +113,7 @@ describe("Sistema para la venta de paquetes de una compañía telefónica", ()=>
         test("Cuando un cliente intenta comprar un paquete de mayor valor que el de su saldo actual, entonces falla y su saldo no disminuye", ()=>{
                 const cliente = new Cliente("Juan Perez", "+5491112345678");
                 const montoDeLaCarga = 10;
-                const paquete = crearPaqueteOfertado(10, 1200, 7, 5000)
+                const paquete = paqueteDe10GBUnaSemana()
 
                 cliente.cargarSaldoCon(montoDeLaCarga);
 
@@ -118,7 +125,7 @@ describe("Sistema para la venta de paquetes de una compañía telefónica", ()=>
                 const cliente = new Cliente("Juan Perez", "+5491112345678");
                 const cantidadGBPaquete = 10;
                 const cantidadMBConsumidos = 50;
-                const paquete = crearPaqueteOfertado(10, 1200, 7, 5000)
+                const paquete = paqueteDe10GBUnaSemana()
                 const consumo = new Consumo(new CantidadMB(cantidadMBConsumidos), new Date("2026-02-23T10:00:00Z"), new Date("2026-02-24T10:00:00Z"));
 
                 cliente.cargarSaldoCon(20000);
@@ -132,7 +139,7 @@ describe("Sistema para la venta de paquetes de una compañía telefónica", ()=>
                 const cliente = new Cliente("Juan Perez", "+5491112345678");
                 const cantidadGBPaquete = 10;
                 const cantidadMBConsumidos = 100;
-                const paquete = crearPaqueteOfertado(10, 1200, 7, 5000)
+                const paquete = paqueteDe10GBUnaSemana()
                 const consumo = new Consumo(new CantidadMB(cantidadMBConsumidos), new Date("2026-02-23T10:00:00Z"), new Date("2026-02-24T10:00:00Z"));
 
                 cliente.cargarSaldoCon(20000);
@@ -144,7 +151,7 @@ describe("Sistema para la venta de paquetes de una compañía telefónica", ()=>
 
         test("Cuando un cliente consume una cantidad de datos menor a la adquirida en el paquete, entonces puede seguir haciendo más consumos", ()=>{
                 const cliente = new Cliente("Juan Perez", "+5491112345678");
-                const paquete = crearPaqueteOfertado(10, 1200, 7, 5000);
+                const paquete = paqueteDe10GBUnaSemana();
                 const primerConsumoDeDatos = new Consumo(new CantidadMB(5000), new Date("2026-02-23T10:00:00Z"), new Date("2026-02-24T10:00:00Z"));
                 const segundoConsumoDeDatos = new Consumo(new CantidadMB(1000), new Date("2026-02-24T10:00:00Z"), new Date("2026-02-26T10:00:00Z"));
 
@@ -158,7 +165,7 @@ describe("Sistema para la venta de paquetes de una compañía telefónica", ()=>
 
         test("Cuando un cliente realiza consumos de distinto tipo por debajo del límite de su paquete, entonces su paquete sigue activo", ()=>{
                 const cliente = new Cliente("Juan Perez", "+5491112345678");
-                const paquete = crearPaqueteOfertado(10, 1200, 7, 5000);
+                const paquete = paqueteDe10GBUnaSemana();
                 const consumoDeInternet = new Consumo(new CantidadMB(2000), new Date("2026-02-23T10:00:00Z"), new Date("2026-02-24T10:00:00Z"));
                 const consumoDeMinutos = new Consumo(new MinutosLlamadas(1000), new Date("2026-02-24T10:00:00Z"), new Date("2026-02-26T10:00:00Z"));
 
@@ -174,7 +181,7 @@ describe("Sistema para la venta de paquetes de una compañía telefónica", ()=>
 
         test("Cuando un cliente agota uno de los tipos consumo, igualmente puede consumir del otro tipo y el paquete continúa activo", ()=>{
                 const cliente = new Cliente("Juan Perez", "+5491112345678");
-                const paquete = crearPaqueteOfertado(10, 1200, 7, 5000);
+                const paquete = paqueteDe10GBUnaSemana();
                 const consumoQueAgotaDatos = new Consumo(new CantidadMB(2000), new Date("2026-02-23T10:00:00Z"), new Date("2026-02-24T10:00:00Z"));
                 const consumoDeMinutos = new Consumo(new MinutosLlamadas(1200), new Date("2026-02-24T10:00:00Z"), new Date("2026-02-26T10:00:00Z"));
 
@@ -190,7 +197,7 @@ describe("Sistema para la venta de paquetes de una compañía telefónica", ()=>
 
         test("Cuando un cliente con un paquete activo intenta realizar un consumo de Internet por encima de lo disponible, entonces falla", ()=>{
                 const cliente = new Cliente("Juan Perez", "+5491112345678");
-                const paquete = crearPaqueteOfertado(10, 1200, 7, 5000);
+                const paquete = paqueteDe10GBUnaSemana();
                 const consumo = new Consumo(new CantidadMB(12000), new Date("2026-02-23T10:00:00Z"), new Date("2026-02-24T10:00:00Z"));
 
                 cliente.cargarSaldoCon(20000);
@@ -201,7 +208,7 @@ describe("Sistema para la venta de paquetes de una compañía telefónica", ()=>
 
         test("Cuando un cliente con un paquete activo intenta realizar un consumo de minutos de llamada por encima de lo disponible, entonces falla", ()=>{
                 const cliente = new Cliente("Juan Perez", "+5491112345678");
-                const paquete = crearPaqueteOfertado(10, 1200, 7, 5000);
+                const paquete = paqueteDe10GBUnaSemana();
                 const consumo = new Consumo(new MinutosLlamadas(12000), new Date("2026-02-23T10:00:00Z"), new Date("2026-02-24T10:00:00Z"));
 
                 cliente.cargarSaldoCon(20000);
@@ -212,7 +219,7 @@ describe("Sistema para la venta de paquetes de una compañía telefónica", ()=>
 
         test("Cuando un cliente con un paquete activo consume todos los datos de Internet y todos los minutos de llamada, entonces el paquete se agota y falla", ()=>{
                 const cliente = new Cliente("Juan Perez", "+5491112345678");
-                const paquete = crearPaqueteOfertado(10, 1200, 7, 5000);
+                const paquete = paqueteDe10GBUnaSemana();
                 const consumoQueAgota = new Consumo(new MinutosLlamadas(1200), new Date("2026-02-23T10:00:00Z"), new Date("2026-02-24T10:00:00Z"));
                 const otroConsumo = new Consumo(new CantidadMB(10000), new Date("2026-02-23T10:00:00Z"), new Date("2026-02-24T10:00:00Z"));
 
@@ -227,7 +234,7 @@ describe("Sistema para la venta de paquetes de una compañía telefónica", ()=>
 
         test("Cuando un cliente con un paquete activo intenta realizar un consumo posterior a la fecha de vencimiento del paquete, entonces falla", ()=>{
                 const cliente = new Cliente("Juan Perez", "+5491112345678");
-                const paquete = crearPaqueteOfertado(10, 1200, 1, 5000);
+                const paquete = paqueteDe10GBUnDia();
                 const consumoQueAgota = new Consumo(new MinutosLlamadas(1200), new Date("2026-02-23T10:00:00Z"), new Date("2026-02-24T10:00:00Z"));
                 const otroConsumo = new Consumo(new CantidadMB(10000), new Date("2026-02-23T10:00:00Z"), new Date("2026-02-24T10:00:00Z"));
 
@@ -240,7 +247,7 @@ describe("Sistema para la venta de paquetes de una compañía telefónica", ()=>
 
         test("Cuando un cliente con un paquete vencido lo renueva, entonces puede voler a consumir datos y realizar llamadas, con su saldo actualizado correctamente", ()=>{
                 const cliente = new Cliente("Juan Perez", "+5491112345678");
-                const paquete = crearPaqueteOfertado(10, 1200, 1, 5000);
+                const paquete = paqueteDe10GBUnDia();
                 const fechaDeCompra = new Date("2026-02-10T10:00:00Z");
                 const fechaDeRenovacion = new Date("2026-02-12T10:00:00Z");
                 const consumoQueAgota = new Consumo(new MinutosLlamadas(200), new Date("2026-02-12T11:00:00Z"), new Date("2026-02-12T12:00:00Z"));
@@ -260,7 +267,7 @@ describe("Sistema para la venta de paquetes de una compañía telefónica", ()=>
 
         test("Cuando un cliente con un paquete agotado lo renueva, entonces puede voler a consumir datos y realizar llamadas, con su saldo actualizado correctamente", ()=>{
                 const cliente = new Cliente("Juan Perez", "+5491112345678");
-                const paquete = crearPaqueteOfertado(10, 0, 7, 5000);
+                const paquete = paqueteDe10GBUnaSemanaSinMinutos();
                 const fechaDeCompra = new Date("2026-02-10T10:00:00Z");
                 const fechaDeRenovacion = new Date("2026-02-12T10:00:00Z");
                 const consumoQueAgota = new Consumo(new CantidadMB(10000), new Date("2026-02-12T11:00:00Z"), new Date("2026-02-12T12:00:00Z"));
@@ -279,7 +286,7 @@ describe("Sistema para la venta de paquetes de una compañía telefónica", ()=>
 
         test("Cuando un cliente con un paquete activo intenta renovarlo, entonces falla", ()=>{
                 const cliente = new Cliente("Juan Perez", "+5491112345678");
-                const paquete = crearPaqueteOfertado(10, 0, 7, 5000);
+                const paquete = paqueteDe10GBUnaSemanaSinMinutos();
                 const consumo = new Consumo(new CantidadMB(1000), new Date("2026-06-27T10:00:00Z"), new Date("2026-06-27T11:00:00Z"));
 
                 cliente.cargarSaldoCon(20000);
@@ -294,7 +301,7 @@ describe("Sistema para la venta de paquetes de una compañía telefónica", ()=>
 
         test("Cuando un cliente con renovación automática activa agota un paquete y realiza otro consumo, teniendo saldo para renovar, entonces se renueva automáticamente ", ()=>{
                 const cliente = new Cliente("Juan Perez", "+5491112345678");
-                const paquete = crearPaqueteOfertado(10, 0, 7, 5000);
+                const paquete = paqueteDe10GBUnaSemanaSinMinutos();
                 const fechaDeCompra = new Date("2026-06-25T10:00:00Z");
                 const consumoQueAgota = new Consumo(new CantidadMB(10000), new Date("2026-06-27T11:00:00Z"), new Date("2026-06-27T12:00:00Z"));
                 const otroConsumo = new Consumo(new CantidadMB(5000), new Date("2026-06-27T13:00:00Z"), new Date("2026-06-27T14:00:00Z"));
@@ -312,7 +319,7 @@ describe("Sistema para la venta de paquetes de una compañía telefónica", ()=>
 
         test("Cuando un cliente con renovación automática activa, y saldo suficiente, realiza un consumo con el paquete vencido, entonces se renueva automáticamente ", ()=>{
                 const cliente = new Cliente("Juan Perez", "+5491112345678");
-                const paquete = crearPaqueteOfertado(10, 0, 1, 5000);
+                const paquete = paqueteDe10GBUnDiaSinMinutos();
                 const fechaDeCompraVencida = new Date("2026-06-20T10:00:00Z");
                 const consumo = new Consumo(new CantidadMB(500), new Date("2026-06-27T11:00:00Z"), new Date("2026-06-27T12:00:00Z"));
 
@@ -328,7 +335,7 @@ describe("Sistema para la venta de paquetes de una compañía telefónica", ()=>
 
         test("Cuando un cliente con renovación automática activa realiza un consumo con el paquete vencido pero no tiene saldo suficiente, entonces falla ", ()=>{
                 const cliente = new Cliente("Juan Perez", "+5491112345678");
-                const paquete = crearPaqueteOfertado(10, 0, 1, 5000);
+                const paquete = paqueteDe10GBUnDiaSinMinutos();
                 const fechaDeCompraVencida = new Date("2026-06-20T10:00:00Z");
                 const consumo = new Consumo(new CantidadMB(10000), new Date("2026-06-27T11:00:00Z"), new Date("2026-06-27T12:00:00Z"));
 
@@ -343,7 +350,7 @@ describe("Sistema para la venta de paquetes de una compañía telefónica", ()=>
 
         test("Cuando un cliente con renovación automática y un paquete activo realiza un consumo válido, entonces el paquete no se renueva", ()=>{
                 const cliente = new Cliente("Juan Perez", "+5491112345678");
-                const paquete = crearPaqueteOfertado(10, 0, 7, 5000);
+                const paquete = paqueteDe10GBUnaSemanaSinMinutos();
                 const fechaDeCompra = new Date("2026-06-25T10:00:00Z");
                 const consumo = new Consumo(new CantidadMB(8000), new Date("2026-06-27T11:00:00Z"), new Date("2026-06-27T12:00:00Z"));
 
@@ -358,7 +365,7 @@ describe("Sistema para la venta de paquetes de una compañía telefónica", ()=>
 
         test("Cuando un cliente con renovación automática agota su paquete activo e intenta realizar otro consumo, pero tampoco tiene saldo suficiente para renovar, entonces falla", ()=>{
                 const cliente = new Cliente("Juan Perez", "+5491112345678");
-                const paquete = crearPaqueteOfertado(10, 0, 7, 5000);
+                const paquete = paqueteDe10GBUnaSemanaSinMinutos();
                 const fechaDeCompra = new Date("2026-06-25T10:00:00Z");
                 const consumoQueAgota = new Consumo(new CantidadMB(10000), new Date("2026-06-27T11:00:00Z"), new Date("2026-06-27T12:00:00Z"));
                 const consumoPosterior = new Consumo(new CantidadMB(1000), new Date("2026-06-27T13:00:00Z"), new Date("2026-06-27T14:00:00Z"));
@@ -375,7 +382,7 @@ describe("Sistema para la venta de paquetes de una compañía telefónica", ()=>
 
         test("Cuando un cliente desactiva la renovacion automatica, entonces un paquete vencido no se renueva automaticamente", ()=>{
                 const cliente = new Cliente("Juan Perez", "+5491112345678");
-                const paquete = crearPaqueteOfertado(10, 0, 1, 5000);
+                const paquete = paqueteDe10GBUnDiaSinMinutos();
                 const fechaDeCompraVencida = new Date("2026-06-20T10:00:00Z");
                 const consumo = new Consumo(new CantidadMB(500), new Date("2026-06-27T11:00:00Z"), new Date("2026-06-27T12:00:00Z"));
 

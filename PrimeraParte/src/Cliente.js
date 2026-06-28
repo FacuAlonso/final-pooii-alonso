@@ -2,7 +2,7 @@ const CuentaPrepago = require("./cuentaPrepago");
 const PaqueteNulo = require("./paqueteNulo");
 const RenovacionAutomaticaOff = require("./renovacionAutomaticaOff");
 const RenovacionAutomaticaOn = require("./renovacionAutomaticaOn");
-const Dinero = require("./tipoDinero")
+const Dinero = require("./tipoDineroPesos")
 
 const Cliente = function(nombreCompleto, numeroDeLinea){
     this.nombreCompleto = nombreCompleto;
