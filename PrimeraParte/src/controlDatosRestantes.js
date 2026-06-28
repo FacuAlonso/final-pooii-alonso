@@ -1,4 +1,4 @@
-const ControlSinDatosRestantes = require("./ControlSinDatosRestantes");
+const ControlSinDatosRestantes = require("./controlSinDatosRestantes");
 const CantidadGB = require("./tipoCantidadGB");
 
 const ControlDatosRestantes = function(datosRestantes){

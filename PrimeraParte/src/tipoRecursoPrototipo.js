@@ -45,7 +45,7 @@ Recurso.prototype.esIgualEnValorA = function(otroRecurso){
 };
 
 Recurso.prototype.aplicarConsumoEn = function(){
-  throw new Error("El sistema no reconoce este recurso");
+  throw new Error("El sistema no reconoce este recurso como consumo");
 };
 
 Recurso.prototype.esNulo = function(){

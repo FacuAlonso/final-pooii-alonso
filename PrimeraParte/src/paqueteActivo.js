@@ -7,28 +7,32 @@ const PaqueteVencido = require("./paqueteVencido");
 const PaqueteActivo = function(datosEnGBComprados, minutosLlamadasComprados, 
     diasDeDuracion, fechaDeCompra = new Date(), precio){
 
-    this.datosEnGBComprados = datosEnGBComprados;
+    this.datosEnGBComprados = datosEnGBComprados.aGB();
     this.minutosLlamadasComprados = minutosLlamadasComprados;
     this.diasDeDuracion = diasDeDuracion;
     this.fechaDeCompra = fechaDeCompra;
-    this.controlDatosNavegacion = new ControlDatosInternet(datosEnGBComprados);
-    this.controlMinutosLlamadas = new ControlMinutosRestantes(minutosLlamadasComprados);
+    this.controlDatos = new ControlDatosInternet(datosEnGBComprados);
+    this.controlMinutos = new ControlMinutosRestantes(minutosLlamadasComprados);
     this.precioDeCompra = precio;
 
     this.descontarDatos = function(datos){
-        this.controlDatosNavegacion = this.controlDatosNavegacion.descontar(datos);
+        this.controlDatos = this.controlDatos.descontar(datos);
     }
 
     this.descontarMinutos = function(minutos){
-        this.controlMinutosLlamadas = this.controlMinutosLlamadas.descontar(minutos);
+        this.controlMinutos = this.controlMinutos.descontar(minutos);
     }
 
     this.calcularDatosRestantes = function(){
-        return this.controlDatosNavegacion.calcularDatosRestantes()
+        return this.controlDatos.calcularDatosRestantes()
     }
 
     this.calcularMinutosRestantes = function(){
-        return this.controlMinutosLlamadas.calcularMinutosRestantes()
+        return this.controlMinutos.calcularMinutosRestantes()
+    }
+
+    this.estaActivo = function(){
+        return this.calcularDatosRestantes() > 0 || this.calcularMinutosRestantes() > 0;
     }
 
     this.validarCompraDe = function(){
@@ -36,7 +40,7 @@ const PaqueteActivo = function(datosEnGBComprados, minutosLlamadasComprados,
     }
     
     this.validarAgotamiento = function(){
-        if (this.controlDatosNavegacion.estaAgotado() && this.controlMinutosLlamadas.estaAgotado()){
+        if (this.controlDatos.estaAgotado() && this.controlMinutos.estaAgotado()){
             return new PaqueteAgotado(datosEnGBComprados, minutosLlamadasComprados, diasDeDuracion, precio)
         }
         return this
@@ -68,6 +72,10 @@ const PaqueteActivo = function(datosEnGBComprados, minutosLlamadasComprados,
 
     this.validarRenovacion = function(){
         throw new Error("El cliente ya dispone de un paquete activo") 
+    }
+
+    this.aplicarRenovacionAutomaticaCon = function(cliente, fecha){
+        return this;
     }
 
 }

@@ -1,7 +1,7 @@
 const RenovacionAutomaticaOff = function(){
-    this.aplicarSobreUnCon = function(cliente, paqueteActivo){
-        return paqueteActivo 
-    };
+    this.aplicarSobreUnCon = function(cliente, paqueteActual, fecha){
+        return paqueteActual 
+    }
 };
 
 module.exports = RenovacionAutomaticaOff

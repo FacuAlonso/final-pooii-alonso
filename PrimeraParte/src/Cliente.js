@@ -7,14 +7,12 @@ const Dinero = require("./tipoDinero")
 const Cliente = function(nombreCompleto, numeroDeLinea){
     this.nombreCompleto = nombreCompleto;
     this.numeroDeLinea = numeroDeLinea;
-    this.paqueteActivo = new PaqueteNulo();
+    this.paqueteActual = new PaqueteNulo();
     this.cuentaDePago = new CuentaPrepago(new Dinero(0));
     this.renovacionAutomatica = new RenovacionAutomaticaOff();
 
     this.tieneUnPaqueteActivo = function(){
-        const tieneDatosRestantes = this.paqueteActivo.calcularDatosRestantes() > 0;
-        const tieneMinutosRestantes = this.paqueteActivo.calcularMinutosRestantes() > 0;
-        return (tieneDatosRestantes || tieneMinutosRestantes)
+        return this.paqueteActual.estaActivo();
     }
 
     this.calcularSaldo = function(){
@@ -26,29 +24,30 @@ const Cliente = function(nombreCompleto, numeroDeLinea){
     }
 
     this.comprarUn = function(paquete, fechaDeLaCompra = new Date()){
-        this.paqueteActivo.validarCompraDe(paquete);
+        this.paqueteActual.validarCompraDe(paquete);
         this.cuentaDePago.pagarUn(paquete);
-        this.paqueteActivo = paquete.activarAlMomentoDe(fechaDeLaCompra)
+        this.paqueteActual = paquete.activarAlMomentoDe(fechaDeLaCompra)
     }
 
     this.realizarUn = function(consumo){
-        const fechaDelConsumo = consumo.calcularInicio()
-        this.paqueteActivo = this.paqueteActivo.validarVencimiento(fechaDelConsumo, this.renovacionAutomatica);
-        consumo.aplicarEn(this.paqueteActivo);
-        this.paqueteActivo = this.paqueteActivo.validarAgotamiento(this.renovacionAutomatica)
-        //REGISTRAR EL CONSUMO
+        const fechaDelConsumo = consumo.calcularInicio();
+        this.validarVencimientoDelPaqueteAlMomentoDe(fechaDelConsumo);
+        this.validarAgotamientoDelPaqueteAlMomentoDe(fechaDelConsumo);
+        consumo.aplicarEn(this.paqueteActual);
+        
+        //REGISTRAR EL CONSUMO - TO DO
     }
 
     this.calcularDatosInternetDisponibles = function(){
-        return this.paqueteActivo.calcularDatosRestantes()
+        return this.paqueteActual.calcularDatosRestantes()
     }
 
     this.calcularMinutosLlamadaDisponibles = function(){
-        return this.paqueteActivo.calcularMinutosRestantes()
+        return this.paqueteActual.calcularMinutosRestantes()
     }
 
     this.recordarUltimoPaqueteComprado = function(){
-        return this.paqueteActivo.comoPaqueteOfertado()
+        return this.paqueteActual.comoPaqueteOfertado()
     }
 
     this.activarRenovacionAutomatica = function(){
@@ -60,9 +59,25 @@ const Cliente = function(nombreCompleto, numeroDeLinea){
     }
 
     this.renovarPaquete = function(fechaDeRenovacion = new Date()){
-        this.paqueteActivo = this.paqueteActivo.renovarse(fechaDeRenovacion);
-        this.comprarUn(this.recordarUltimoPaqueteComprado(), fechaDeRenovacion)
+        this.paqueteActual = this.paqueteActual.renovarse(fechaDeRenovacion);
+        this.comprarUn(this.recordarUltimoPaqueteComprado(), fechaDeRenovacion);
+        return this.paqueteActual;
     }
+
+    this.validarVencimientoDelPaqueteAlMomentoDe = function(fecha){
+        this.paqueteActual = this.paqueteActual.validarVencimiento(fecha);
+        this.paqueteActual = this.renovacionAutomatica.aplicarSobreUnCon(this, this.paqueteActual, fecha);
+    }
+
+    this.validarAgotamientoDelPaqueteAlMomentoDe = function(fecha){
+        this.paqueteActual = this.paqueteActual.validarAgotamiento();
+        this.paqueteActual = this.renovacionAutomatica.aplicarSobreUnCon(this, this.paqueteActual, fecha);
+    }
+
+    this.puedeRenovarPaquete = function(){
+        return this.cuentaDePago.puedePagarUn(this.recordarUltimoPaqueteComprado());
+    }
+
 }
 
 module.exports = Cliente

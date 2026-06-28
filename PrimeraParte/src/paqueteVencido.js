@@ -18,6 +18,10 @@ const PaqueteVencido = function(datosOriginales, minutosOriginales, diasDeDuraci
         throw Error("El paquete actual del cliente se encuentra vencido. No puede realizar llamadas")
     }
 
+    this.estaActivo = function(){
+        return false;
+    }
+
     this.validarCompraDe = function(paquete){}
 
     this.calcularPrecio = function(){
@@ -48,6 +52,11 @@ const PaqueteVencido = function(datosOriginales, minutosOriginales, diasDeDuraci
     this.renovarse = function(){
         return this.validarRenovacion()
     }
+
+    this.aplicarRenovacionAutomaticaCon = function(cliente, fecha){
+        return cliente.renovarPaquete(fecha);
+    }
+
 }
 
 module.exports = PaqueteVencido

@@ -16,6 +16,10 @@ const PaqueteAgotado = function(datosOriginales, minutosOriginales, diasDeDuraci
         throw Error("El paquete actual del cliente se encuentra agotado. No puede realizar llamadas")
     }
 
+    this.estaActivo = function(){
+        return false;
+    }
+
     this.validarCompraDe = function(paquete){}
 
     this.calcularPrecio = function(){
@@ -48,6 +52,12 @@ const PaqueteAgotado = function(datosOriginales, minutosOriginales, diasDeDuraci
         return this.validarRenovacion()
     }
 
+    this.aplicarRenovacionAutomaticaCon = function(cliente, fecha){
+        if (cliente.puedeRenovarPaquete()){
+            return cliente.renovarPaquete(fecha);
+        }
+        return this;
+    }
 }
 
 module.exports = PaqueteAgotado

@@ -18,6 +18,10 @@ const PaqueteNulo = function(){
         throw Error("Debe adquirir un paquete disponible")
     }
 
+    this.estaActivo = function(){
+        return false;
+    }
+
     this.validarRenovacion = function(){
         throw Error("Debe adquirir un paquete disponible")
     }
@@ -30,6 +34,9 @@ const PaqueteNulo = function(){
         return this
     }
 
+    this.aplicarRenovacionAutomaticaCon = function(cliente, fecha){
+        return this;
+    }
 }
 
 module.exports = PaqueteNulo

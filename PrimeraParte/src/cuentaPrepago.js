@@ -17,6 +17,10 @@ const CuentaPrepago = function(saldoInicial){
         return this.saldo.cantidad()
     }
 
+    this.puedePagarUn = function(paquete){
+        return this.saldo.cantidad() >= paquete.calcularPrecio();
+    }
+
 }
 
 module.exports = CuentaPrepago

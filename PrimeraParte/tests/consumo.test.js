@@ -2,6 +2,8 @@ const Consumo = require("../src/consumo");
 const PaqueteActivo = require("../src/paqueteActivo");
 const CantidadGB = require("../src/tipoCantidadGB");
 const CantidadMB = require("../src/tipoCantidadMB");
+const DuracionEnDias = require("../src/tipoDuracionEnDias");
+const MinutosLlamadas = require("../src/tipoMinutosLlamadas");
 
 describe("Consumos informados por una fuente externa", ()=>{
 
@@ -22,8 +24,8 @@ describe("Consumos informados por una fuente externa", ()=>{
 
         test("Cuando se intenta impactar un consumo no soportado por el sistema en un paquete, falla", ()=>{
                 const unaFecha = Date("2026-02-23T10:00:00Z");
-                const unPaquete = PaqueteActivo(10, 100, 12, new Date());
-                expect(() => (new Consumo(new CantidadGB(1), unaFecha, unaFecha+10)).aplicarEn(unPaquete)).toThrow("El sistema no reconoce este recurso");
+                const unPaquete = PaqueteActivo(new CantidadGB(5), new MinutosLlamadas(3600), new DuracionEnDias(7), new Date());
+                expect(() => (new Consumo(new CantidadGB(1), unaFecha, unaFecha+10)).aplicarEn(unPaquete)).toThrow("El sistema no reconoce este recurso como consumo");
 
         });
 
