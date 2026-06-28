@@ -2,21 +2,21 @@ const ControlSinMinutosRestantes = require("./controlSinMinutosRestantes");
 
 const ControlMinutosRestantes = function(minutos){
     
-    const minutosRestantes = minutos;
+    this.minutosRestantes = minutos;
 
     this.calcularMinutosRestantes = function(){
-        return minutosRestantes.cantidad()
+        return this.minutosRestantes.cantidad()
     }
 
     this.descontar = function(minutosADescontar){
-        if (minutosRestantes.esIgualEnValorA(minutosADescontar)){
+        if (this.minutosRestantes.esIgualEnValorA(minutosADescontar)){
             return new ControlSinMinutosRestantes() 
         }
-        return new ControlMinutosRestantes(minutosRestantes.restar(minutosADescontar.cantidad()))
+        return new ControlMinutosRestantes(this.minutosRestantes.restar(minutosADescontar.cantidad()))
     }
 
     this.estaAgotado = function(){
-        return minutosRestantes.esNulo()
+        return this.minutosRestantes.esNulo()
     }
 
 }

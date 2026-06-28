@@ -32,7 +32,7 @@ const PaqueteActivo = function(datosEnGBComprados, minutosLlamadasComprados,
     }
 
     this.estaActivo = function(){
-        return this.calcularDatosRestantes() > 0 || this.calcularMinutosRestantes() > 0;
+        return !(controlDatos.estaAgotado() && controlMinutos.estaAgotado());
     }
 
     this.validarCompraDe = function(){

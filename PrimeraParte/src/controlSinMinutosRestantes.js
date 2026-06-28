@@ -11,7 +11,9 @@ const ControlSinMinutosRestantes = function(){
         throw new Error("El cliente no tiene minutos de llamada disponible en su paquete actual")
     }
 
-    this.estaAgotado = function(){return true}
+    this.estaAgotado = function(){
+        return true
+    }
 
 }
 
