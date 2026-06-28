@@ -17,7 +17,7 @@ const GestorDeConsumos = function(){
     }
 
     const consumosOrdenados = function(){
-        return consumos.sort((unConsumo, otroConsumo) =>
+        return [...consumos].sort((unConsumo, otroConsumo) =>
             unConsumo.calcularInicio() - otroConsumo.calcularInicio()
         )
     }
