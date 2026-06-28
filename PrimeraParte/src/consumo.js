@@ -7,6 +7,10 @@ const Consumo = function(recurso, fechaHoraInicio, fechaHoraFin){
         return inicioDelConsumo
     }
 
+    this.calcularFin = function(){
+        return finDelConsumo
+    }
+
     this.aplicarEn = function(paquete){
         recursoConsumido.aplicarConsumoEn(paquete, inicioDelConsumo, finDelConsumo)
     }

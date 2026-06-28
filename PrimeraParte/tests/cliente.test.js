@@ -396,5 +396,47 @@ describe("Sistema para la venta de paquetes de una compañía telefónica", ()=>
                 expect(cliente.tieneUnPaqueteActivo()).toBe(false);
         });
 
+        test("Cuando un cliente realiza un consumo y luego puede verlo en su historial, entonces es válido", ()=>{
+                const cliente = new Cliente("Juan Perez", "+5491112345678");
+                const paquete = paqueteDe10GBUnaSemana();
+                const consumo = new Consumo(new CantidadMB(5000), new Date("2026-02-23T10:00:00Z"), new Date("2026-02-24T10:00:00Z"));
+
+                cliente.cargarSaldoCon(20000);
+                cliente.comprarUn(paquete);
+                cliente.realizarUn(consumo);
+
+                expect(cliente.detallarConsumos()).toEqual([consumo]);
+        });
+
+        test("Cuando un cliente consulta su historial de consumos, entonces los obtiene ordenados por fecha de inicio", ()=>{
+                const cliente = new Cliente("Juan Perez", "+5491112345678");
+                const paquete = paqueteDe10GBUnaSemana();
+                const consumoMasNuevo = new Consumo(new CantidadMB(1000), new Date("2026-02-25T10:00:00Z"), new Date("2026-02-25T11:00:00Z"));
+                const consumoMasViejo = new Consumo(new CantidadMB(1000), new Date("2026-02-23T10:00:00Z"), new Date("2026-02-23T11:00:00Z"));
+
+                cliente.cargarSaldoCon(20000);
+                cliente.comprarUn(paquete);
+                cliente.realizarUn(consumoMasNuevo);
+                cliente.realizarUn(consumoMasViejo);
+
+                expect(cliente.detallarConsumos()).toEqual([consumoMasViejo, consumoMasNuevo]);
+        });
+
+        test("Cuando un cliente consulta consumos entre dos fechas, entonces obtiene solo los consumos dentro de ese rango", ()=>{
+                const cliente = new Cliente("Juan Perez", "+5491112345678");
+                const paquete = paqueteDe10GBUnaSemana();
+                const consumoAnterior = new Consumo(new CantidadMB(1000), new Date("2026-02-21T10:00:00Z"), new Date("2026-02-21T11:00:00Z"));
+                const consumoDentroDelRango = new Consumo(new CantidadMB(1000), new Date("2026-02-23T10:00:00Z"), new Date("2026-02-23T11:00:00Z"));
+                const consumoPosterior = new Consumo(new CantidadMB(1000), new Date("2026-02-25T10:00:00Z"), new Date("2026-02-25T11:00:00Z"));
+
+                cliente.cargarSaldoCon(20000);
+                cliente.comprarUn(paquete);
+                cliente.realizarUn(consumoPosterior);
+                cliente.realizarUn(consumoDentroDelRango);
+                cliente.realizarUn(consumoAnterior);
+
+                expect(cliente.detallarConsumosEntre(new Date("2026-02-23T00:00:00Z"), new Date("2026-02-24T00:00:00Z"))).toEqual([consumoDentroDelRango]);
+        });
+
 
 })

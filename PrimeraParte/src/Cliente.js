@@ -1,4 +1,5 @@
 const CuentaPrepago = require("./cuentaPrepago");
+const GestorDeConsumos = require("./gestorDeConsumos");
 const PaqueteNulo = require("./paqueteNulo");
 const RenovacionAutomaticaOff = require("./renovacionAutomaticaOff");
 const RenovacionAutomaticaOn = require("./renovacionAutomaticaOn");
@@ -8,6 +9,7 @@ const Cliente = function(nombreCompleto, numeroDeLinea){
     const nombreDelCliente = nombreCompleto;
     const numeroDeLineaDelCliente = numeroDeLinea;
     const cuentaDePago = new CuentaPrepago(new Dinero(0));
+    const gestorDeConsumos = new GestorDeConsumos()
     let paqueteActual = new PaqueteNulo();
     let renovacionAutomatica = new RenovacionAutomaticaOff();
 
@@ -34,8 +36,7 @@ const Cliente = function(nombreCompleto, numeroDeLinea){
         this.validarVencimientoDelPaqueteAlMomentoDe(fechaDelConsumo);
         this.validarAgotamientoDelPaqueteAlMomentoDe(fechaDelConsumo);
         consumo.aplicarEn(paqueteActual);
-        
-        //REGISTRAR EL CONSUMO - TO DO
+        gestorDeConsumos.registrar(consumo);
     }
 
     this.calcularDatosInternetDisponibles = function(){
@@ -72,6 +73,14 @@ const Cliente = function(nombreCompleto, numeroDeLinea){
 
     this.puedeRenovarPaquete = function(){
         return cuentaDePago.puedePagarUn(paqueteActual.comoPaqueteOfertado());
+    }
+
+    this.detallarConsumos = function(){
+        return gestorDeConsumos.detallar();
+    }
+
+    this.detallarConsumosEntre = function(fechaDesde, fechaHasta){
+        return gestorDeConsumos.detallarEntre(fechaDesde, fechaHasta);
     }
 
 }
