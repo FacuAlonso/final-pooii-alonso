@@ -277,6 +277,21 @@ describe("Sistema para la venta de paquetes de una compañía telefónica", ()=>
            
         });
 
+        test("Cuando un cliente con un paquete activo intenta renovarlo, entonces falla", ()=>{
+                const cliente = new Cliente("Juan Perez", "+5491112345678");
+                const paquete = crearPaqueteOfertado(10, 0, 7, 5000);
+                const consumo = new Consumo(new CantidadMB(1000));
+
+                cliente.cargarSaldoCon(20000);
+                cliente.comprarUn(paquete);
+                cliente.realizarUn(consumo);
+
+                expect(cliente.calcularDatosInternetDisponibles()).toBe(9);
+                expect(cliente.tieneUnPaqueteActivo()).toBe(true);
+                expect(() => cliente.renovarPaquete()).toThrow("El cliente ya dispone de un paquete activo")
+           
+        });
+
         test("Cuando un cliente con renovación automática activa agota un paquete y realiza otro consumo, teniendo saldo para renovar, entonces se renueva automáticamente ", ()=>{
                 const cliente = new Cliente("Juan Perez", "+5491112345678");
                 const paquete = crearPaqueteOfertado(10, 0, 7, 5000);

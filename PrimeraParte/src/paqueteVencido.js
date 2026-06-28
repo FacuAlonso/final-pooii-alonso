@@ -22,7 +22,7 @@ const PaqueteVencido = function(datosOriginales, minutosOriginales, diasDeDuraci
         return false;
     }
 
-    this.validarCompraDe = function(paquete){}
+    this.validarCompraDe = function(paquete){return this}
 
     this.calcularPrecio = function(){
         return precio.cantidad();

@@ -20,14 +20,14 @@ const PaqueteAgotado = function(datosOriginales, minutosOriginales, diasDeDuraci
         return false;
     }
 
-    this.validarCompraDe = function(paquete){}
+    this.validarCompraDe = function(paquete){return this}
 
     this.calcularPrecio = function(){
         return precio.cantidad();
     }
 
     this.activarAlMomentoDe = function(fecha = new Date()){
-        const PaqueteActivo = require("./src/paqueteActivo");
+        const PaqueteActivo = require("./paqueteActivo");
         return new PaqueteActivo(datosOriginales, minutosOriginales, diasDeDuracion, fecha, precio);
     }
 
