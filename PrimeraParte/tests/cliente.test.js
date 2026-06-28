@@ -280,7 +280,7 @@ describe("Sistema para la venta de paquetes de una compañía telefónica", ()=>
         test("Cuando un cliente con un paquete activo intenta renovarlo, entonces falla", ()=>{
                 const cliente = new Cliente("Juan Perez", "+5491112345678");
                 const paquete = crearPaqueteOfertado(10, 0, 7, 5000);
-                const consumo = new Consumo(new CantidadMB(1000));
+                const consumo = new Consumo(new CantidadMB(1000), new Date("2026-06-27T10:00:00Z"), new Date("2026-06-27T11:00:00Z"));
 
                 cliente.cargarSaldoCon(20000);
                 cliente.comprarUn(paquete);
