@@ -1,3 +1,4 @@
+const AppSinIdentificar = require("./appSinIdentificar");
 const ControlDatosInternet = require("./controlDatosRestantes");
 const ControlMinutosRestantes = require("./controlMinutosRestantes");
 const PaqueteAgotado = require("./paqueteAgotado");
@@ -5,16 +6,25 @@ const PaqueteOfertado = require("./paqueteOfertado");
 const PaqueteVencido = require("./paqueteVencido");
 
 const PaqueteActivo = function(datosEnGBComprados, minutosLlamadasComprados, 
-    diasDeDuracion, fechaDeCompra = new Date(), precio){
+    diasDeDuracion, fechaDeCompra = new Date(), precio, app = new AppSinIdentificar()){
 
     const datosComprados = datosEnGBComprados.aGB();
     const minutosComprados = minutosLlamadasComprados;
     const duracion = diasDeDuracion;
     const fechaCompra = fechaDeCompra;
     const precioDeCompra = precio;
+    const appAsociada = app;
     let controlDatos = new ControlDatosInternet(datosEnGBComprados);
     let controlMinutos = new ControlMinutosRestantes(minutosLlamadasComprados);
 
+    this.consumirDatos = function(datos, appConsumida = new AppSinIdentificar()){
+        appAsociada.consumirDatosEn(datos, this, appConsumida);
+    }
+
+    this.consumirMinutos = function(minutos){
+        this.descontarMinutos(minutos)
+    }
+    
     this.descontarDatos = function(datos){
         controlDatos = controlDatos.descontar(datos);
     }
@@ -41,20 +51,20 @@ const PaqueteActivo = function(datosEnGBComprados, minutosLlamadasComprados,
     
     this.validarAgotamiento = function(){
         if (controlDatos.estaAgotado() && controlMinutos.estaAgotado()){
-            return new PaqueteAgotado(datosComprados, minutosComprados, duracion, precioDeCompra)
+            return new PaqueteAgotado(datosComprados, minutosComprados, duracion, precioDeCompra, appAsociada)
         }
         return this
     }
 
     this.validarVencimiento = function(fecha = new Date()){
         if (calcularFechaDeVencimiento() <= fecha){
-            return new PaqueteVencido(datosComprados, minutosComprados, duracion, precioDeCompra)
+            return new PaqueteVencido(datosComprados, minutosComprados, duracion, precioDeCompra, appAsociada)
         }
         return this
     }
 
     this.comoPaqueteOfertado = function(){
-        return new PaqueteOfertado(datosComprados, minutosComprados, duracion, precioDeCompra)
+        return new PaqueteOfertado(datosComprados, minutosComprados, duracion, precioDeCompra, appAsociada)
     }
 
     this.renovarse = function(fecha){

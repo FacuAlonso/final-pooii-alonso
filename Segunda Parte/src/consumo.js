@@ -1,7 +1,10 @@
-const Consumo = function(recurso, fechaHoraInicio, fechaHoraFin){
+const AppSinIdentificar = require("./appSinIdentificar");
+
+const Consumo = function(recurso, fechaHoraInicio, fechaHoraFin, app = new AppSinIdentificar()){
     const recursoConsumido = recurso;
     const inicioDelConsumo = fechaHoraInicio;
     const finDelConsumo = fechaHoraFin;
+    const appConsumida = app;
 
     this.calcularInicio = function(){
         return inicioDelConsumo
@@ -12,7 +15,7 @@ const Consumo = function(recurso, fechaHoraInicio, fechaHoraFin){
     }
 
     this.aplicarEn = function(paquete){
-        recursoConsumido.aplicarConsumoEn(paquete, inicioDelConsumo, finDelConsumo)
+        recursoConsumido.aplicarConsumoEn(paquete, inicioDelConsumo, finDelConsumo, appConsumida)
     }
 
     const validarFechasDeConsumo = function(){

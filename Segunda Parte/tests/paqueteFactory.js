@@ -1,11 +1,13 @@
+const AppSinIdentificar = require("../src/appSinIdentificar");
+const AppUsoIlimitado = require("../src/appUsoIlimitado");
 const PaqueteOfertado = require("../src/paqueteOfertado");
 const CantidadGB = require("../src/tipoCantidadGB");
 const DineroPesos = require("../src/tipoDineroPesos");
 const DuracionEnDias = require("../src/tipoDuracionEnDias");
 const MinutosLlamadas = require("../src/tipoMinutosLlamadas");
 
-function crearPaqueteOfertado(cantidadGB, cantidadMinutos, cantidadDias, valorPrecio) {
-  return new PaqueteOfertado(new CantidadGB(cantidadGB), new MinutosLlamadas(cantidadMinutos), new DuracionEnDias(cantidadDias), new DineroPesos(valorPrecio));
+function crearPaqueteOfertado(cantidadGB, cantidadMinutos, cantidadDias, valorPrecio, appUsoIlimitado) {
+  return new PaqueteOfertado(new CantidadGB(cantidadGB), new MinutosLlamadas(cantidadMinutos), new DuracionEnDias(cantidadDias), new DineroPesos(valorPrecio), appUsoIlimitado);
 };
 
 function paqueteDe10GBUnaSemana(precio = 5000) {
@@ -32,6 +34,10 @@ function paqueteDe1GBUnaSemana(precio = 600) {
   return crearPaqueteOfertado(1, 120, 7, precio);
 }
 
+function paqueteDe10GBUnaSemanaWhatsAppIlimitado(precio = 5000) {
+  return crearPaqueteOfertado(10, 1200, 7, precio, new AppUsoIlimitado("WhatsApp"));
+}
+
 module.exports = {
   paqueteDe10GBUnaSemana,
   paqueteDe10GBUnaSemanaSinMinutos,
@@ -39,4 +45,5 @@ module.exports = {
   paqueteDe10GBUnDiaSinMinutos,
   paqueteDe50GBUnMes,
   paqueteDe1GBUnaSemana,
+  paqueteDe10GBUnaSemanaWhatsAppIlimitado,
 };

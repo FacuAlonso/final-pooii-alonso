@@ -18,8 +18,8 @@ CantidadMB.prototype.aMB = function() {
   return this;
 };
 
-CantidadMB.prototype.aplicarConsumoEn = function(paquete, fechaHoraInicio, fechaHoraFin){
-  paquete.descontarDatos(this, fechaHoraInicio, fechaHoraFin)
+CantidadMB.prototype.aplicarConsumoEn = function(paquete, fechaHoraInicio, fechaHoraFin, appConsumida){
+  paquete.consumirDatos(this, appConsumida)
 };
 
 module.exports = CantidadMB;

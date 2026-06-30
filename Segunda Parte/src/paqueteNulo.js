@@ -4,11 +4,11 @@ const PaqueteNulo = function(){
         return this
     }
 
-    this.descontarDatos = function(){
+    this.consumirDatos = function(){
         throw Error("El cliente no tiene un paquete activo para consumir datos de Internet")
     }
 
-    this.descontarMinutos = function(){
+    this.consumirMinutos = function(){
         throw Error("El cliente no tiene un paquete activo para consumir minutos de llamadas")
     }
 
@@ -34,6 +34,14 @@ const PaqueteNulo = function(){
 
     this.validarVencimiento = function(){
         return this
+    }
+
+    this.validarAgotamiento = function(){
+        return this
+    }
+
+    this.comoPaqueteOfertado = function(){
+        throw Error("Debe adquirir un paquete disponible")
     }
 
     this.aplicarRenovacionAutomaticaCon = function(cliente, fecha){

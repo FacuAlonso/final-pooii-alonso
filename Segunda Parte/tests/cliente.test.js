@@ -1,3 +1,4 @@
+const AppUsoIlimitado = require("../src/appUsoIlimitado");
 const Cliente = require("../src/cliente");
 const Consumo = require("../src/consumo");
 const CantidadMB = require("../src/tipoCantidadMB");
@@ -9,6 +10,7 @@ const {
         paqueteDe10GBUnDiaSinMinutos,
         paqueteDe50GBUnMes,
         paqueteDe1GBUnaSemana,
+        paqueteDe10GBUnaSemanaWhatsAppIlimitado,
 } = require("./paqueteFactory");
 
 describe("Sistema para la venta de paquetes de una compañía telefónica", ()=>{
@@ -436,6 +438,69 @@ describe("Sistema para la venta de paquetes de una compañía telefónica", ()=>
                 cliente.realizarUn(consumoAnterior);
 
                 expect(cliente.detallarConsumosEntre(new Date("2026-02-23T00:00:00Z"), new Date("2026-02-24T00:00:00Z"))).toEqual([consumoDentroDelRango]);
+        });
+
+        test("Cuando un cliente realiza un consumo con una app de uso ilimitado, entonces sus datos restantes no disminuyen", ()=>{
+                const cliente = new Cliente("Juan Perez", "+5491112345678");
+                const paquete = paqueteDe10GBUnaSemanaWhatsAppIlimitado();
+                const consumo = new Consumo(new CantidadMB(1000), new Date("2026-02-21T10:00:00Z"), new Date("2026-02-21T11:00:00Z"), new AppUsoIlimitado("WhatsApp"));
+
+                cliente.cargarSaldoCon(20000);
+                cliente.comprarUn(paquete);
+                cliente.realizarUn(consumo);
+
+                expect(cliente.calcularDatosInternetDisponibles()).toBe(10);
+        });
+
+        
+        test("Cuando un cliente realizar un consumo sin detallar la aplicación, entonces sus datos restantes disminuyen aunque haya una app de uso ilmitado para el paquete", ()=>{
+                const cliente = new Cliente("Juan Perez", "+5491112345678");
+                const paquete = paqueteDe10GBUnaSemanaWhatsAppIlimitado();
+                const consumo = new Consumo(new CantidadMB(1000), new Date("2026-02-21T10:00:00Z"), new Date("2026-02-21T11:00:00Z"));
+
+                cliente.cargarSaldoCon(20000);
+                cliente.comprarUn(paquete);
+                cliente.realizarUn(consumo);
+
+                expect(cliente.calcularDatosInternetDisponibles()).toBe(9);
+        });
+
+        test("Cuando un cliente realiza un consumo con una app distinta a la especificada para uso ilimitado, entonces sus datos restantes disminuyen", ()=>{
+                const cliente = new Cliente("Juan Perez", "+5491112345678");
+                const paquete = paqueteDe10GBUnaSemanaWhatsAppIlimitado();
+                const consumo = new Consumo(new CantidadMB(1000), new Date("2026-02-21T10:00:00Z"), new Date("2026-02-21T11:00:00Z"), new AppUsoIlimitado("YouTube"));
+
+                cliente.cargarSaldoCon(20000);
+                cliente.comprarUn(paquete);
+                cliente.realizarUn(consumo);
+
+                expect(cliente.calcularDatosInternetDisponibles()).toBe(9);
+        });
+
+        test("Cuando un cliente renueva automáticamente su paquete por vencimiento, entonces conserva el beneficio de uso ilimitado de la app correspondiente", ()=>{
+                const cliente = new Cliente("Juan Perez", "+5491112345678");
+                const paquete = paqueteDe10GBUnaSemanaWhatsAppIlimitado();
+                const consumo = new Consumo(new CantidadMB(1000), new Date("2026-02-21T10:00:00Z"), new Date("2026-02-21T11:00:00Z"), new AppUsoIlimitado("WhatsApp"));
+
+                cliente.cargarSaldoCon(20000);
+                cliente.comprarUn(paquete, new Date("2026-01-01T10:00:00Z"));
+                cliente.activarRenovacionAutomatica()
+                cliente.realizarUn(consumo);
+
+                expect(cliente.calcularDatosInternetDisponibles()).toBe(10);
+        });
+
+        test("Cuando un cliente renueva automáticamente su paquete por agotamiento, entonces conserva el beneficio de uso ilimitado de la app correspondiente", ()=>{
+                const cliente = new Cliente("Juan Perez", "+5491112345678");
+                const paquete = paqueteDe10GBUnaSemanaWhatsAppIlimitado();
+                const consumoUsoIlimitado = new Consumo(new CantidadMB(1000), new Date("2026-02-21T10:00:00Z"), new Date("2026-02-21T11:00:00Z"), new AppUsoIlimitado("WhatsApp"));
+                const consumoQueDescuentaDatos = new Consumo(new CantidadMB(10000), new Date("2026-02-21T10:00:00Z"), new Date("2026-02-21T11:00:00Z"));
+
+                cliente.cargarSaldoCon(20000);
+                cliente.activarRenovacionAutomatica()
+                cliente.realizarUn(consumoUsoIlimitado);
+
+                expect(cliente.calcularDatosInternetDisponibles()).toBe(10);
         });
 
 

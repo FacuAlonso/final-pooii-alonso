@@ -1,10 +1,10 @@
-const PaqueteAgotado = function(datosOriginales, minutosOriginales, diasDeDuracion, precio){
+const PaqueteAgotado = function(datosOriginales, minutosOriginales, diasDeDuracion, precio, appIlimitada){
 
-    this.descontarDatos = function(){
+    this.consumirDatos = function(){
         throw Error("El paquete actual del cliente se encuentra agotado. No puede consumir datos de Internet")
     }
 
-    this.descontarMinutos = function(){
+    this.consumirMinutos = function(){
         throw Error("El paquete actual del cliente se encuentra agotado. No puede realizar llamadas")
     }
 
@@ -30,7 +30,7 @@ const PaqueteAgotado = function(datosOriginales, minutosOriginales, diasDeDuraci
 
     this.activarAlMomentoDe = function(fecha = new Date()){
         const PaqueteActivo = require("./paqueteActivo");
-        return new PaqueteActivo(datosOriginales, minutosOriginales, diasDeDuracion, fecha, precio);
+        return new PaqueteActivo(datosOriginales, minutosOriginales, diasDeDuracion, fecha, precio, appIlimitada);
     }
 
     this.validarVencimiento = function(){
@@ -43,7 +43,7 @@ const PaqueteAgotado = function(datosOriginales, minutosOriginales, diasDeDuraci
 
     this.comoPaqueteOfertado = function(){
         const PaqueteOfertado = require("./paqueteOfertado");
-        return new PaqueteOfertado(datosOriginales, minutosOriginales, diasDeDuracion, precio)
+        return new PaqueteOfertado(datosOriginales, minutosOriginales, diasDeDuracion, precio, appIlimitada)
     }
 
     this.validarRenovacion = function(){
