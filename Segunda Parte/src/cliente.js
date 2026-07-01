@@ -83,6 +83,29 @@ const Cliente = function(nombreCompleto, numeroDeLinea){
         return gestorDeConsumos.detallarEntre(fechaDesde, fechaHasta);
     }
 
+    this.prestarA = function(clienteReceptor, recursos, fechaDelPrestamo = new Date()){
+        this.validarVencimientoDelPaqueteAlMomentoDe(fechaDelPrestamo);
+        this.validarAgotamientoDelPaqueteAlMomentoDe(fechaDelPrestamo);
+        const prestamo = paqueteActual.generarPrestamoCon(recursos, fechaDelPrestamo);
+        clienteReceptor.validarRecepcionDePrestamo(prestamo);
+        prestamo.descontarDe(paqueteActual);
+        clienteReceptor.recibirPrestamo(prestamo);
+        gestorDeConsumos.registrar(prestamo);
+        return prestamo;
+    }
+
+    this.validarRecepcionDePrestamo = function(prestamo){
+        const fechaDelPrestamo = prestamo.calcularInicio();
+        this.validarVencimientoDelPaqueteAlMomentoDe(fechaDelPrestamo);
+        this.validarAgotamientoDelPaqueteAlMomentoDe(fechaDelPrestamo);
+        paqueteActual.validarRecepcionDePrestamo();
+    }
+
+    this.recibirPrestamo = function(prestamo){
+        paqueteActual = prestamo.activar();
+        gestorDeConsumos.registrar(prestamo);
+    }
+
 }
 
 module.exports = Cliente

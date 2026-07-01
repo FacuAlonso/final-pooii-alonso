@@ -18,5 +18,12 @@ CantidadGB.prototype.aMB = function() {
   return new CantidadMB(this.monto * 1000); 
 };
 
+CantidadGB.prototype.agregarA = function(recursosPrestados) {
+  recursosPrestados.agregarDatos(this);
+};
+
+CantidadGB.prototype.descontarPrestamoDe = function(paquete) {
+  paquete.consumirDatos(this);
+};
 
 module.exports = CantidadGB;

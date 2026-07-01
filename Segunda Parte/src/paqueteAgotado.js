@@ -60,6 +60,14 @@ const PaqueteAgotado = function(datosOriginales, minutosOriginales, diasDeDuraci
         }
         return this;
     }
+
+    this.generarPrestamoCon = function(){
+        throw Error("El paquete actual del cliente se encuentra agotado. No puede prestar recursos")
+    }
+
+    this.validarRecepcionDePrestamo = function(){
+        return this
+    }
 }
 
 module.exports = PaqueteAgotado

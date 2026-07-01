@@ -52,4 +52,12 @@ Recurso.prototype.esNulo = function(){
   return this.monto === 0;
 };
 
+Recurso.prototype.agregarA = function(){
+  throw new Error("El sistema no reconoce este recurso como préstamo");
+};
+
+Recurso.prototype.descontarPrestamoDe = function(){
+  throw new Error("El sistema no reconoce este recurso como préstamo");
+};
+
 module.exports = Recurso;

@@ -24,6 +24,10 @@ const PaqueteOfertado = function(montoGBDatos, montoMinutosLlamadas, numeroDias,
     this.comoPaqueteOfertado = function(){
         return this
     }
+
+    this.validarRecepcionDePrestamo = function(){
+        throw Error("El paquete ofertado primero debe ser adquirido")
+    }
 }
 
 module.exports = PaqueteOfertado

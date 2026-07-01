@@ -47,6 +47,14 @@ const PaqueteNulo = function(){
     this.aplicarRenovacionAutomaticaCon = function(cliente, fecha){
         return this;
     }
+
+    this.generarPrestamoCon = function(){
+        throw Error("Debe adquirir un paquete disponible")
+    }
+
+    this.validarRecepcionDePrestamo = function(){
+        throw Error("El cliente debe tener un plan o préstamo vencido o agotado para recibir un préstamo")
+    }
 }
 
 module.exports = PaqueteNulo

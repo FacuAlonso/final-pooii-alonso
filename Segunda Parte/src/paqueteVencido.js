@@ -57,6 +57,14 @@ const PaqueteVencido = function(datosOriginales, minutosOriginales, diasDeDuraci
         return cliente.renovarPaquete(fecha);
     }
 
+    this.generarPrestamoCon = function(){
+        throw Error("El paquete actual del cliente se encuentra vencido. No puede prestar recursos")
+    }
+
+    this.validarRecepcionDePrestamo = function(){
+        return this
+    }
+
 }
 
 module.exports = PaqueteVencido

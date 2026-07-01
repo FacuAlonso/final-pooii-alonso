@@ -12,4 +12,12 @@ MinutosLlamadas.prototype.aplicarConsumoEn = function(paquete, fechaHoraInicio, 
   paquete.consumirMinutos(this, fechaHoraInicio, fechaHoraFin)
 }
 
+MinutosLlamadas.prototype.agregarA = function(recursosPrestados) {
+  recursosPrestados.agregarMinutos(this);
+};
+
+MinutosLlamadas.prototype.descontarPrestamoDe = function(paquete) {
+  paquete.consumirMinutos(this);
+};
+
 module.exports = MinutosLlamadas

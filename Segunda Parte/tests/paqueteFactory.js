@@ -10,39 +10,39 @@ function crearPaqueteOfertado(cantidadGB, cantidadMinutos, cantidadDias, valorPr
   return new PaqueteOfertado(new CantidadGB(cantidadGB), new MinutosLlamadas(cantidadMinutos), new DuracionEnDias(cantidadDias), new DineroPesos(valorPrecio), appUsoIlimitado);
 };
 
-function paqueteDe10GBUnaSemana(precio = 5000) {
+function paqueteDe10GBy20HsUnaSemana(precio = 5000) {
   return crearPaqueteOfertado(10, 1200, 7, precio);
 }
 
-function paqueteDe10GBUnaSemanaSinMinutos(precio = 5000) {
+function paqueteDe10GBUnaSemana(precio = 5000) {
   return crearPaqueteOfertado(10, 0, 7, precio);
 }
 
-function paqueteDe10GBUnDia(precio = 5000) {
+function paqueteDe10GBy20HsUnDia(precio = 5000) {
   return crearPaqueteOfertado(10, 1200, 1, precio);
 }
 
-function paqueteDe10GBUnDiaSinMinutos(precio = 5000) {
+function paqueteDe10GBUnDia(precio = 5000) {
   return crearPaqueteOfertado(10, 0, 1, precio);
 }
 
 function paqueteDe50GBUnMes(precio = 10000) {
-  return crearPaqueteOfertado(50, 600, 30, precio);
+  return crearPaqueteOfertado(50, 0, 30, precio);
 }
 
 function paqueteDe1GBUnaSemana(precio = 600) {
-  return crearPaqueteOfertado(1, 120, 7, precio);
+  return crearPaqueteOfertado(1, 0, 7, precio);
 }
 
 function paqueteDe10GBUnaSemanaWhatsAppIlimitado(precio = 5000) {
-  return crearPaqueteOfertado(10, 1200, 7, precio, new AppUsoIlimitado("WhatsApp"));
+  return crearPaqueteOfertado(10, 0, 7, precio, new AppUsoIlimitado("WhatsApp"));
 }
 
 module.exports = {
+  paqueteDe10GBy20HsUnaSemana,
   paqueteDe10GBUnaSemana,
-  paqueteDe10GBUnaSemanaSinMinutos,
+  paqueteDe10GBy20HsUnDia,
   paqueteDe10GBUnDia,
-  paqueteDe10GBUnDiaSinMinutos,
   paqueteDe50GBUnMes,
   paqueteDe1GBUnaSemana,
   paqueteDe10GBUnaSemanaWhatsAppIlimitado,

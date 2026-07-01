@@ -4,6 +4,7 @@ const ControlMinutosRestantes = require("./controlMinutosRestantes");
 const PaqueteAgotado = require("./paqueteAgotado");
 const PaqueteOfertado = require("./paqueteOfertado");
 const PaqueteVencido = require("./paqueteVencido");
+const Prestamo = require("./prestamo");
 
 const PaqueteActivo = function(datosEnGBComprados, minutosLlamadasComprados, 
     diasDeDuracion, fechaDeCompra = new Date(), precio, app = new AppSinIdentificar()){
@@ -63,10 +64,6 @@ const PaqueteActivo = function(datosEnGBComprados, minutosLlamadasComprados,
         return this
     }
 
-    this.comoPaqueteOfertado = function(){
-        return new PaqueteOfertado(datosComprados, minutosComprados, duracion, precioDeCompra, appAsociada)
-    }
-
     this.renovarse = function(fecha){
         let paquete = this;
         paquete = paquete.validarAgotamiento();
@@ -78,8 +75,16 @@ const PaqueteActivo = function(datosEnGBComprados, minutosLlamadasComprados,
         throw new Error("El cliente ya dispone de un paquete activo") 
     }
 
+    this.validarRecepcionDePrestamo = function(){
+        throw new Error("El cliente ya dispone de un paquete activo")
+    }
+
     this.aplicarRenovacionAutomaticaCon = function(cliente, fecha){
         return this;
+    }
+
+    this.generarPrestamoCon = function(recursos, fecha){
+        return new Prestamo(recursos, fecha, calcularFechaDeVencimiento())
     }
 
     const calcularFechaDeVencimiento = function(){
