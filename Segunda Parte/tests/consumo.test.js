@@ -19,7 +19,7 @@ describe("Consumos informados por una fuente externa", ()=>{
 
         test("Cuando se intenta crear un consumo con un recurso negativo, falla", ()=>{
                 const unaFecha = Date("2026-02-23T10:00:00Z");
-                expect(() => new Consumo(new CantidadMB(-1), unaFecha, unaFecha+10)).toThrow("La cantidad de datos de Internet no puede ser negativa");
+                expect(() => new Consumo(new CantidadMB(-1), unaFecha, unaFecha+10)).toThrow("La cantidad de datos de Internet en MB no puede ser negativa");
         });
 
         test("Cuando se intenta impactar un consumo no soportado por el sistema en un paquete, falla", ()=>{

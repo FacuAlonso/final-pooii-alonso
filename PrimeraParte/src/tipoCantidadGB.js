@@ -2,12 +2,11 @@ const Recurso = require("./tipoRecursoPrototipo");
 const CantidadMB = require("./tipoCantidadMB");
 
 function CantidadGB(cantidadDatosEnGB) {
-  Recurso.call(this, cantidadDatosEnGB, "datos de Internet");
-  this.validarCeroOPositivo(cantidadDatosEnGB);
+  Recurso.call(this, cantidadDatosEnGB, "datos de Internet en GB");
+  this.validarCeroOPositivo();
 }
 
 CantidadGB.prototype = Object.create(Recurso.prototype);
-
 CantidadGB.prototype.constructor = CantidadGB;
 
 CantidadGB.prototype.aGB = function() {
@@ -15,7 +14,7 @@ CantidadGB.prototype.aGB = function() {
 };
 
 CantidadGB.prototype.aMB = function() {
-  return new CantidadMB(this.monto * 1000); 
+  return new CantidadMB(this.cantidad() * 1000); 
 };
 
 

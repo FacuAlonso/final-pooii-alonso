@@ -12,7 +12,7 @@ const ControlMinutosRestantes = function(minutos){
         if (this.minutosRestantes.esIgualEnValorA(minutosADescontar)){
             return new ControlSinMinutosRestantes() 
         }
-        return new ControlMinutosRestantes(this.minutosRestantes.restar(minutosADescontar.cantidad()))
+        return new ControlMinutosRestantes(this.minutosRestantes.restar(minutosADescontar))
     }
 
     this.estaAgotado = function(){

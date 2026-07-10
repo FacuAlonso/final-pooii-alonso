@@ -2,11 +2,10 @@ const Recurso = require("./tipoRecursoPrototipo");
 
 function DineroPesos(montoDinero) {
   Recurso.call(this, montoDinero, "dinero");
-  this.validarCeroOPositivo(montoDinero)
+  this.validarCeroOPositivo()
 }
 
 DineroPesos.prototype = Object.create(Recurso.prototype);
-
 DineroPesos.prototype.constructor = DineroPesos;
 
 module.exports = DineroPesos

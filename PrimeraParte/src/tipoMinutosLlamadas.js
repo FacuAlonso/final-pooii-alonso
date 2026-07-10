@@ -2,7 +2,7 @@ const Recurso = require("./tipoRecursoPrototipo");
 
 function MinutosLlamadas(cantidadMinutosDeLlamadas) {
   Recurso.call(this, cantidadMinutosDeLlamadas, "minutos de llamada");
-  this.validarCeroOPositivo(cantidadMinutosDeLlamadas)
+  this.validarCeroOPositivo()
 }
 MinutosLlamadas.prototype = Object.create(Recurso.prototype);
 

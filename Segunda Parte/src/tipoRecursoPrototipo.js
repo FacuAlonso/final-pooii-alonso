@@ -1,4 +1,4 @@
-function Recurso(monto, nombreAMostrar = "recursos") {
+function Recurso(monto, nombreAMostrar = "recurso") {
   this.nombreAMostrar = nombreAMostrar;
   this.monto = monto;
 }
@@ -11,14 +11,14 @@ Recurso.prototype.mensajeErrorDeSoloPositivo = function(){
   return "La cantidad de "+ this.nombreAMostrar + " debe ser positiva"
 };
 
-Recurso.prototype.validarCeroOPositivo = function(monto) {
-  if (monto < 0){
+Recurso.prototype.validarCeroOPositivo = function() {
+  if (this.monto < 0){
     throw new Error(this.mensajeErrorDeCeroOPositivo());
     }
 };
 
-Recurso.prototype.validarSoloPositivo = function(monto) {
-  if (monto <= 0) {
+Recurso.prototype.validarSoloPositivo = function() {
+  if (this.monto <= 0) {
     throw new Error(this.mensajeErrorDeSoloPositivo());
   }
 };
@@ -27,17 +27,17 @@ Recurso.prototype.cantidad = function() {
   return this.monto;
 };
 
-Recurso.prototype.sumar = function(monto) {
-  this.validarSoloPositivo(monto);
-  return new this.constructor(this.monto + monto);
+Recurso.prototype.sumar = function(otroRecurso) {
+  this.validarMismoTipoQue(otroRecurso);
+  return new this.constructor(this.monto + otroRecurso.cantidad());
 };
 
-Recurso.prototype.restar = function(monto) {
-  this.validarSoloPositivo(monto);
-  if (monto > this.monto) {
+Recurso.prototype.restar = function(otroRecurso) {
+  this.validarMismoTipoQue(otroRecurso);
+  if (otroRecurso.cantidad() > this.monto) {
     throw new Error("No hay saldo de "+ this.nombreAMostrar+ " suficiente");
     }
-  return new this.constructor(this.monto - monto);
+  return new this.constructor(this.monto - otroRecurso.cantidad());
 };
 
 Recurso.prototype.esIgualEnValorA = function(otroRecurso){
@@ -59,5 +59,11 @@ Recurso.prototype.agregarA = function(){
 Recurso.prototype.descontarPrestamoDe = function(){
   throw new Error("El sistema no reconoce este recurso como préstamo");
 };
+
+Recurso.prototype.validarMismoTipoQue = function(otroRecurso){
+  if (this.nombreAMostrar != otroRecurso.nombreAMostrar){
+    throw Error("Los recursos a operar deben ser del mismo tipo")
+  }
+}
 
 module.exports = Recurso;

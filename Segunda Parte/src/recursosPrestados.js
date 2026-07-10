@@ -16,11 +16,11 @@ const RecursosPrestados = function(recursos){
     }
 
     this.agregarDatos = function(datosAAgregar){
-        datos = datos.sumar(datosAAgregar.aGB().cantidad())
+        datos = datos.sumar(datosAAgregar.aGB())
     }
 
     this.agregarMinutos = function(minutosAAgregar){
-        minutos = minutos.sumar(minutosAAgregar.cantidad())
+        minutos = minutos.sumar(minutosAAgregar)
     }
 
     this.descontarDe = function(paquete){

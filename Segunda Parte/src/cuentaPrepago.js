@@ -1,12 +1,16 @@
+const DineroPesos = require("./tipoDineroPesos");
+
 const CuentaPrepago = function(saldoInicial){
     let saldo = saldoInicial;
 
     this.cargarSaldoCon = function(montoACargar){
-        saldo = saldo.sumar(montoACargar)
+        const dinero = new DineroPesos(montoACargar);
+        dinero.validarSoloPositivo();
+        saldo = saldo.sumar(dinero)
     }
 
     this.pagarUn = function(paqueteAComprar){
-        saldo = saldo.restar(paqueteAComprar.calcularPrecio())
+        saldo = saldo.restar(new DineroPesos(paqueteAComprar.calcularPrecio()))
     }
 
     this.calcularSaldo = function(){

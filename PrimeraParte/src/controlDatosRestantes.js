@@ -15,7 +15,7 @@ const ControlDatosRestantes = function(datosRestantes){
             return new ControlSinDatosRestantes()
         }
 
-        return new ControlDatosRestantes(this.datosRestantes.restar(datosADescontar.cantidad()))
+        return new ControlDatosRestantes(this.datosRestantes.restar(datosADescontar))
     }
 
     this.estaAgotado = function(){

@@ -2,10 +2,9 @@ const Recurso = require("./tipoRecursoPrototipo");
 
 function DuracionEnDias(numeroDias) {
   Recurso.call(this, numeroDias, "días");
-  this.validarSoloPositivo(numeroDias)
+  this.validarSoloPositivo()
 }
 DuracionEnDias.prototype = Object.create(Recurso.prototype);
-
 DuracionEnDias.prototype.constructor = DuracionEnDias;
 
 DuracionEnDias.prototype.mensajeErrorDeSoloPositivo = function(){

@@ -11,7 +11,7 @@ describe("Paquetes ofertados por la compañía", ()=>{
                 new MinutosLlamadas(1200), 
                 new DuracionEnDias(7), 
                 new DineroPesos(500))
-                ).toThrow("La cantidad de datos de Internet no puede ser negativa");
+                ).toThrow("La cantidad de datos de Internet en MB no puede ser negativa");
         });
 
         test("Cuando se intenta crear un paquete con una cantidad de Minutos de Llamada negativa, falla", ()=>{

@@ -47,7 +47,7 @@ describe("Sistema para la venta de paquetes de una compañía telefónica", ()=>
         test("Cuando se intenta cargar dinero a la cuenta de un cliente, indicando un monto negativo, entonces falla", ()=>{
                 const cliente = new Cliente("Juan Perez", "+5491112345678");
                 const montoDeLaCarga = -1000;
-                expect(() => cliente.cargarSaldoCon(montoDeLaCarga)).toThrow("La cantidad de dinero debe ser positiva");
+                expect(() => cliente.cargarSaldoCon(montoDeLaCarga)).toThrow("La cantidad de dinero no puede ser negativa");
         });
 
         test("Cuando un cliente sin un paquete activo compra uno exitosamente, entonces este se activa", ()=>{
@@ -203,7 +203,7 @@ describe("Sistema para la venta de paquetes de una compañía telefónica", ()=>
                 cliente.cargarSaldoCon(20000);
                 cliente.comprarUn(paquete);
 
-                expect(() => cliente.realizarUn(consumo)).toThrow("No hay saldo de datos de Internet suficiente");
+                expect(() => cliente.realizarUn(consumo)).toThrow("No hay saldo de datos de Internet en GB suficiente");
         });
 
         test("Cuando un cliente con un paquete activo intenta realizar un consumo de minutos de llamada por encima de lo disponible, entonces falla", ()=>{
