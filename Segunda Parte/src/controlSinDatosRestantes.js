@@ -15,6 +15,18 @@ const ControlSinDatosRestantes = function(){
         return true
     }
 
+    this.validarPuedeDescontar = function(){
+        return this.descontar()
+    }
+
+    this.validarDescuentoEn = function(){
+        return this
+    }
+
+    this.descontarDe = function(){
+        return this
+    }
+
 }
 
 module.exports = ControlSinDatosRestantes

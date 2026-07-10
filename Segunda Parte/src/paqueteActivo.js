@@ -93,6 +93,13 @@ const PaqueteActivo = function(datosEnGBComprados, minutosLlamadasComprados,
         return fecha
     }
 
+    this.validarPuedeConsumirDatos = function(datos){
+        controlDatos.validarPuedeDescontar(datos)
+    }
+
+    this.validarPuedeConsumirMinutos = function(minutos){
+        controlMinutos.validarPuedeDescontar(minutos)
+    }
 }
 
 module.exports = PaqueteActivo

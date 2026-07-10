@@ -24,7 +24,12 @@ const RecursosPrestados = function(recursos){
     }
 
     this.descontarDe = function(paquete){
-        recursos.forEach(recurso => recurso.descontarPrestamoDe(paquete))
+        const controlDatos = this.obtenerControlDatos();
+        const controlMinutos = this.obtenerControlMinutos();
+        controlDatos.validarDescuentoEn(paquete);
+        controlMinutos.validarDescuentoEn(paquete);
+        controlDatos.descontarDe(paquete);
+        controlMinutos.descontarDe(paquete);
     }
 
     this.obtenerControlDatos = function(){

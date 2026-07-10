@@ -1,6 +1,7 @@
 const AppUsoIlimitado = require("../src/appUsoIlimitado");
 const Cliente = require("../src/cliente");
 const Consumo = require("../src/consumo");
+const CantidadGB = require("../src/tipoCantidadGB");
 const CantidadMB = require("../src/tipoCantidadMB");
 const MinutosLlamadas = require("../src/tipoMinutosLlamadas");
 const { 
@@ -578,6 +579,23 @@ describe("Sistema para la venta de paquetes de una compañía telefónica", ()=>
                 receptor.comprarUn(paqueteDelReceptor);
 
                 expect(() => otorgante.prestarA(receptor, [new CantidadMB(1000)], new Date("2026-06-22T10:00:00Z"))).toThrow("El cliente ya dispone de un paquete activo");
+                expect(otorgante.calcularDatosInternetDisponibles()).toBe(10);
+        });
+
+        test("Cuando un préstamo falla por recursos insuficientes, entonces no se descuenta parcialmente al otorgante", ()=>{
+                const otorgante = new Cliente("Juan Perez", "+5491112345678");
+                const receptor = new Cliente("Ana Gomez", "+5493481234567");
+                const paqueteDelOtorgante = paqueteDe10GBUnaSemana();
+                const paqueteDelReceptor = paqueteDe1GBUnaSemana();
+                const consumoQueAgotaAlReceptor = new Consumo(new CantidadMB(1000), new Date("2026-06-21T10:00:00Z"), new Date("2026-06-21T11:00:00Z"));
+
+                otorgante.cargarSaldoCon(20000);
+                receptor.cargarSaldoCon(20000);
+                otorgante.comprarUn(paqueteDelOtorgante);
+                receptor.comprarUn(paqueteDelReceptor);
+                receptor.realizarUn(consumoQueAgotaAlReceptor);
+
+                expect(() => otorgante.prestarA(receptor, [new CantidadMB(1000), new MinutosLlamadas(1)], new Date("2026-06-22T10:00:00Z"))).toThrow("No hay saldo de minutos de llamada suficiente");
                 expect(otorgante.calcularDatosInternetDisponibles()).toBe(10);
         });
 

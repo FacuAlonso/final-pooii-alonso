@@ -1,5 +1,4 @@
 const Recurso = require("./tipoRecursoPrototipo");
-const CantidadGB = require("./tipoCantidadGB");
 
 function CantidadMB(cantidadDatosEnMB) {
   Recurso.call(this, cantidadDatosEnMB, "datos de Internet en MB");
@@ -10,6 +9,7 @@ CantidadMB.prototype = Object.create(Recurso.prototype);
 CantidadMB.prototype.constructor = CantidadMB;
 
 CantidadMB.prototype.aGB = function() {
+  const CantidadGB = require("./tipoCantidadGB");
   return new CantidadGB(this.cantidad() / 1000);
 };
 

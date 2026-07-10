@@ -19,6 +19,17 @@ const ControlMinutosRestantes = function(minutos){
         return this.minutosRestantes.esNulo()
     }
 
+    this.validarPuedeDescontar = function(minutosADescontar){
+        this.minutosRestantes.restar(minutosADescontar)
+    }
+
+    this.validarDescuentoEn = function(paquete){
+        paquete.validarPuedeConsumirMinutos(this.minutosRestantes)
+    }
+
+    this.descontarDe = function(paquete){
+        paquete.consumirMinutos(this.minutosRestantes)
+    }
 }
 
 module.exports = ControlMinutosRestantes

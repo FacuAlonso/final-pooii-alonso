@@ -22,6 +22,19 @@ const ControlDatosRestantes = function(datosRestantes){
         return this.datosRestantes.esNulo()
     }
 
+    this.validarPuedeDescontar = function(datos){
+        let datosADescontar = new CantidadGB(datos.aGB().cantidad())
+        this.datosRestantes.restar(datosADescontar)
+    }
+
+    this.validarDescuentoEn = function(paquete){
+        paquete.validarPuedeConsumirDatos(this.datosRestantes)
+    }
+
+    this.descontarDe = function(paquete){
+        paquete.consumirDatos(this.datosRestantes)
+    }
+
 }
 
 module.exports = ControlDatosRestantes

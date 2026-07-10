@@ -11,6 +11,18 @@ const ControlSinMinutosRestantes = function(){
         throw new Error("El cliente no tiene minutos de llamada disponible en su paquete actual")
     }
 
+    this.validarPuedeDescontar = function(){
+        return this.descontar()
+    }
+
+    this.validarDescuentoEn = function(){
+        return this
+    }
+
+    this.descontarDe = function(){
+        return this
+    }
+
     this.estaAgotado = function(){
         return true
     }

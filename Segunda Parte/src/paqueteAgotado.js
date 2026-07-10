@@ -62,7 +62,6 @@ const PaqueteAgotado = function(datosOriginales, minutosOriginales, diasDeDuraci
                 throw Error("El paquete actual del cliente se encuentra agotado y no tiene saldo suficiente para renovar.")
             }
         }
-        
     }
 
     this.generarPrestamoCon = function(){
