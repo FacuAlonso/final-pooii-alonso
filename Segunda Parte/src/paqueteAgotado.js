@@ -55,10 +55,14 @@ const PaqueteAgotado = function(datosOriginales, minutosOriginales, diasDeDuraci
     }
 
     this.aplicarRenovacionAutomaticaCon = function(cliente, fecha){
-        if (cliente.puedeRenovarPaquete()){
-            return cliente.renovarPaquete(fecha);
+        try {
+            return cliente.renovarPaquete(fecha)
+        } catch (error) {
+            if (error.message === "No hay saldo de dinero suficiente"){
+                throw Error("El paquete actual del cliente se encuentra agotado. No puede consumir datos de Internet")
+            }
         }
-        return this;
+        
     }
 
     this.generarPrestamoCon = function(){

@@ -2,8 +2,8 @@ const PaquetePrestamoAgotado = require("./paquetePrestamoAgotado");
 const PaquetePrestamoVencido = require("./paquetePrestamoVencido");
 
 const PaquetePrestamoActivo = function(recursosPrestados, fechaDeVencimiento){
-    let controlDatos = recursosPrestados.controlDatos();
-    let controlMinutos = recursosPrestados.controlMinutos();
+    let controlDatos = recursosPrestados.obtenerControlDatos();
+    let controlMinutos = recursosPrestados.obtenerControlMinutos();
     const vencimiento = fechaDeVencimiento;
 
     this.consumirDatos = function(datos){

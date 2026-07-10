@@ -27,14 +27,14 @@ const RecursosPrestados = function(recursos){
         recursos.forEach(recurso => recurso.descontarPrestamoDe(paquete))
     }
 
-    this.controlDatos = function(){
+    this.obtenerControlDatos = function(){
         if (datos.esNulo()){
             return new ControlSinDatosRestantes()
         }
         return new ControlDatosRestantes(datos)
     }
 
-    this.controlMinutos = function(){
+    this.obtenerControlMinutos = function(){
         if (minutos.esNulo()){
             return new ControlSinMinutosRestantes()
         }

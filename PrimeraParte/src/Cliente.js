@@ -71,10 +71,6 @@ const Cliente = function(nombreCompleto, numeroDeLinea){
         paqueteActual = renovacionAutomatica.aplicarSobreUnCon(this, paqueteActual, fecha);
     }
 
-    this.puedeRenovarPaquete = function(){
-        return cuentaDePago.puedePagarUn(paqueteActual.comoPaqueteOfertado());
-    }
-
     this.detallarConsumos = function(){
         return gestorDeConsumos.detallar();
     }
