@@ -379,7 +379,7 @@ describe("Sistema para la venta de paquetes de una compañía telefónica", ()=>
 
                 expect(cliente.tieneUnPaqueteActivo()).toBe(false);
                 expect(cliente.calcularSaldo()).toBe(1000);
-                expect(() => cliente.realizarUn(consumoPosterior)).toThrow("El paquete actual del cliente se encuentra agotado. No puede consumir datos de Internet");
+                expect(() => cliente.realizarUn(consumoPosterior)).toThrow("El paquete actual del cliente se encuentra agotado y no tiene saldo suficiente para renovar.");
         });
 
         test("Cuando un cliente desactiva la renovacion automatica, entonces un paquete vencido no se renueva automaticamente", ()=>{

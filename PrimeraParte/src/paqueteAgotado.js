@@ -59,7 +59,7 @@ const PaqueteAgotado = function(datosOriginales, minutosOriginales, diasDeDuraci
             return cliente.renovarPaquete(fecha)
         } catch (error) {
             if (error.message === "No hay saldo de dinero suficiente"){
-                throw Error("El paquete actual del cliente se encuentra agotado. No puede consumir datos de Internet")
+                throw Error("El paquete actual del cliente se encuentra agotado y no tiene saldo suficiente para renovar.")
             }
         }
     }
