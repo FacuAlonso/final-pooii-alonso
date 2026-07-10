@@ -3,6 +3,7 @@ const Cliente = require("../src/cliente");
 const Consumo = require("../src/consumo");
 const CantidadGB = require("../src/tipoCantidadGB");
 const CantidadMB = require("../src/tipoCantidadMB");
+const DineroPesos = require("../src/tipoDineroPesos");
 const MinutosLlamadas = require("../src/tipoMinutosLlamadas");
 const { 
         paqueteDe10GBy20HsUnaSemana,
@@ -547,6 +548,43 @@ describe("Sistema para la venta de paquetes de una compañía telefónica", ()=>
                 expect(otorgante.calcularMinutosLlamadaDisponibles()).toBe(1100);
                 expect(receptor.calcularDatosInternetDisponibles()).toBe(1);
                 expect(receptor.calcularMinutosLlamadaDisponibles()).toBe(100);
+        });
+
+        test("Cuando un cliente realiza un préstamo indicando varios tipos de recursos soportados, si los tiene para prestar, entonces es válido", ()=>{
+                const otorgante = new Cliente("Juan Perez", "+5491112345678");
+                const receptor = new Cliente("Ana Gomez", "+5493481234567");
+                const paqueteDelOtorgante = paqueteDe10GBy20HsUnaSemana();
+                const paqueteDelReceptor = paqueteDe1GBUnaSemana();
+                const consumoQueAgotaAlReceptor = new Consumo(new CantidadMB(1000), new Date("2026-06-21T10:00:00Z"), new Date("2026-06-21T11:00:00Z"));
+
+                otorgante.cargarSaldoCon(20000);
+                receptor.cargarSaldoCon(20000);
+                otorgante.comprarUn(paqueteDelOtorgante);
+                receptor.comprarUn(paqueteDelReceptor);
+                receptor.realizarUn(consumoQueAgotaAlReceptor);
+
+                otorgante.prestarA(receptor, [new CantidadMB(1000), new CantidadGB(2), new MinutosLlamadas(100)], new Date("2026-06-22T10:00:00Z"));
+
+                expect(otorgante.calcularDatosInternetDisponibles()).toBe(7);
+                expect(otorgante.calcularMinutosLlamadaDisponibles()).toBe(1100);
+                expect(receptor.calcularDatosInternetDisponibles()).toBe(3);
+                expect(receptor.calcularMinutosLlamadaDisponibles()).toBe(100);
+        });
+
+        test("Cuando un cliente realiza un préstamo indicando un tipo de recurso inválido, entonces falla", ()=>{
+                const otorgante = new Cliente("Juan Perez", "+5491112345678");
+                const receptor = new Cliente("Ana Gomez", "+5493481234567");
+                const paqueteDelOtorgante = paqueteDe10GBy20HsUnaSemana();
+                const paqueteDelReceptor = paqueteDe1GBUnaSemana();
+                const consumoQueAgotaAlReceptor = new Consumo(new CantidadMB(1000), new Date("2026-06-21T10:00:00Z"), new Date("2026-06-21T11:00:00Z"));
+
+                otorgante.cargarSaldoCon(20000);
+                receptor.cargarSaldoCon(20000);
+                otorgante.comprarUn(paqueteDelOtorgante);
+                receptor.comprarUn(paqueteDelReceptor);
+                receptor.realizarUn(consumoQueAgotaAlReceptor);
+
+                expect(()=> otorgante.prestarA(receptor, [new DineroPesos(10)], new Date("2026-06-22T10:00:00Z"))).toThrow("El sistema no reconoce este recurso como préstamo");
         });
 
         test("Cuando se realiza un préstamo, entonces queda registrado en el historial del cliente que otorga y del que recibe", ()=>{

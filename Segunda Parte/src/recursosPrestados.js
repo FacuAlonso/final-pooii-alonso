@@ -9,10 +9,11 @@ const RecursosPrestados = function(recursos){
     let datos = new CantidadGB(0);
     let minutos = new MinutosLlamadas(0);
 
-    const validarRecursos = function(){
+    this.validaryAgregarRecursos = function(){
         if (recursos.length === 0){
             throw new Error("Debe prestar al menos un recurso")
         }
+        recursos.forEach(recurso => recurso.agregarA(this))
     }
 
     this.agregarDatos = function(datosAAgregar){
@@ -21,6 +22,14 @@ const RecursosPrestados = function(recursos){
 
     this.agregarMinutos = function(minutosAAgregar){
         minutos = minutos.sumar(minutosAAgregar)
+    }
+
+    this.obtenerControlDatos = function(){
+        return new ControlDatosRestantes(datos).descontar(new CantidadGB(0))
+    }
+
+    this.obtenerControlMinutos = function(){
+        return new ControlMinutosRestantes(minutos).descontar(new MinutosLlamadas(0))
     }
 
     this.descontarDe = function(paquete){
@@ -32,22 +41,7 @@ const RecursosPrestados = function(recursos){
         controlMinutos.descontarDe(paquete);
     }
 
-    this.obtenerControlDatos = function(){
-        if (datos.esNulo()){
-            return new ControlSinDatosRestantes()
-        }
-        return new ControlDatosRestantes(datos)
-    }
-
-    this.obtenerControlMinutos = function(){
-        if (minutos.esNulo()){
-            return new ControlSinMinutosRestantes()
-        }
-        return new ControlMinutosRestantes(minutos)
-    }
-
-    validarRecursos();
-    recursos.forEach(recurso => recurso.agregarA(this))
+    this.validaryAgregarRecursos();
 }
 
 module.exports = RecursosPrestados

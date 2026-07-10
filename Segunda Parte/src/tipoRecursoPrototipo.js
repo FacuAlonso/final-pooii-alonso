@@ -56,10 +56,6 @@ Recurso.prototype.agregarA = function(){
   throw new Error("El sistema no reconoce este recurso como préstamo");
 };
 
-Recurso.prototype.descontarPrestamoDe = function(){
-  throw new Error("El sistema no reconoce este recurso como préstamo");
-};
-
 Recurso.prototype.validarMismoTipoQue = function(otroRecurso){
   if (this.nombreAMostrar != otroRecurso.nombreAMostrar){
     throw Error("Los recursos a operar deben ser del mismo tipo")

@@ -25,8 +25,4 @@ CantidadMB.prototype.agregarA = function(recursosPrestados) {
   recursosPrestados.agregarDatos(this);
 };
 
-CantidadMB.prototype.descontarPrestamoDe = function(paquete) {
-  paquete.consumirDatos(this);
-};
-
 module.exports = CantidadMB;
