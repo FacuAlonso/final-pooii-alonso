@@ -41,6 +41,7 @@ Recurso.prototype.restar = function(otroRecurso) {
 };
 
 Recurso.prototype.esIgualEnValorA = function(otroRecurso){
+  this.validarMismoTipoQue(otroRecurso);
   return this.monto === otroRecurso.cantidad()
 };
 
