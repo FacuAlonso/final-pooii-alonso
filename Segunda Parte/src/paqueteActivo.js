@@ -7,43 +7,43 @@ const PaqueteVencido = require("./paqueteVencido");
 const Prestamo = require("./prestamo");
 
 const PaqueteActivo = function(datosEnGBComprados, minutosLlamadasComprados, 
-    diasDeDuracion, fechaDeCompra = new Date(), precio, app = new AppSinIdentificar()){
+    diasDeDuracion, fechaDeCompra = new Date(), precio, appDatosIlimitados = new AppSinIdentificar()){
 
     const datosComprados = datosEnGBComprados.aGB();
     const minutosComprados = minutosLlamadasComprados;
     const duracion = diasDeDuracion;
     const fechaCompra = fechaDeCompra;
     const precioDeCompra = precio;
-    const appAsociada = app;
+    const appAsociada = appDatosIlimitados;
     let controlDatos = new ControlDatosInternet(datosEnGBComprados);
     let controlMinutos = new ControlMinutosRestantes(minutosLlamadasComprados);
 
-    this.consumirDatos = function(datos, appConsumida = new AppSinIdentificar()){
-        appAsociada.consumirDatosEn(datos, this, appConsumida);
-    }
-
-    this.consumirMinutos = function(minutos){
-        this.descontarMinutos(minutos)
-    }
-    
-    this.descontarDatos = function(datos){
-        controlDatos = controlDatos.descontar(datos);
+    this.descontarDatos = function(datos, appConsumida = new AppSinIdentificar()){
+        appAsociada.consumirDatosEn(datos, this, appConsumida)
     }
 
     this.descontarMinutos = function(minutos){
-        controlMinutos = controlMinutos.descontar(minutos);
+        this.aplicarConsumoMinutos(minutos)
+    }
+    
+    this.aplicarConsumoDatos = function(datos){
+        controlDatos = controlDatos.descontar(datos)
+    }
+
+    this.aplicarConsumoMinutos = function(minutos){
+        controlMinutos = controlMinutos.descontar(minutos)
     }
 
     this.calcularDatosRestantes = function(){
-        return controlDatos.calcularDatosRestantes()
+        return controlDatos.calcularRestante()
     }
 
     this.calcularMinutosRestantes = function(){
-        return controlMinutos.calcularMinutosRestantes()
+        return controlMinutos.calcularRestante()
     }
 
     this.estaActivo = function(){
-        return !(controlDatos.estaAgotado() && controlMinutos.estaAgotado());
+        return !(controlDatos.estaAgotado() && controlMinutos.estaAgotado())
     }
 
     this.validarCompraDe = function(){
@@ -80,7 +80,7 @@ const PaqueteActivo = function(datosEnGBComprados, minutosLlamadasComprados,
     }
 
     this.aplicarRenovacionAutomaticaCon = function(cliente, fecha){
-        return this;
+        return this
     }
 
     this.generarPrestamoCon = function(recursos, fecha){

@@ -1,23 +1,23 @@
 const PaqueteAgotado = function(datosOriginales, minutosOriginales, diasDeDuracion, precio){
 
     this.descontarDatos = function(){
-        throw Error("El paquete actual del cliente se encuentra agotado. No puede consumir datos de Internet")
+        throw new Error("El paquete actual del cliente se encuentra agotado. No puede consumir datos de Internet")
     }
 
     this.descontarMinutos = function(){
-        throw Error("El paquete actual del cliente se encuentra agotado. No puede realizar llamadas")
+        throw new Error("El paquete actual del cliente se encuentra agotado. No puede realizar llamadas")
     }
 
     this.calcularDatosRestantes = function(){
-       throw Error("El paquete actual del cliente se encuentra agotado. No puede consumir datos de Internet")
+       throw new Error("El paquete actual del cliente se encuentra agotado. No puede consumir datos de Internet")
     }
 
     this.calcularMinutosRestantes = function(){
-        throw Error("El paquete actual del cliente se encuentra agotado. No puede realizar llamadas")
+        throw new Error("El paquete actual del cliente se encuentra agotado. No puede realizar llamadas")
     }
 
     this.estaActivo = function(){
-        return false;
+        return false
     }
 
     this.validarCompraDe = function(paquete){
@@ -25,12 +25,12 @@ const PaqueteAgotado = function(datosOriginales, minutosOriginales, diasDeDuraci
     }
 
     this.calcularPrecio = function(){
-        return precio.cantidad();
+        return precio.cantidad()
     }
 
     this.activarAlMomentoDe = function(fecha = new Date()){
         const PaqueteActivo = require("./paqueteActivo");
-        return new PaqueteActivo(datosOriginales, minutosOriginales, diasDeDuracion, fecha, precio);
+        return new PaqueteActivo(datosOriginales, minutosOriginales, diasDeDuracion, fecha, precio)
     }
 
     this.validarVencimiento = function(){
@@ -59,7 +59,7 @@ const PaqueteAgotado = function(datosOriginales, minutosOriginales, diasDeDuraci
             return cliente.renovarPaquete(fecha)
         } catch (error) {
             if (error.message === "No hay saldo de dinero suficiente"){
-                throw Error("El paquete actual del cliente se encuentra agotado y no tiene saldo suficiente para renovar.")
+                throw new Error("El paquete actual del cliente se encuentra agotado y no tiene saldo suficiente para renovar.")
             }
         }
     }

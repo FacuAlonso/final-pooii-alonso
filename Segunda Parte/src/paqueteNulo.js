@@ -4,28 +4,28 @@ const PaqueteNulo = function(){
         return this
     }
 
-    this.consumirDatos = function(){
-        throw Error("El cliente no tiene un paquete activo para consumir datos de Internet")
+    this.descontarDatos = function(){
+        throw new Error("El cliente no tiene un paquete activo para consumir datos de Internet")
     }
 
-    this.consumirMinutos = function(){
-        throw Error("El cliente no tiene un paquete activo para consumir minutos de llamadas")
+    this.descontarMinutos = function(){
+        throw new Error("El cliente no tiene un paquete activo para consumir minutos de llamadas")
     }
 
     this.calcularDatosRestantes = function(){
-        throw Error("Debe adquirir un paquete disponible")
+        throw new Error("Debe adquirir un paquete disponible")
     }
 
     this.calcularMinutosRestantes = function(){
-        throw Error("Debe adquirir un paquete disponible")
+        throw new Error("Debe adquirir un paquete disponible")
     }
 
     this.estaActivo = function(){
-        return false;
+        return false
     }
 
     this.validarRenovacion = function(){
-        throw Error("Debe adquirir un paquete disponible")
+        throw new Error("Debe adquirir un paquete disponible")
     }
 
     this.renovarse = function(){
@@ -41,19 +41,19 @@ const PaqueteNulo = function(){
     }
 
     this.comoPaqueteOfertado = function(){
-        throw Error("Debe adquirir un paquete disponible")
+        throw new Error("Debe adquirir un paquete disponible")
     }
 
     this.aplicarRenovacionAutomaticaCon = function(cliente, fecha){
-        return this;
+        return this
     }
 
     this.generarPrestamoCon = function(){
-        throw Error("Debe adquirir un paquete disponible")
+        throw new Error("Debe adquirir un paquete disponible")
     }
 
     this.validarRecepcionDePrestamo = function(){
-        throw Error("El cliente debe tener un plan o préstamo vencido o agotado para recibir un préstamo")
+        throw new Error("El cliente debe tener un plan o préstamo vencido o agotado para recibir un préstamo")
     }
 }
 

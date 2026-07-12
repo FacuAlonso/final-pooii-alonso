@@ -10,19 +10,19 @@ CantidadMB.prototype.constructor = CantidadMB;
 
 CantidadMB.prototype.aGB = function() {
   const CantidadGB = require("./tipoCantidadGB");
-  return new CantidadGB(this.cantidad() / 1000);
-};
+  return new CantidadGB(this.cantidad() / 1000)
+}
 
 CantidadMB.prototype.aMB = function() {
-  return this;
-};
+  return this
+}
 
 CantidadMB.prototype.aplicarConsumoEn = function(paquete, fechaHoraInicio, fechaHoraFin, appConsumida){
-  paquete.consumirDatos(this, appConsumida)
-};
+  paquete.descontarDatos(this, appConsumida)
+}
 
 CantidadMB.prototype.agregarA = function(recursosPrestados) {
-  recursosPrestados.agregarDatos(this);
-};
+  recursosPrestados.agregarDatos(this)
+}
 
 module.exports = CantidadMB;

@@ -1,20 +1,20 @@
-const PaqueteOfertado = function(montoGBDatos, montoMinutosLlamadas, numeroDias, montoPrecio, appIlimitada){
+const PaqueteOfertado = function(montoGBDatos, montoMinutosLlamadas, numeroDias, montoPrecio, appDatosIlimitados){
 
     this.calcularPrecio = function(){
-        return montoPrecio.cantidad();
+        return montoPrecio.cantidad()
     }
 
     this.activarAlMomentoDe = function(fechaActivacion = new Date()){
         const PaqueteActivo = require("./paqueteActivo");
-        return new PaqueteActivo(montoGBDatos, montoMinutosLlamadas, numeroDias, fechaActivacion, montoPrecio, appIlimitada);
+        return new PaqueteActivo(montoGBDatos, montoMinutosLlamadas, numeroDias, fechaActivacion, montoPrecio, appDatosIlimitados)
     }
 
-    this.consumirDatos = function(){
-        throw Error("El paquete ofertado primero debe ser adquirido para su activación y consumo de datos de Internet")
+    this.descontarDatos = function(){
+        throw new Error("El paquete ofertado primero debe ser adquirido para su activación y consumo de datos de Internet")
     }
 
-    this.consumirMinutos = function(){
-        throw Error("El paquete ofertado primero debe ser adquirido para su activación y consumo de minutos de llamada")
+    this.descontarMinutos = function(){
+        throw new Error("El paquete ofertado primero debe ser adquirido para su activación y consumo de minutos de llamada")
     }
 
     this.validarVencimiento = function(){
@@ -26,7 +26,7 @@ const PaqueteOfertado = function(montoGBDatos, montoMinutosLlamadas, numeroDias,
     }
 
     this.validarRecepcionDePrestamo = function(){
-        throw Error("El paquete ofertado primero debe ser adquirido")
+        throw new Error("El paquete ofertado primero debe ser adquirido")
     }
 }
 

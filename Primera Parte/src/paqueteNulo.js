@@ -1,31 +1,31 @@
 const PaqueteNulo = function(){
 
+    this.descontarDatos = function(){
+        throw new Error("El cliente no tiene un paquete activo para consumir datos de Internet")
+    }
+
+    this.descontarMinutos = function(){
+        throw new Error("El cliente no tiene un paquete activo para consumir minutos de llamadas")
+    }
+
+    this.calcularDatosRestantes = function(){
+        throw new Error("Debe adquirir un paquete disponible")
+    }
+
+    this.calcularMinutosRestantes = function(){
+        throw new Error("Debe adquirir un paquete disponible")
+    }
+
+    this.estaActivo = function(){
+        return false
+    }
+
     this.validarCompraDe = function(paquete){
         return this
     }
 
-    this.descontarDatos = function(){
-        throw Error("El cliente no tiene un paquete activo para consumir datos de Internet")
-    }
-
-    this.descontarMinutos = function(){
-        throw Error("El cliente no tiene un paquete activo para consumir minutos de llamadas")
-    }
-
-    this.calcularDatosRestantes = function(){
-        throw Error("Debe adquirir un paquete disponible")
-    }
-
-    this.calcularMinutosRestantes = function(){
-        throw Error("Debe adquirir un paquete disponible")
-    }
-
-    this.estaActivo = function(){
-        return false;
-    }
-
     this.validarRenovacion = function(){
-        throw Error("Debe adquirir un paquete disponible")
+        throw new Error("Debe adquirir un paquete disponible")
     }
 
     this.renovarse = function(){
@@ -36,8 +36,12 @@ const PaqueteNulo = function(){
         return this
     }
 
+    this.validarAgotamiento = function(){
+        return this
+    }
+
     this.aplicarRenovacionAutomaticaCon = function(cliente, fecha){
-        return this;
+        return this
     }
 }
 

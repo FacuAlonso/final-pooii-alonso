@@ -1,19 +1,19 @@
 const PaquetePrestamoVencido = function(){
 
-    this.consumirDatos = function(){
-        throw Error("El préstamo actual del cliente se encuentra vencido. No puede consumir datos de Internet")
+    this.descontarDatos = function(){
+        throw new Error("El préstamo actual del cliente se encuentra vencido. No puede consumir datos de Internet")
     }
 
-    this.consumirMinutos = function(){
-        throw Error("El préstamo actual del cliente se encuentra vencido. No puede realizar llamadas")
+    this.descontarMinutos = function(){
+        throw new Error("El préstamo actual del cliente se encuentra vencido. No puede realizar llamadas")
     }
 
     this.calcularDatosRestantes = function(){
-        throw Error("El préstamo actual del cliente se encuentra vencido. No puede consumir datos de Internet")
+        throw new Error("El préstamo actual del cliente se encuentra vencido. No puede consumir datos de Internet")
     }
 
     this.calcularMinutosRestantes = function(){
-        throw Error("El préstamo actual del cliente se encuentra vencido. No puede realizar llamadas")
+        throw new Error("El préstamo actual del cliente se encuentra vencido. No puede realizar llamadas")
     }
 
     this.estaActivo = function(){

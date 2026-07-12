@@ -1,27 +1,14 @@
-const ControlSinDatosRestantes = require("./controlSinDatosRestantes");
-const CantidadGB = require("./tipoCantidadGB");
+const ControlPrototipo = require("./controlPrototipo");
 
-const ControlDatosRestantes = function(datosRestantes){
-    this.datosRestantes = datosRestantes;
+const ControlDatosRestantes = function(datos){
+    ControlPrototipo.call(this, datos)
+}
 
-    this.calcularDatosRestantes = function(){
-        return this.datosRestantes.cantidad()
-    }
+ControlDatosRestantes.prototype = Object.create(ControlPrototipo.prototype);
+ControlDatosRestantes.prototype.constructor = ControlDatosRestantes;
 
-    this.descontar = function(datos){
-        let datosADescontar = new CantidadGB(datos.aGB().cantidad())
-
-        if (this.datosRestantes.esIgualEnValorA(datosADescontar)){
-            return new ControlSinDatosRestantes()
-        }
-
-        return new ControlDatosRestantes(this.datosRestantes.restar(datosADescontar))
-    }
-
-    this.estaAgotado = function(){
-        return this.datosRestantes.esNulo()
-    }
-
+ControlDatosRestantes.prototype.descontar = function(datos){
+    return new ControlDatosRestantes(this.recursoRestante.restar(datos.aGB()))
 }
 
 module.exports = ControlDatosRestantes

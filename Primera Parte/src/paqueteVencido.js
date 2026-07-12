@@ -3,34 +3,36 @@ const PaqueteOfertado = require("./paqueteOfertado")
 const PaqueteVencido = function(datosOriginales, minutosOriginales, diasDeDuracion, precio){
 
     this.descontarDatos = function(){
-        throw Error("El paquete actual del cliente se encuentra vencido. No puede consumir datos de Internet")
+        throw new Error("El paquete actual del cliente se encuentra vencido. No puede consumir datos de Internet")
     }
 
     this.descontarMinutos = function(){
-        throw Error("El paquete actual del cliente se encuentra vencido. No puede realizar llamadas")
+        throw new Error("El paquete actual del cliente se encuentra vencido. No puede realizar llamadas")
     }
 
     this.calcularDatosRestantes = function(){
-        throw Error("El paquete actual del cliente se encuentra vencido. No puede consumir datos de Internet")
+        throw new Error("El paquete actual del cliente se encuentra vencido. No puede consumir datos de Internet")
     }
 
     this.calcularMinutosRestantes = function(){
-        throw Error("El paquete actual del cliente se encuentra vencido. No puede realizar llamadas")
+        throw new Error("El paquete actual del cliente se encuentra vencido. No puede realizar llamadas")
     }
 
     this.estaActivo = function(){
-        return false;
+        return false
     }
 
-    this.validarCompraDe = function(paquete){return this}
+    this.validarCompraDe = function(paquete){
+        return this
+    }
 
     this.calcularPrecio = function(){
-        return precio.cantidad();
+        return precio.cantidad()
     }
 
     this.activarAlMomentoDe = function(fecha = new Date()){
         const PaqueteActivo = require("./paqueteActivo");
-        return new PaqueteActivo(datosOriginales, minutosOriginales, diasDeDuracion, fecha, precio);
+        return new PaqueteActivo(datosOriginales, minutosOriginales, diasDeDuracion, fecha, precio)
     }
 
     this.validarVencimiento = function(){
@@ -54,7 +56,7 @@ const PaqueteVencido = function(datosOriginales, minutosOriginales, diasDeDuraci
     }
 
     this.aplicarRenovacionAutomaticaCon = function(cliente, fecha){
-        return cliente.renovarPaquete(fecha);
+        return cliente.renovarPaquete(fecha)
     }
 
 }

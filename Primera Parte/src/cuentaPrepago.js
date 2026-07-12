@@ -5,7 +5,7 @@ const CuentaPrepago = function(saldoInicial){
 
     this.cargarSaldoCon = function(montoACargar){
         const dinero = new DineroPesos(montoACargar);
-        dinero.validarSoloPositivo()
+        dinero.validarSoloPositivo();
         saldo = saldo.sumar(dinero)
     }
 
@@ -18,7 +18,7 @@ const CuentaPrepago = function(saldoInicial){
     }
 
     this.puedePagarUn = function(paquete){
-        return saldo.cantidad() >= paquete.calcularPrecio();
+        return saldo.cantidad() >= paquete.calcularPrecio()
     }
 
 }

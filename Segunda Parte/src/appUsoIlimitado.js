@@ -4,7 +4,7 @@ const AppUsoIlimitado = function(nombre){
     
     this.consumirDatosEn = function(datos, paquete, appConsumida){
         if(appConsumida.noSos(this.nombre)){
-            paquete.descontarDatos(datos)
+            paquete.aplicarConsumoDatos(datos)
         }
     }
 

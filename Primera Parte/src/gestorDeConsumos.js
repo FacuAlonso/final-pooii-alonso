@@ -1,6 +1,6 @@
 const GestorDeConsumos = function(){
 
-    const consumos = new Array()
+    const consumos = [];
 
     this.registrar = function(consumo){
         consumos.push(consumo)

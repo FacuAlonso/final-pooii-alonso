@@ -1,35 +1,27 @@
-const ControlSinMinutosRestantes = require("./controlSinMinutosRestantes");
+const ControlPrototipo = require("./controlPrototipo");
 
 const ControlMinutosRestantes = function(minutos){
     
-    this.minutosRestantes = minutos;
+    ControlPrototipo.call(this, minutos)
+}
 
-    this.calcularMinutosRestantes = function(){
-        return this.minutosRestantes.cantidad()
-    }
+ControlMinutosRestantes.prototype = Object.create(ControlPrototipo.prototype);
+ControlMinutosRestantes.prototype.constructor = ControlMinutosRestantes;
 
-    this.descontar = function(minutosADescontar){
-        if (this.minutosRestantes.esIgualEnValorA(minutosADescontar)){
-            return new ControlSinMinutosRestantes() 
-        }
-        return new ControlMinutosRestantes(this.minutosRestantes.restar(minutosADescontar))
-    }
+ControlMinutosRestantes.prototype.descontar = function(minutosADescontar){
+    return new ControlMinutosRestantes(this.recursoRestante.restar(minutosADescontar))
+}
 
-    this.estaAgotado = function(){
-        return this.minutosRestantes.esNulo()
-    }
+ControlMinutosRestantes.prototype.validarPuedeDescontar = function(minutosADescontar){
+    this.recursoRestante.restar(minutosADescontar)
+}
 
-    this.validarPuedeDescontar = function(minutosADescontar){
-        this.minutosRestantes.restar(minutosADescontar)
-    }
+ControlMinutosRestantes.prototype.validarDescuentoEn = function(paquete){
+    paquete.validarPuedeConsumirMinutos(this.recursoRestante)
+}
 
-    this.validarDescuentoEn = function(paquete){
-        paquete.validarPuedeConsumirMinutos(this.minutosRestantes)
-    }
-
-    this.descontarDe = function(paquete){
-        paquete.consumirMinutos(this.minutosRestantes)
-    }
+ControlMinutosRestantes.prototype.descontarDe = function(paquete){
+    paquete.aplicarConsumoMinutos(this.recursoRestante)
 }
 
 module.exports = ControlMinutosRestantes

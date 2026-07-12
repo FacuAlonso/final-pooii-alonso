@@ -16,23 +16,23 @@ const PaqueteActivo = function(datosEnGBComprados, minutosLlamadasComprados,
     let controlMinutos = new ControlMinutosRestantes(minutosLlamadasComprados);
 
     this.descontarDatos = function(datos){
-        controlDatos = controlDatos.descontar(datos);
+        controlDatos = controlDatos.descontar(datos)
     }
 
     this.descontarMinutos = function(minutos){
-        controlMinutos = controlMinutos.descontar(minutos);
+        controlMinutos = controlMinutos.descontar(minutos)
     }
 
     this.calcularDatosRestantes = function(){
-        return controlDatos.calcularDatosRestantes()
+        return controlDatos.calcularRestante()
     }
 
     this.calcularMinutosRestantes = function(){
-        return controlMinutos.calcularMinutosRestantes()
+        return controlMinutos.calcularRestante()
     }
 
     this.estaActivo = function(){
-        return !(controlDatos.estaAgotado() && controlMinutos.estaAgotado());
+        return !(controlDatos.estaAgotado() && controlMinutos.estaAgotado())
     }
 
     this.validarCompraDe = function(){
@@ -53,10 +53,6 @@ const PaqueteActivo = function(datosEnGBComprados, minutosLlamadasComprados,
         return this
     }
 
-    this.comoPaqueteOfertado = function(){
-        return new PaqueteOfertado(datosComprados, minutosComprados, duracion, precioDeCompra)
-    }
-
     this.renovarse = function(fecha){
         let paquete = this;
         paquete = paquete.validarAgotamiento();
@@ -69,7 +65,7 @@ const PaqueteActivo = function(datosEnGBComprados, minutosLlamadasComprados,
     }
 
     this.aplicarRenovacionAutomaticaCon = function(cliente, fecha){
-        return this;
+        return this
     }
 
     const calcularFechaDeVencimiento = function(){

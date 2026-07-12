@@ -2,8 +2,6 @@ const CantidadGB = require("./tipoCantidadGB");
 const MinutosLlamadas = require("./tipoMinutosLlamadas");
 const ControlDatosRestantes = require("./controlDatosRestantes");
 const ControlMinutosRestantes = require("./controlMinutosRestantes");
-const ControlSinDatosRestantes = require("./controlSinDatosRestantes");
-const ControlSinMinutosRestantes = require("./controlSinMinutosRestantes");
 
 const RecursosPrestados = function(recursos){
     let datos = new CantidadGB(0);
@@ -25,11 +23,11 @@ const RecursosPrestados = function(recursos){
     }
 
     this.obtenerControlDatos = function(){
-        return new ControlDatosRestantes(datos).descontar(new CantidadGB(0))
+        return new ControlDatosRestantes(datos)
     }
 
     this.obtenerControlMinutos = function(){
-        return new ControlMinutosRestantes(minutos).descontar(new MinutosLlamadas(0))
+        return new ControlMinutosRestantes(minutos)
     }
 
     this.descontarDe = function(paquete){
@@ -38,7 +36,7 @@ const RecursosPrestados = function(recursos){
         controlDatos.validarDescuentoEn(paquete);
         controlMinutos.validarDescuentoEn(paquete);
         controlDatos.descontarDe(paquete);
-        controlMinutos.descontarDe(paquete);
+        controlMinutos.descontarDe(paquete)
     }
 
     this.validaryAgregarRecursos();

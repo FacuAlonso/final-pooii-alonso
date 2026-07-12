@@ -6,24 +6,24 @@ const PaquetePrestamoActivo = function(recursosPrestados, fechaDeVencimiento){
     let controlMinutos = recursosPrestados.obtenerControlMinutos();
     const vencimiento = fechaDeVencimiento;
 
-    this.consumirDatos = function(datos){
-        controlDatos = controlDatos.descontar(datos);
+    this.descontarDatos = function(datos){
+        controlDatos = controlDatos.descontar(datos)
     }
 
-    this.consumirMinutos = function(minutos){
-        controlMinutos = controlMinutos.descontar(minutos);
+    this.descontarMinutos = function(minutos){
+        controlMinutos = controlMinutos.descontar(minutos)
     }
 
     this.calcularDatosRestantes = function(){
-        return controlDatos.calcularDatosRestantes()
+        return controlDatos.calcularRestante()
     }
 
     this.calcularMinutosRestantes = function(){
-        return controlMinutos.calcularMinutosRestantes()
+        return controlMinutos.calcularRestante()
     }
 
     this.estaActivo = function(){
-        return !(controlDatos.estaAgotado() && controlMinutos.estaAgotado());
+        return !(controlDatos.estaAgotado() && controlMinutos.estaAgotado())
     }
 
     this.validarCompraDe = function(){

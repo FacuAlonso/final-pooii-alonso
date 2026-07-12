@@ -9,12 +9,12 @@ const Cliente = function(nombreCompleto, numeroDeLinea){
     const nombreDelCliente = nombreCompleto;
     const numeroDeLineaDelCliente = numeroDeLinea;
     const cuentaDePago = new CuentaPrepago(new Dinero(0));
-    const gestorDeConsumos = new GestorDeConsumos()
+    const gestorDeConsumos = new GestorDeConsumos();
     let paqueteActual = new PaqueteNulo();
     let renovacionAutomatica = new RenovacionAutomaticaOff();
 
     this.tieneUnPaqueteActivo = function(){
-        return paqueteActual.estaActivo();
+        return paqueteActual.estaActivo()
     }
 
     this.calcularSaldo = function(){
@@ -36,7 +36,7 @@ const Cliente = function(nombreCompleto, numeroDeLinea){
         this.validarVencimientoDelPaqueteAlMomentoDe(fechaDelConsumo);
         this.validarAgotamientoDelPaqueteAlMomentoDe(fechaDelConsumo);
         consumo.aplicarEn(paqueteActual);
-        gestorDeConsumos.registrar(consumo);
+        gestorDeConsumos.registrar(consumo)
     }
 
     this.calcularDatosInternetDisponibles = function(){
@@ -58,25 +58,25 @@ const Cliente = function(nombreCompleto, numeroDeLinea){
     this.renovarPaquete = function(fechaDeRenovacion = new Date()){
         paqueteActual = paqueteActual.renovarse(fechaDeRenovacion);
         this.comprarUn(paqueteActual.comoPaqueteOfertado(), fechaDeRenovacion);
-        return paqueteActual;
+        return paqueteActual
     }
 
     this.validarVencimientoDelPaqueteAlMomentoDe = function(fecha){
         paqueteActual = paqueteActual.validarVencimiento(fecha);
-        paqueteActual = renovacionAutomatica.aplicarSobreUnCon(this, paqueteActual, fecha);
+        paqueteActual = renovacionAutomatica.aplicarSobreUnCon(this, paqueteActual, fecha)
     }
 
     this.validarAgotamientoDelPaqueteAlMomentoDe = function(fecha){
         paqueteActual = paqueteActual.validarAgotamiento();
-        paqueteActual = renovacionAutomatica.aplicarSobreUnCon(this, paqueteActual, fecha);
+        paqueteActual = renovacionAutomatica.aplicarSobreUnCon(this, paqueteActual, fecha)
     }
 
     this.detallarConsumos = function(){
-        return gestorDeConsumos.detallar();
+        return gestorDeConsumos.detallar()
     }
 
     this.detallarConsumosEntre = function(fechaDesde, fechaHasta){
-        return gestorDeConsumos.detallarEntre(fechaDesde, fechaHasta);
+        return gestorDeConsumos.detallarEntre(fechaDesde, fechaHasta)
     }
 
     this.prestarA = function(clienteReceptor, recursos, fechaDelPrestamo = new Date()){
@@ -87,19 +87,19 @@ const Cliente = function(nombreCompleto, numeroDeLinea){
         prestamo.descontarDe(paqueteActual);
         clienteReceptor.recibirPrestamo(prestamo);
         gestorDeConsumos.registrar(prestamo);
-        return prestamo;
+        return prestamo
     }
 
     this.validarRecepcionDePrestamo = function(prestamo){
         const fechaDelPrestamo = prestamo.calcularInicio();
         this.validarVencimientoDelPaqueteAlMomentoDe(fechaDelPrestamo);
         this.validarAgotamientoDelPaqueteAlMomentoDe(fechaDelPrestamo);
-        paqueteActual.validarRecepcionDePrestamo();
+        paqueteActual.validarRecepcionDePrestamo()
     }
 
     this.recibirPrestamo = function(prestamo){
         paqueteActual = prestamo.activar();
-        gestorDeConsumos.registrar(prestamo);
+        gestorDeConsumos.registrar(prestamo)
     }
 
 }

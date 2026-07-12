@@ -1,24 +1,14 @@
-const ControlSinMinutosRestantes = require("./controlSinMinutosRestantes");
+const ControlPrototipo = require("./controlPrototipo");
 
 const ControlMinutosRestantes = function(minutos){
-    
-    this.minutosRestantes = minutos;
+    ControlPrototipo.call(this, minutos)
+}
 
-    this.calcularMinutosRestantes = function(){
-        return this.minutosRestantes.cantidad()
-    }
+ControlMinutosRestantes.prototype = Object.create(ControlPrototipo.prototype);
+ControlMinutosRestantes.prototype.constructor = ControlMinutosRestantes;
 
-    this.descontar = function(minutosADescontar){
-        if (this.minutosRestantes.esIgualEnValorA(minutosADescontar)){
-            return new ControlSinMinutosRestantes() 
-        }
-        return new ControlMinutosRestantes(this.minutosRestantes.restar(minutosADescontar))
-    }
-
-    this.estaAgotado = function(){
-        return this.minutosRestantes.esNulo()
-    }
-
+ControlMinutosRestantes.prototype.descontar = function(minutosADescontar){
+    return new ControlMinutosRestantes(this.recursoRestante.restar(minutosADescontar))
 }
 
 module.exports = ControlMinutosRestantes

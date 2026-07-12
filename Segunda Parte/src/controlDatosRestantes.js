@@ -1,40 +1,26 @@
-const ControlSinDatosRestantes = require("./controlSinDatosRestantes");
-const CantidadGB = require("./tipoCantidadGB");
+const ControlPrototipo = require("./controlPrototipo");
 
 const ControlDatosRestantes = function(datosRestantes){
-    this.datosRestantes = datosRestantes;
+    ControlPrototipo.call(this, datosRestantes)
+}
 
-    this.calcularDatosRestantes = function(){
-        return this.datosRestantes.cantidad()
-    }
+ControlDatosRestantes.prototype = Object.create(ControlPrototipo.prototype);
+ControlDatosRestantes.prototype.constructor = ControlDatosRestantes;
 
-    this.descontar = function(datos){
-        let datosADescontar = new CantidadGB(datos.aGB().cantidad())
+ControlDatosRestantes.prototype.descontar = function(datos){
+    return new ControlDatosRestantes(this.recursoRestante.restar(datos.aGB()))
+}
 
-        if (this.datosRestantes.esIgualEnValorA(datosADescontar)){
-            return new ControlSinDatosRestantes()
-        }
+ControlDatosRestantes.prototype.validarPuedeDescontar = function(datos){
+    this.recursoRestante.restar(datos.aGB())
+}
 
-        return new ControlDatosRestantes(this.datosRestantes.restar(datosADescontar))
-    }
+ControlDatosRestantes.prototype.validarDescuentoEn = function(paquete){
+    paquete.validarPuedeConsumirDatos(this.recursoRestante)
+}
 
-    this.estaAgotado = function(){
-        return this.datosRestantes.esNulo()
-    }
-
-    this.validarPuedeDescontar = function(datos){
-        let datosADescontar = new CantidadGB(datos.aGB().cantidad())
-        this.datosRestantes.restar(datosADescontar)
-    }
-
-    this.validarDescuentoEn = function(paquete){
-        paquete.validarPuedeConsumirDatos(this.datosRestantes)
-    }
-
-    this.descontarDe = function(paquete){
-        paquete.consumirDatos(this.datosRestantes)
-    }
-
+ControlDatosRestantes.prototype.descontarDe = function(paquete){
+    paquete.aplicarConsumoDatos(this.recursoRestante)
 }
 
 module.exports = ControlDatosRestantes
