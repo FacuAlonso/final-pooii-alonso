@@ -12,7 +12,7 @@ const Consumo = function(recurso, fechaHoraInicio, fechaHoraFin){
     }
 
     this.aplicarEn = function(paquete){
-        recursoConsumido.aplicarConsumoEn(paquete, inicioDelConsumo, finDelConsumo)
+        recursoConsumido.aplicarConsumoEn(paquete)
     }
 
     const validarFechasDeConsumo = function(){

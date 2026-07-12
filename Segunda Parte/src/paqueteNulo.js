@@ -1,6 +1,6 @@
 const PaqueteNulo = function(){
 
-    this.validarCompraDe = function(paquete){
+    this.validarCompraDeOtro = function(){
         return this
     }
 

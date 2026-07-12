@@ -26,7 +26,7 @@ const PaquetePrestamoActivo = function(recursosPrestados, fechaDeVencimiento){
         return !(controlDatos.estaAgotado() && controlMinutos.estaAgotado())
     }
 
-    this.validarCompraDe = function(){
+    this.validarCompraDeOtro = function(){
         throw new Error("El cliente ya tiene un préstamo activo")
     }
 

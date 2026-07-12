@@ -9,22 +9,26 @@ describe("Consumos informados por una fuente externa", ()=>{
 
         test("Cuando se intenta crear un consumo con fechas de inicio y fin iguales, falla", ()=>{
                 const unaFecha = Date("2026-02-23T10:00:00Z");
+
                 expect(() => new Consumo(new CantidadMB(10), unaFecha, unaFecha)).toThrow("La fecha de finalización de consumo debe ser posterior a la del comienzo");
         });
 
         test("Cuando se intenta crear un consumo con una fecha de inicio posterior a la fecha de inicio, falla", ()=>{
                 const unaFecha = Date("2026-02-23T10:00:00Z");
+
                 expect(() => new Consumo(new CantidadMB(10), unaFecha+10, unaFecha)).toThrow("La fecha de finalización de consumo debe ser posterior a la del comienzo");
         });
 
         test("Cuando se intenta crear un consumo con un recurso negativo, falla", ()=>{
                 const unaFecha = Date("2026-02-23T10:00:00Z");
+
                 expect(() => new Consumo(new CantidadMB(-1), unaFecha, unaFecha+10)).toThrow("La cantidad de datos de Internet en MB no puede ser negativa");
         });
 
         test("Cuando se intenta impactar un consumo no soportado por el sistema en un paquete, falla", ()=>{
                 const unaFecha = Date("2026-02-23T10:00:00Z");
                 const unPaquete = PaqueteActivo(new CantidadGB(5), new MinutosLlamadas(3600), new DuracionEnDias(7), new Date());
+                
                 expect(() => (new Consumo(new CantidadGB(1), unaFecha, unaFecha+10)).aplicarEn(unPaquete)).toThrow("El sistema no reconoce este recurso como consumo");
 
         });

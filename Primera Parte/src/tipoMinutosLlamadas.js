@@ -8,8 +8,8 @@ function MinutosLlamadas(cantidadMinutosDeLlamadas) {
 MinutosLlamadas.prototype = Object.create(Recurso.prototype);
 MinutosLlamadas.prototype.constructor = MinutosLlamadas;
 
-MinutosLlamadas.prototype.aplicarConsumoEn = function(paquete, fechaHoraInicio, fechaHoraFin){
-  paquete.descontarMinutos(this, fechaHoraInicio, fechaHoraFin)
+MinutosLlamadas.prototype.aplicarConsumoEn = function(paquete){
+  paquete.descontarMinutos(this)
 }
 
 module.exports = MinutosLlamadas

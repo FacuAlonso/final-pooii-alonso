@@ -15,7 +15,7 @@ const Consumo = function(recurso, fechaHoraInicio, fechaHoraFin, app = new AppSi
     }
 
     this.aplicarEn = function(paquete){
-        recursoConsumido.aplicarConsumoEn(paquete, inicioDelConsumo, finDelConsumo, appConsumida)
+        recursoConsumido.aplicarConsumoEn(paquete, appConsumida)
     }
 
     const validarFechasDeConsumo = function(){

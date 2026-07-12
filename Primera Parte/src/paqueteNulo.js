@@ -20,7 +20,7 @@ const PaqueteNulo = function(){
         return false
     }
 
-    this.validarCompraDe = function(paquete){
+    this.validarCompraDeOtro = function(){
         return this
     }
 

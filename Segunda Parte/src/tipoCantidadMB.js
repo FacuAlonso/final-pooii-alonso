@@ -17,7 +17,7 @@ CantidadMB.prototype.aMB = function() {
   return this
 }
 
-CantidadMB.prototype.aplicarConsumoEn = function(paquete, fechaHoraInicio, fechaHoraFin, appConsumida){
+CantidadMB.prototype.aplicarConsumoEn = function(paquete, appConsumida){
   paquete.descontarDatos(this, appConsumida)
 }
 

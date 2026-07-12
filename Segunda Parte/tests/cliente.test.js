@@ -16,41 +16,55 @@ const {
 } = require("./paqueteFactory");
 
 describe("Sistema para la venta de paquetes de una compañía telefónica", ()=>{
+        test("Cuando una persona se registra como cliente, entonces se puede conocer su nombre completo y número de línea", ()=>{
+                const cliente = new Cliente("Juan Perez", "+5491112345678");
+
+                expect(cliente.nombreCompleto()).toBe("Juan Perez");
+                expect(cliente.numeroDeLinea()).toBe("+5491112345678");
+        });
         
         test("Cuando una persona apenas se registra como cliente, entonces no tiene un paquete activo", ()=>{
                 const cliente = new Cliente("Juan Perez", "+5491112345678");
+
                 expect(cliente.tieneUnPaqueteActivo()).toBe(false);
         });
 
         test("Cuando una persona apenas se registra como cliente de la compañía, entonces tiene un saldo nulo", ()=>{
                 const cliente = new Cliente("Juan Perez", "+5491112345678");
+
                 expect(cliente.calcularSaldo()).toBe(0)
         });
 
         test("Cuando un cliente realiza una carga de dinero exitosa, entonces su saldo debe reflejar correctamente ese monto", ()=>{
                 const cliente = new Cliente("Juan Perez", "+5491112345678");
                 const montoDeLaCarga = 1000;
+
                 cliente.cargarSaldoCon(montoDeLaCarga);
+
                 expect(cliente.calcularSaldo()).toBe(montoDeLaCarga)
         });
 
         test("Cuando un cliente realiza dos cargas, entonces su saldo se acumula", ()=>{
                 const cliente = new Cliente("Juan Perez", "+5491112345678");
                 const montoDeLaCarga = 1000;
+
                 cliente.cargarSaldoCon(montoDeLaCarga);
                 cliente.cargarSaldoCon(montoDeLaCarga);
+
                 expect(cliente.calcularSaldo()).toBe(montoDeLaCarga*2)
         });
 
         test("Cuando se intenta cargar dinero a la cuenta de un cliente, indicando un monto nulo, entonces falla", ()=>{
                 const cliente = new Cliente("Juan Perez", "+5491112345678");
                 const montoDeLaCarga = 0;
+
                 expect(() => cliente.cargarSaldoCon(montoDeLaCarga)).toThrow("La cantidad de dinero debe ser positiva");
         });
 
         test("Cuando se intenta cargar dinero a la cuenta de un cliente, indicando un monto negativo, entonces falla", ()=>{
                 const cliente = new Cliente("Juan Perez", "+5491112345678");
                 const montoDeLaCarga = -1000;
+                
                 expect(() => cliente.cargarSaldoCon(montoDeLaCarga)).toThrow("La cantidad de dinero no puede ser negativa");
         });
 

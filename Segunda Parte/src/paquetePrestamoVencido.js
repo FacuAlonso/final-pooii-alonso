@@ -20,7 +20,7 @@ const PaquetePrestamoVencido = function(){
         return false
     }
 
-    this.validarCompraDe = function(){
+    this.validarCompraDeOtro = function(){
         return this
     }
 

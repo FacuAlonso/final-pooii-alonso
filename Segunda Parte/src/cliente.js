@@ -5,13 +5,21 @@ const RenovacionAutomaticaOff = require("./renovacionAutomaticaOff");
 const RenovacionAutomaticaOn = require("./renovacionAutomaticaOn");
 const Dinero = require("./tipoDineroPesos")
 
-const Cliente = function(nombreCompleto, numeroDeLinea){
-    const nombreDelCliente = nombreCompleto;
-    const numeroDeLineaDelCliente = numeroDeLinea;
+const Cliente = function(nombreYApellido, numero){
+    const nombreCompleto = nombreYApellido;
+    const numeroDeLinea = numero;
     const cuentaDePago = new CuentaPrepago(new Dinero(0));
     const gestorDeConsumos = new GestorDeConsumos();
     let paqueteActual = new PaqueteNulo();
     let renovacionAutomatica = new RenovacionAutomaticaOff();
+
+    this.nombreCompleto = function(){
+        return nombreCompleto
+    }
+
+    this.numeroDeLinea = function(){
+        return numeroDeLinea
+    }
 
     this.tieneUnPaqueteActivo = function(){
         return paqueteActual.estaActivo()
@@ -26,7 +34,7 @@ const Cliente = function(nombreCompleto, numeroDeLinea){
     }
 
     this.comprarUn = function(paquete, fechaDeLaCompra = new Date()){
-        paqueteActual.validarCompraDe(paquete);
+        paqueteActual.validarCompraDeOtro();
         cuentaDePago.pagarUn(paquete);
         paqueteActual = paquete.activarAlMomentoDe(fechaDeLaCompra)
     }
